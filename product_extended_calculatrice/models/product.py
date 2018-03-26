@@ -30,50 +30,52 @@ import odoo.addons.decimal_precision as dp
 _logger = logging.getLogger(__name__)
 
 
-class product_product(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    prix_achat_ht = fields.Float('Prix achat HT', digits_compute=dp.get_precision('Product Price'))
+    frais_transport = fields.Float('Frais transport HT', digits_compute=dp.get_precision('Product Price'))
+    prix_achat_ttc_hide = fields.Float('Cout revient  TTC', digits_compute=dp.get_precision('Product Price'),
+                                       store=True)
+    prix_achat_ttc = fields.Float(related='prix_achat_ttc_hide', string="Cout revient  TTC",
+                                  help="(PA HT + frais transport) + TVA")
+    taux_tva = fields.Float('Taux tva', digits_compute=dp.get_precision('Product Price'))
+    cout_manutention = fields.Float('Manutention Price', digits_compute=dp.get_precision('Manutention Price'))
+    prix_vente_ht = fields.Float('Prix vente HT', digits_compute=dp.get_precision('Product Price'))
+    prix_vente_ttc = fields.Float('Prix vente TTC', digits_compute=dp.get_precision('Product Price'))
+    taux_marge = fields.Float('Taux de marge', digits_compute=dp.get_precision('Product Price'),
+                              help="Taux de marge = (( PV HT - PA HT)) / PA HT ) * 100")
 
-
-    prix_achat_ht= fields.Float('Prix achat HT', digits_compute=dp.get_precision('Product Price'))
-    frais_transport=fields.Float('Frais transport HT', digits_compute=dp.get_precision('Product Price'))
-    prix_achat_ttc_hide= fields.Float('Cout revient  TTC', digits_compute=dp.get_precision('Product Price'), store=True)
-    prix_achat_ttc=fields.Float(related='prix_achat_ttc_hide', string="Cout revient  TTC", help="(PA HT + frais transport) + TVA")
-    taux_tva= fields.Float('Taux tva', digits_compute=dp.get_precision('Product Price'))
-    cout_manutention=fields.Float('Manutention Price', digits_compute=dp.get_precision('Manutention Price'))
-    prix_vente_ht= fields.Float('Prix vente HT', digits_compute=dp.get_precision('Product Price'))
-    prix_vente_ttc=fields.Float('Prix vente TTC', digits_compute=dp.get_precision('Product Price'))
-    taux_marge= fields.Float('Taux de marge', digits_compute=dp.get_precision('Product Price'),
-                            help="Taux de marge = (( PV HT - PA HT)) / PA HT ) * 100")
-
-    montant_marge_hide=fields.Float('Marge brute', digits_compute=dp.get_precision('Product Price'),)
-    montant_audit= fields.Float('Cout Audit', digits_compute=dp.get_precision('Audit Price'), )
-    montant_marge=fields.Float(related='montant_marge_hide', string="Marge brute sur PV", help="Marge brute = PV HT - PA HT")
-    coef_multi_hide= fields.Float(string='Coef. multiplicateur', digits_compute=dp.get_precision('Product Price'))
-    coef_multi= fields.Float(related='coef_multi_hide', string="Coefficient multiplicateur", help="PV TTC / COUT REVIENT HT")
-    taux_marque_hide= fields.Float('Taux de marque', digits_compute=dp.get_precision('Product Price'))
-    taux_marque= fields.Float(related="taux_marque_hide", string="Taux de marque", help="Taux de marque = (( PV HT - PA HT)) / PV HT ) * 100")
-    type_tva2=fields.Selection((('n', 'TVA Classique'), ('c', 'TVA sur marge')), 'Type de TVA', default='n')
-
+    montant_marge_hide = fields.Float('Marge brute', digits_compute=dp.get_precision('Product Price'), )
+    montant_audit = fields.Float('Cout Audit', digits_compute=dp.get_precision('Audit Price'), )
+    montant_marge = fields.Float(related='montant_marge_hide', string="Marge brute sur PV",
+                                 help="Marge brute = PV HT - PA HT")
+    coef_multi_hide = fields.Float(string='Coef. multiplicateur', digits_compute=dp.get_precision('Product Price'))
+    coef_multi = fields.Float(related='coef_multi_hide', string="Coefficient multiplicateur",
+                              help="PV TTC / COUT REVIENT HT")
+    taux_marque_hide = fields.Float('Taux de marque', digits_compute=dp.get_precision('Product Price'))
+    taux_marque = fields.Float(related="taux_marque_hide", string="Taux de marque",
+                               help="Taux de marque = (( PV HT - PA HT)) / PV HT ) * 100")
+    type_tva2 = fields.Selection((('n', 'TVA Classique'), ('c', 'TVA sur marge')), 'Type de TVA', default='n')
 
     _defaults = {
         'taux_tva': 20.0,
-        'taux_marge':0.0,
-        'montant_marge':0.0,
-        'taux_marque':0.0,
+        'taux_marge': 0.0,
+        'montant_marge': 0.0,
+        'taux_marque': 0.0,
 
     }
 
-    @api.onchange('prix_achat_ht','frais_transport','prix_vente_ht','taux_tva')
+    @api.onchange('prix_achat_ht', 'frais_transport', 'prix_vente_ht', 'taux_tva')
     def prix_achat_ht_change(self):
         if not self.prix_achat_ht:
             return False
         coef_tva = 1 + (self.taux_tva / 100)
         prix_achat_trans = self.prix_achat_ht + self.frais_transport
-        
+
         self.prix_achat_ttc_hide = prix_achat_trans * coef_tva
         self.prix_achat_ttc = self.prix_achat_ttc_hide
-        
+
         self.montant_marge = self.prix_vente_ht - prix_achat_trans
         self.montant_marge_hide = self.montant_marge
 
@@ -92,25 +94,25 @@ class product_product(models.Model):
             self.taux_marque_hide = 0
             self.taux_marque = self.taux_marque_hide
 
-    @api.onchange('prix_achat_ht','frais_transport','prix_vente_ht','taux_tva','montant_marge')
+    @api.onchange('prix_achat_ht', 'frais_transport', 'prix_vente_ht', 'taux_tva', 'montant_marge')
     def tva_change(self):
         result = {}
         self.coef_tva = 1 + (self.taux_tva / 100)
-        self.prix_achat_trans =self. prix_achat_ht + self.frais_transport
-        self.prix_vente_ttc =self.prix_vente_ht *self.coef_tva
+        self.prix_achat_trans = self.prix_achat_ht + self.frais_transport
+        self.prix_vente_ttc = self.prix_vente_ht * self.coef_tva
 
         self.prix_achat_ttc_hide = self.prix_achat_trans * self.coef_tva
         self.prix_achat_ttc = self.prix_achat_ttc_hide
 
         self.prix_vente_ttc = self.prix_vente_ttc
-        
+
         if self.montant_marge > 0:
             self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_trans
             self.coef_multi = self.coef_multi_hide
         else:
             self.coef_multi_hide = 0
             self.coef_multi = self.coef_multi_hide
-        
+
         # return {'value': result}
 
     @api.onchange('prix_achat_ht', 'frais_transport', 'prix_vente_ht', 'taux_tva')
@@ -125,9 +127,9 @@ class product_product(models.Model):
 
         self.montant_marge_hide = self.montant_marge
         self.montant_marge = self.montant_marge_hide
-        
+
         if self.montant_marge > 0:
-            self.taux_marge = self.montant_marge / self.prix_achat_trans *100
+            self.taux_marge = self.montant_marge / self.prix_achat_trans * 100
             self.taux_marque_hide = self.montant_marge / self.prix_vente_ht * 100
             self.taux_marque = self.taux_marque_hide
             self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_trans
@@ -135,10 +137,10 @@ class product_product(models.Model):
         else:
             self.taux_marge = 0
             self.coef_multi_hide = 0
-            self.coef_multi= self.coef_multi_hide
+            self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = 0
-            self.taux_marque= self.taux_marque_hide
-            
+            self.taux_marque = self.taux_marque_hide
+
         # return {'value': result}
 
     @api.onchange('prix_vente_ttc', 'prix_achat_ht', 'frais_transport', 'taux_tva')
@@ -152,23 +154,23 @@ class product_product(models.Model):
         self.montant_marge = self.prix_vente_ht - self.prix_achat_trans
         self.montant_marge_hide = self.montant_marge
         self.montant_marge = self.montant_marge_hide
-        
+
         if self.montant_marge > 0:
-            self.taux_marge = (self.montant_marge / self.prix_achat_trans) *100
+            self.taux_marge = (self.montant_marge / self.prix_achat_trans) * 100
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
-            self.coef_multi_hide =self. prix_vente_ttc / self.prix_achat_trans
+            self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_trans
             self.coef_multi = self.coef_multi_hide
         else:
             self.taux_marge = 0
-            self.coef_multi_hide= 0
+            self.coef_multi_hide = 0
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = 0
             self.taux_marque = self.taux_marque_hide
-            
+
         # return {'value': result}
 
-    @api.onchange('prix_achat_ht', 'frais_transport', 'frais_transport','taux_marge', 'taux_tva')
+    @api.onchange('prix_achat_ht', 'frais_transport', 'frais_transport', 'taux_marge', 'taux_tva')
     def taux_marge_change(self):
         result = {}
         self.coef_tva = 1 + (self.taux_tva / 100)
@@ -181,9 +183,9 @@ class product_product(models.Model):
         self.prix_vente_ttc = self.prix_vente_ttc
 
         self.montant_marge = self.prix_vente_ht - self.prix_achat_trans
-        self.montant_marge_hide= self.montant_marge
-        self.montant_marge= self.montant_marge_hide
-        
+        self.montant_marge_hide = self.montant_marge
+        self.montant_marge = self.montant_marge_hide
+
         if self.montant_marge > 0:
             self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_trans
             self.coef_multi = self.coef_multi_hide
@@ -194,10 +196,10 @@ class product_product(models.Model):
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = 0
             self.taux_marque = self.taux_marque_hide
-        
+
         # return {'value': result}
-    
-#class product_supplierinfo(osv.osv):
+
+# class product_supplierinfo(osv.osv):
 #   _name = "product.supplierinfo"
 #   _inherit = "product.supplierinfo"
 #      
@@ -212,13 +214,12 @@ class product_product(models.Model):
 #           name = record['name']
 #           res.append((record['id'], name))
 #       return res
-    
-    
-#class product_product(osv.osv):
+
+
+# class product_product(osv.osv):
 #    _inherit = "product.product"
 
-    #le champs reference interne devient obligatoire
+# le champs reference interne devient obligatoire
 #    _columns = {
- #       'default_code' : fields.char('Internal Reference', select=True, required=True),
-  #  }
-
+#       'default_code' : fields.char('Internal Reference', select=True, required=True),
+#  }
