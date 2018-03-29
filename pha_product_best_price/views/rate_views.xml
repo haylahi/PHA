@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <act_window  id="sale_coef_action"
+             name="Coef de vente" res_model="price.scale"
+             view_mode="tree,form" view_type="form"/>
+
+    <menuitem action="sale_coef_action"
+              id="sale_coef_menuitem" name="Coef de vente"
+              parent="sale.menu_sale_config" sequence="7"/>
+
+
+
+
+
+
+ <record id="scale_template_form" model="ir.ui.view">
+            <field name="name">scale_template_form</field>
+            <field name="model">price.scale</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/><field name="state"/>
+                            <field name="price_scale_line_ids"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="scale_template_tree" model="ir.ui.view">
+            <field name="name">scale_template_tree</field>
+            <field name="model">price.scale</field>
+            <field name="arch" type="xml">
+                <tree>
+                   <field name="name"/><field name="state"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+  <record id="scale_template_line_tree" model="ir.ui.view">
+            <field name="name">scale_template_line_tree</field>
+            <field name="model">price.scale.line</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                   <field name="name"/>
+                    <field name="min_price"/>
+                    <field name="max_price"/>
+                    <field name="coef"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+</odoo>

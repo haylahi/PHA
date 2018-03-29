@@ -12,7 +12,7 @@
 
     'category': 'Website',
     'version': '0.1',
-    'depends': ['product'],
+    'depends': ['product','product_supplierinfo_discount','purchase_discount'],
     'data': [
         'wizard/tarif_import.xml',
         'views/product_views.xml',

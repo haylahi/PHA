@@ -19,6 +19,7 @@ class TarifLine(models.TransientModel):
     product_name = fields.Char('Vendor Product Name')
     product_code = fields.Char('Vendor Product Code')
     price = fields.Float('Price', default=0.0,required=True)
+    discount = fields.Float(string='Discount (%)')
     date_start = fields.Date('Start Date')
     date_end = fields.Date('End Date')
     state = fields.Selection(selection=[('valid', 'valid'),
@@ -78,9 +79,10 @@ class TarifImport(models.TransientModel):
                 tarif_item['max_qty'] = csv_line[4]
 
                 tarif_item['price'] = float(csv_line[5].replace(",","."))
+                tarif_item['discount'] = float(csv_line[6].replace(",", "."))
 
-                tarif_item['date_start'] = datetime.datetime.strptime(csv_line[6],'%d/%m/%Y').date()
-                tarif_item['date_end'] = datetime.datetime.strptime(csv_line[7],'%d/%m/%Y').date()
+                tarif_item['date_start'] = datetime.datetime.strptime(csv_line[7],'%d/%m/%Y').date()
+                tarif_item['date_end'] = datetime.datetime.strptime(csv_line[8],'%d/%m/%Y').date()
                 if product_tmpl_id:
                     tarif_item['state'] = 'valid'
                     tarif_item['product_tmpl_id'] = product_tmpl_id[0].id
@@ -134,6 +136,7 @@ class TarifImport(models.TransientModel):
                           'product_name': tarif.product_name,
                           'product_code': tarif.product_code,
                           'price': tarif.price,
+                          'discount': tarif.discount,
                           'date_start': tarif.date_start,
                           'date_end': tarif.date_end,
                           }

@@ -15,10 +15,10 @@
                         <group span="2">
                             <field name="data" string="Fichier csv"/>
                         </group>
-                        <group >
+                        <group>
                         </group>
                         <group span="1" attrs="{'invisible':[('data', '=', False)]}">
-                            <field name="encoding" string="Encodage Caractères" />
+                            <field name="encoding" string="Encodage Caractères"/>
                             <field name="delimeter" widget="radio" string="Separateur"/>
                         </group>
                         <!--<field name="lineterminator"/>-->
@@ -30,6 +30,7 @@
                             <field name="min_qty"/>
                             <field name="max_qty"/>
                             <field name="price"/>
+                            <field name="discount"/>
                             <!--<field name="date_start"/>-->
                             <!--<field name="date_end"/>-->
                             <field name="state"/>
@@ -44,7 +45,7 @@
                                 string="Import"
                                 attrs="{'invisible':[('state', 'in', ['draft','imported'])]}"
                                 class="oe_button oe_form_button oe_highlight"/>
-                        <button special="cancel" string="Fermer" />
+                        <button special="cancel" string="Fermer"/>
                     </footer>
 
                 </form>
@@ -52,7 +53,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="tarif_import_action">
-            <field name="name"> Import Tarifs Fournisseur </field>
+            <field name="name">Import Tarifs Fournisseur</field>
             <field name="res_model">tarif.import</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="tarif_import_form"/>

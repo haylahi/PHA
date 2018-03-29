@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="product_template_only_form_view_inherited" model="ir.ui.view">
+        <field name="name">product.template.product.form.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='seller_ids']" position="before">
+
+                <group>
+                    <field name="highest_price"/></group>
+                    <group>
+                        <field name="lowest_price"/></group>
+                         <group>
+                    <button type="object" name="update_sale_price" string="update sale price"
+                            confirm="Vous êtes sur le point de modifier le prix de vente!"/>
+
+                </group>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_tree_view_inherited" model="ir.ui.view">
+        <field name="name">product.supplierinfo.tree.inherited</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="discount" position="after">
+                <field name="net_price"/>
+            </field>
+            <field name="date_end" position="after">
+                <field name="state_highest_price" invisible="1"/>
+                <field name="state_lowest_price" invisible="1"/>
+                <button icon="fa-arrow-up" string="highest price" attrs="{'invisible': [('state_highest_price', '!=', True)]}"/>
+                <button icon="fa-arrow-down" string="lowest price" attrs="{'invisible': [('state_lowest_price', '!=', True)]}"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="product_supplierinfo_form_view_inherited" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form.inherited</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <field name="discount" position="after">
+                <group>
+                    <field name="net_price"/>
+                    <field name="state_lowest_price"/>
+                    <field name="state_highest_price"/>
+                </group>
+            </field>
+
+        </field>
+    </record>
+</odoo>
