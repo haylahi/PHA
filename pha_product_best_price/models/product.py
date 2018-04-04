@@ -80,13 +80,13 @@ class ProductTemplate(models.Model):
         if highest_price != 0 :
             hp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',highest_price)])[0]
             if hp_line.currency_id.id != default_currency.id:
-                highest_price = highest_price * hp_line.currency_id.rate
+                highest_price = highest_price / hp_line.currency_id.rate
             hp_line.write({'state_highest_price': True})
 
         if lowest_price != 0 :
             lp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',lowest_price)])[0]
             if lp_line.currency_id.id != default_currency.id:
-                lowest_price = lowest_price * lp_line.currency_id.rate
+                lowest_price = lowest_price / lp_line.currency_id.rate
             lp_line.write({'state_lowest_price': True})
 
         self.highest_price = highest_price
