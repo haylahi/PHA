@@ -9,11 +9,11 @@
     <field name="inherit_id" ref="product.product_template_only_form_view"/>
     <field name="arch" type="xml">
              <xpath expr="//page[@name='sales']" position="inside">
-                 <group>
+                 <group name="product_reference" string ="Référence de ventes">
                  <field name="product_ref_list"
                         context="{'default_price': list_price}"
                          widget="one2many"
-                        string ="Référence de ventes"
+                        string ="Référence de ventes" nolabel="1"
                  >
                      <tree editable="bottom">
                          <field name="sequence" widget="handle"/>
