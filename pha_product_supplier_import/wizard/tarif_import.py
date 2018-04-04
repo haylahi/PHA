@@ -7,6 +7,14 @@ import datetime
 import logging
 from odoo.tools import pycompat
 
+ACTION = {
+    'name': ('Tarifs'),
+    'view_type': 'form',
+    'view_mode': 'form',
+    'res_model': 'tarif.import',
+    'type': 'ir.actions.act_window',
+    'target': 'new'
+}
 
 class TarifLine(models.TransientModel):
     _name = "tarif.line"
@@ -28,7 +36,7 @@ class TarifLine(models.TransientModel):
                                         ('imported', 'imported'),
                                         ('not_imported', 'not imported'),
                                         ],default='valid')
-
+    import_id = fields.Many2one("tarif.import", ondelete="cascade")
 
 class TarifImport(models.TransientModel):
     _name = "tarif.import"
@@ -37,6 +45,7 @@ class TarifImport(models.TransientModel):
                          required=True,
                          default=lambda self: self._context.get('data'))
     name = fields.Char('Filename')
+    show_valid = fields.Boolean('Ignorer les non valides')
     encoding = fields.Selection([('iso8859_10','Windows Excel'),
                                   ('latin_1','Europe France'),
                                   ('iso8859_15','Europe France - Euro'),
@@ -60,9 +69,9 @@ class TarifImport(models.TransientModel):
                              )
 
     reader_info = []
-
-    tarif_ids = fields.Many2many('tarif.line',
-                                 default=lambda self: self._context.get('tarifs_ids'))
+    tarif_ids = fields.One2many("tarif.line","import_id",default=lambda self: self._context.get('tarifs_ids'))
+    # tarif_ids = fields.Many2many('tarif.line',
+    #                              default=lambda self: self._context.get('tarifs_ids'))
     supplier_id = fields.Many2one("res.partner", readonly=True, default=lambda self: self._context.get('supplier_id'))
 
     @api.multi
@@ -73,17 +82,17 @@ class TarifImport(models.TransientModel):
         else :
             raise UserError(_("No currency found with code %s" %code))
 
-
-
     @api.multi
     def _get_tarif_from_csv(self):
         tarif_items = []
         list = enumerate(self.reader_info)
+        product_template = self.env['product.template']
         for i, csv_line in list:
             if i > 0:
-                product_tmpl_id = self.env['product.template'].search([('default_code', '=', csv_line[0])])
+                product_tmpl_id = product_template.search([('default_code', '=', csv_line[0])])
                 tarif_item = {}
 
+                # logging.info('##csv_line :%s', csv_line)
                 tarif_item['product_name'] = csv_line[1]
                 tarif_item['product_code'] = csv_line[2]
                 tarif_item['min_qty'] = csv_line[3]
@@ -98,11 +107,12 @@ class TarifImport(models.TransientModel):
                 if product_tmpl_id:
                     tarif_item['state'] = 'valid'
                     tarif_item['product_tmpl_id'] = product_tmpl_id[0].id
+                    tarif_items.append((0, 0, tarif_item))
+                    continue
 
-                else:
+                if not self.show_valid :
                     tarif_item['state'] = 'not_valid'
-
-                tarif_items.append((0, 0, tarif_item))
+                    tarif_items.append((0, 0, tarif_item))
 
         return tarif_items
 
@@ -122,23 +132,18 @@ class TarifImport(models.TransientModel):
             self.state = 'validated'
         except Exception as e:
             print("Not a valid file!", e)
-        return {
-            'name': ('Tarifs'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'tarif.import',
-            'view_id': False,
-            'context': {'data': self.data,
-                        'state': self.state,
-                        'supplier_id': self.supplier_id.id,
-                        'tarifs_ids': self._get_tarif_from_csv()},
-            'type': 'ir.actions.act_window',
-            'target': 'new'
-        }
+
+        ACTION['context']= {'data': self.data,
+                            'state': self.state,
+                            'supplier_id': self.supplier_id.id,
+                            'tarifs_ids': self._get_tarif_from_csv()
+                        }
+        return ACTION
 
     @api.multi
     def import_tarifs(self):
         unvalid_items = []
+        supplierinfo = self.env['product.supplierinfo']
         for tarif in self.tarif_ids:
 
             tarif_item = {'product_tmpl_id': tarif.product_tmpl_id.id,
@@ -155,24 +160,17 @@ class TarifImport(models.TransientModel):
                           }
             print ('tarif_item:',tarif_item)
             if tarif.state == 'valid':
-                self.env['product.supplierinfo'].create(tarif_item)
+                supplierinfo.create(tarif_item)
                 tarif_item['state'] = 'imported'
 
             else:
                 tarif_item['state'] = 'not_imported'
             unvalid_items.append((0, 0, tarif_item))
 
-        self.tarif_ids = unvalid_items
         self.state = 'imported'
-        return {
-            'name': ('Tarifs'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'tarif.import',
-            'view_id': False,
-            'context': {'data': self.data,
-                        'tarif_ids': unvalid_items,
-                        'state': self.state},
-            'type': 'ir.actions.act_window',
-            'target': 'new'
-        }
+
+        ACTION['context']= {'data': self.data,
+                            'tarif_ids': unvalid_items,
+                            'state': self.state
+                        }
+        return ACTION
