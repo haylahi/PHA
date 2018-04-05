@@ -16,6 +16,7 @@
                             <field name="data" string="Fichier csv"/>
                         </group>
                         <group>
+                            <field name="show_valid"/>
                         </group>
                         <group span="1" attrs="{'invisible':[('data', '=', False)]}">
                             <field name="encoding" string="Encodage Caractères"/>
@@ -31,7 +32,7 @@
                             <field name="max_qty"/>
                             <field name="price"/>
                             <field name="discount"/>
-                            <field name="currency_id"/>
+                            <!--<field name="currency_id"/>-->
                             <!--<field name="date_end"/>-->
                             <field name="state"/>
                         </tree>
