@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="stock_inventory_import_form" model="ir.ui.view">
+            <field name="name">Stock Iventory</field>
+            <field name="model">stock.inventory.import</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group attrs="{'invisible':[('state', '!=', 'draft')]}">
+                        <field name="data" string="Fichier csv"/>
+                    </group>
+
+
+                          <group>
+                        <field name="inv_name" />
+                    </group>
+                    <group>
+                        <field name="location_id"  />
+                    </group>
+
+                <group>
+                    <!--<field name="import_prod_option"/>-->
+                </group>
+
+                    <field name="stock_inventory_ids"
+                           attrs="{'invisible':[('state', 'in', ['draft',])]}">
+                        <tree create="false"  editable="top" decoration-danger="state in ['field_not_valid', 'product_duplicate']" decoration-success="state == 'product_not_exist'">
+                            <field name="default_code"></field>
+                            <field name="product_id"/>
+                            <field name="lot_name"/>
+                            <field name="lot_id"/>
+                            <field name="qty"></field>
+                            <field name="state"></field>
+                        </tree>
+                    </field>
+
+                    <footer>
+                        <button name="validate" type="object" string="Validate"
+                                class="oe_button oe_form_button oe_highlight"
+                                attrs="{'invisible':[('state', 'in', ['validated','imported'])]}"/>
+                        <button name="import_inventory" type="object"
+                                string="Import"
+                                attrs="{'invisible':[('state', 'in', ['draft','imported'])]}"
+                                class="oe_button oe_form_button oe_highlight"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="stock_inventory_import_action">
+            <field name="name">Stock Inventory  Import</field>
+            <field name="res_model">stock.inventory.import</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="stock_inventory_import_form"/>
+            <field name="view_mode">tree,form</field>
+            <field name="target">new</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Import
+                </p>
+            </field>
+        </record>
+        <menuitem id="stock_prd_lot_import_menu " name="Import Inventory"
+                  parent="stock.menu_stock_inventory_control"
+                  action="stock_inventory_import_action"
+                  sequence="102"/>
+
+    </data>
+</odoo>
