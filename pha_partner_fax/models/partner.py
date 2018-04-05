@@ -14,4 +14,4 @@ class ResPartner(models.Model):
     _inherit = ['res.partner']
 
     fax = fields.Char(string='Fax')
-    tva_migration=fields.Char(string='TVA Migration')
+    tva_migration = fields.Char(string='TVA Migration')
