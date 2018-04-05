@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
+    <data>
         <record id="view_partner_form_inherited" model="ir.ui.view">
             <field name="name">res.partner</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
 
-                 <xpath expr="//field[@name='email']" position="after">
+                <xpath expr="//field[@name='email']" position="after">
                     <field name="fax"/>
                 </xpath>
 
-                <xpath expr="//field[@name='ref']" position="after">
+                <xpath expr="//field[@name='property_account_position_id']" position="after">
                     <field name="vat"/>
-                        <field name="tva_migration"/>
+                    <field name="tva_migration"/>
                 </xpath>
 
 
-           </field>
+            </field>
         </record>
 
-</data>
+    </data>
 </odoo>
