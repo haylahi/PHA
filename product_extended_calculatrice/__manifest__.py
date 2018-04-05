@@ -21,16 +21,14 @@
 
 
 {
-    'name' : 'ES Product Calculatrice',
-    'version' : '11.0',
-    'depends' : ['base', 'product', 'sale', 'crm',],
-    'author' : 'GFI',
+    'name': 'ES Product Calculatrice',
+    'version': '11.0',
+    'depends': ['base', 'product', 'sale', 'crm', ],
+    'author': 'GFI',
     'category': '',
     'description': """
-   
    Modification de la fiche article :
 - ajout de la calculatrice
-   
     """,
     'website': '',
     'data': [
