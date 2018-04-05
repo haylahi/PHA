@@ -11,6 +11,14 @@
                     <field name="fax"/>
                 </xpath>
 
+                <xpath expr="//field[@name='ref']" position="after">
+                    <!--<field name="nic" position="after">-->
+                    <field name="vat"/>
+                        <field name="tva_migration"/>
+                    <!--</field>-->
+                </xpath>
+
+
            </field>
         </record>
 
