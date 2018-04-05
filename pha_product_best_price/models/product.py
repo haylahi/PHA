@@ -52,7 +52,11 @@ class PriceScale(models.Model):
                                                       ('max_price', '>=', price)])
             if scale_line:
                 return scale_line.coef
-        return 1
+
+        #TODO: rendre le coef standar parametrable, le 1.68 est specific pour le projet pha
+        return  1.68
+
+
 
 class ProductTemplate(models.Model):
 
@@ -69,25 +73,40 @@ class ProductTemplate(models.Model):
         supplier_info_ids.write({'state_lowest_price' : False,
                                  'state_highest_price': False,})
         net_prices = self.seller_ids.mapped('net_price')
-        self.highest_price = max(net_prices) if net_prices else 0.0
-        self.lowest_price = min(net_prices) if net_prices else 0.0
+        highest_price = max(net_prices) if net_prices else 0.0
+        lowest_price = min(net_prices) if net_prices else 0.0
 
-
-        if self.highest_price != 0 :
-            hp_line = supplier_info_ids.search([('net_price','=',self.highest_price)])
+        default_currency = self.env.user.company_id.currency_id
+        if highest_price != 0 :
+            hp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',highest_price)])[0]
+            if hp_line.currency_id.id != default_currency.id:
+                highest_price = highest_price / hp_line.currency_id.rate
             hp_line.write({'state_highest_price': True})
 
-        if self.lowest_price != 0 :
-            lp_line = supplier_info_ids.search([('net_price','=',self.lowest_price)])
+        if lowest_price != 0 :
+            lp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',lowest_price)])[0]
+            if lp_line.currency_id.id != default_currency.id:
+                lowest_price = lowest_price / lp_line.currency_id.rate
             lp_line.write({'state_lowest_price': True})
+
+        self.highest_price = highest_price
+        self.lowest_price = lowest_price
 
         return self.highest_price
 
     @api.multi
     def update_sale_price(self):
-        price_scale = self.env['price.scale'].search([('state','=','open')])
+        for rec in self:
+            logging.info('test : %s' % rec)
+            logging.info('test : %s' % rec[0].highest_price)
+            rec= rec[0]
+            logging.info('test : %s' % rec.highest_price)
+            price_scale = self.env['price.scale'].search([('state','=','open')])
+            coef = price_scale[0].get_coef(rec.highest_price)
+            rec.list_price = coef * rec.highest_price
+            rec.standard_price = rec.lowest_price
 
-        coef = price_scale[0].get_coef(self.highest_price) if price_scale else 1
-
-        self.list_price = coef * self.highest_price
-
+    @api.multi
+    def update_all(self):
+        self.ensure_one()
+        self.update_sale_price()

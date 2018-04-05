@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
+    <data>
         <record id="product_template_only_form_view_inherited" model="ir.ui.view">
             <field name="name">product.template.product.form.inherited</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
 
-  <notebook>
-    <page string="Caractéristiques">
-        <sheet>
-            <group	name="group_top">
-        <group name="group_left">
-              <field name="description" />
-              <field name="material_id" />
-        </group>
+                <notebook>
+                    <page string="Caractéristiques">
+                        <sheet>
+                            <group name="group_top">
+                                <group name="group_left">
+                                    <field name="description"/>
+                                    <field name="material_id"/>
+                                </group>
 
-               <group 	name="group_right">
-                   <field name="dimension"/>
-                <field name="diameter"/>
-               </group>
-            </group>
-        </sheet>
-    </page>
- </notebook>
-           </field>
+                                <group name="group_right">
+                                    <field name="dimension"/>
+                                    <field name="diameter"/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </page>
+                </notebook>
+            </field>
         </record>
 
 
-
-
-  <act_window context="{}" groups="" id="product_mat_action" name="Configuration Matières Produits " res_model="product.materiales" view_mode="tree,form" view_type="form"/>
-    <menuitem action="product_mat_action" id="product_materiels_menuitem" name="Matières Configuration" parent="sale.menu_sale_config" sequence="7"/>
-
+        <act_window context="{}" groups="" id="product_mat_action" name="Configuration Matières Produits "
+                    res_model="product.materiales" view_mode="tree,form" view_type="form"/>
+        <menuitem action="product_mat_action" id="product_materiels_menuitem" name="Matières Configuration"
+                  parent="sale.menu_sale_config" sequence="20"/>
 
 
         <record id="product_mat_form" model="ir.ui.view">
@@ -42,7 +41,7 @@
                 <form>
                     <sheet>
                         <group>
-                            <field  name="name"/>
+                            <field name="name"/>
 
                         </group>
                     </sheet>
@@ -50,14 +49,14 @@
             </field>
         </record>
 
- <record id="product_mat_tree" model="ir.ui.view">
+        <record id="product_mat_tree" model="ir.ui.view">
             <field name="name">product_mat_tree</field>
             <field name="model">product.materiales</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
                         <group>
-                            <field  name="name" sring="Matières "/>
+                            <field name="name" sring="Matières "/>
 
                         </group>
                     </sheet>
@@ -66,15 +65,5 @@
         </record>
 
 
-
-
-
-
-
-
-
-
-
-
-</data>
+    </data>
 </odoo>

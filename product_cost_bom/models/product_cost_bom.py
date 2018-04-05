@@ -55,11 +55,11 @@ class ProductVariant(models.Model):
                             product_qty = line.product_qty
                             cost += (product_qty/bom.product_qty * product_cost)
                         p.cost_price_bom = cost
-
-    cost_price_bom = fields.Float(
-        'Cost Incl. BOM', compute='_compute_cost_from_bom_product',
-        digits=dp.get_precision('Product Price'),
-        groups="base.group_user")
+    #
+    # cost_price_bom = fields.Float(
+    #     'Cost Incl. BOM', compute='_compute_cost_from_bom_product',
+    #     digits=dp.get_precision('Product Price'),
+    #     groups="base.group_user")
 
                        
 

@@ -4,13 +4,9 @@
         <field name="model">product.supplierinfo</field>
         <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
         <field name="arch" type="xml">
-            <!--<xpath expr="//div[field[@name='price']]" position="after">-->
-            <field name="price" position="after">
-                <group>
-                    <field name="discount" string="Remise"/>
-                </group>
-            </field>
-            <!--</xpath>-->
+            <xpath expr="//label[@for='date_start']" position="before">
+                <field name="discount"/>
+            </xpath>
         </field>
     </record>
 

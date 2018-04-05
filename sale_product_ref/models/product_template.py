@@ -15,8 +15,9 @@ class sale_product_ref(models.Model):
                        required= True)
 
     price =fields.Float(string="price",
-                        required= True,)
+                        required=True)
 
+    ref_id = fields.Many2one("product.template", ondelete="cascade")
 
     _sql_constraints = [
         ('ref_unique',
@@ -25,19 +26,11 @@ class sale_product_ref(models.Model):
     ]
 
 
-    def _get_default_price(self):
 
-        logging.warning("context"+self._context)
-
-        return 10
-
-    _defaults = {
-        'price': _get_default_price,
-    }
 
 
 class product_template(models.Model):
     _inherit = "product.template"
 
-    product_ref_list = fields.Many2many("sale.product.ref",
+    product_ref_list = fields.One2many("sale.product.ref","ref_id",
                                        string="product refs")

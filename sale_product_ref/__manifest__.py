@@ -11,6 +11,7 @@
         'sale',
     ],
     'data': [
+        "security/ir.model.access.csv",
         "views/product_template.xml",
         "views/sale_order_view.xml",
         "reports/report_stockpicking_operations.xml",

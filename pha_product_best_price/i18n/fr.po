@@ -1,0 +1,179 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pha_product_best_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180122\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-29 10:31+0000\n"
+"PO-Revision-Date: 2018-03-29 11:48+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: pha_product_best_price
+#: model:ir.actions.act_window,name:pha_product_best_price.sale_coef_action
+#: model:ir.ui.menu,name:pha_product_best_price.sale_coef_menuitem
+msgid "Coef de vente"
+msgstr "Coef de vente"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_coef
+msgid "Coefficient Applicable"
+msgstr "Coefficient Applicable"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_create_uid
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_create_date
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_display_name
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_product_supplierinfo_state_highest_price
+msgid "Highest "
+msgstr "Le plus élevé"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_product_product_highest_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_product_template_highest_price
+msgid "Highest Price"
+msgstr "Le prix le plus élevé"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_id
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_id
+msgid "ID"
+msgstr "ID"
+
+#. module: pha_product_best_price
+#: model:ir.model,name:pha_product_best_price.model_product_supplierinfo
+msgid "Information about a product vendor"
+msgstr "Information sur le vendeur de l'article"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale___last_update
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_write_uid
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_write_date
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_product_supplierinfo_state_lowest_price
+msgid "Lowest "
+msgstr "le plus bas"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_product_product_lowest_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_product_template_lowest_price
+msgid "Lowest Price"
+msgstr "le prix le plus bas"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_max_price
+msgid "Maximal Price"
+msgstr "Prix ​​maximal"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_min_price
+msgid "Minimal Price"
+msgstr "Prix ​​minimal"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_product_supplierinfo_net_price
+msgid "Prix Net"
+msgstr "Prix Net"
+
+#. module: pha_product_best_price
+#: model:ir.model,name:pha_product_best_price.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_state
+msgid "State"
+msgstr "Statut"
+
+#. module: pha_product_best_price
+#: model:ir.ui.view,arch_db:pha_product_best_price.product_template_only_form_view_inherited
+msgid "Vous êtes sur le point de modifier le prix de vente!"
+msgstr "Vous êtes sur le point de modifier le prix de vente!"
+
+#. module: pha_product_best_price
+#: selection:price.scale,state:0
+msgid "close"
+msgstr "Fermé"
+
+#. module: pha_product_best_price
+#: model:ir.ui.view,arch_db:pha_product_best_price.product_supplierinfo_tree_view_inherited
+msgid "highest price"
+msgstr "le prix le plus élevé"
+
+#. module: pha_product_best_price
+#: model:ir.ui.view,arch_db:pha_product_best_price.product_supplierinfo_tree_view_inherited
+msgid "lowest price"
+msgstr "Le prix le plus bas"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_name
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_name
+msgid "name"
+msgstr "name"
+
+#. module: pha_product_best_price
+#: selection:price.scale,state:0
+msgid "open"
+msgstr "Ouvert"
+
+#. module: pha_product_best_price
+#: model:ir.model,name:pha_product_best_price.model_price_scale
+msgid "price.scale"
+msgstr "price.scale"
+
+#. module: pha_product_best_price
+#: model:ir.model,name:pha_product_best_price.model_price_scale_line
+msgid "price.scale.line"
+msgstr "price.scale.line"
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_scale_id
+msgid "scale"
+msgstr "barème "
+
+#. module: pha_product_best_price
+#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_price_scale_line_ids
+msgid "scale lines"
+msgstr "Lignes Barème "
+
+#. module: pha_product_best_price
+#: model:ir.ui.view,arch_db:pha_product_best_price.product_template_only_form_view_inherited
+msgid "update sale price"
+msgstr "Modifier Prix de Vente"

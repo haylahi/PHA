@@ -19,9 +19,10 @@
                                 <field name="product_code"/>
                                 <field name="product_tmpl_id"/>
                                 <field name="min_qty"/>
-                                <field name="max_qty"/>
+                                <field name="max_qty" string="Quantité Maximale"/>
                                 <field name="price"/>
                                 <field name="discount"/>
+                                <field name="currency_id"/>
                                 <field name="net_price"/>
                                 <field name="date_start"/>
                                 <field name="date_end"/>
@@ -40,7 +41,7 @@
             <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
             <field name="arch" type="xml">
                 <field name="min_qty" position="after">
-                    <field name="max_qty"/>
+                    <field name="max_qty" string="Quantité Maximale"/>
                 </field>
             </field>
         </record>
@@ -51,11 +52,10 @@
             <field name="model">product.supplierinfo</field>
             <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
             <field name="arch" type="xml">
-                <field name="min_qty" position="after">
+                <field name="product_tmpl_id" position="after">
                     <field name="max_qty" string="Quantité maximale"/>
                 </field>
             </field>
         </record>
-
     </data>
 </odoo>
