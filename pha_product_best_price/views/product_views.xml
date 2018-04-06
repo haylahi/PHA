@@ -16,7 +16,7 @@
                         <field name="lowest_price"/></group>
                          <group>
                     <button class="oe_highlight" type="object" name="update_sale_price" string="update sale price"
-                            confirm="Vous êtes sur le point de modifier le prix de vente et le cout!"/>
+                            confirm="Vous êtes sur le point de modifier le prix de vente et le cout! Voulez vous continuer?"/>
 
                 </group>
 
@@ -52,8 +52,6 @@
         <field name="arch" type="xml">
             <label for="date_start" position="before">
                 <field name="net_price"/>
-                <field name="state_lowest_price"/>
-                <field name="state_highest_price"/>
             </label>
 
         </field>

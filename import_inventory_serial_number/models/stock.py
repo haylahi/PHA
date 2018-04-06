@@ -251,7 +251,6 @@ class gen_inv(models.TransientModel):
 class stock_inventory(models.Model):
     _inherit = "stock.inventory"
 
-
     @api.multi
     def action_start(self):
         if self._context.get('ids'):
