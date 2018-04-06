@@ -57,6 +57,7 @@ Este módulo é útil para inventário de importação com o número de série d
     'author': 'BrowseInfo',
     'website': 'http://www.browseinfo.in',
     'depends': ['base','stock'],
+    'external_dependencies':["xlrd"],
     'data': ["views/stock_view.xml"],
     'demo': [],
     'test': [],

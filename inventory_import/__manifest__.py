@@ -5,11 +5,11 @@
 # @author Luc de Meyer <info@noviat.com>
 
 {
-    'name': 'Inventory import 2',
+    'name': 'Inventory import',
     'version': '1.0.0',
     'category': '',
     'license': '',
-    'summary': 'Import inventory 2',
+    'summary': 'Import inventory ',
     'author': '',
     'depends': [
         'sale_stock',

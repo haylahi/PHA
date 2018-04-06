@@ -5,11 +5,11 @@
 # @author Luc de Meyer <info@noviat.com>
 
 {
-    'name': 'Inventory import',
+    'name': 'PHA Inventory import',
     'version': '1.0.0',
     'category': '',
     'license': '',
-    'summary': 'Import inventory',
+    'summary': 'PHA Import inventory',
     'author': '',
     'depends': [
         'sale_stock',
