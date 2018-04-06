@@ -61,7 +61,7 @@
                 </p>
             </field>
         </record>
-        <menuitem id="stock_prd_lot_import_menu " name="Import Inventory"
+        <menuitem id="stock_prd_lot_import_menu " name="PHA Update Products Inventory"
                   parent="stock.menu_stock_inventory_control"
                   action="stock_inventory_import_action"
                   sequence="102"/>
