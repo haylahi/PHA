@@ -3,67 +3,82 @@
 <odoo>
 
 
-<record id="product_template_form_view" model="ir.ui.view">
-    <field name="name">sale.product.template.form</field>
-    <field name="model">product.template</field>
-    <field name="inherit_id" ref="product.product_template_only_form_view"/>
-    <field name="arch" type="xml">
-             <xpath expr="//page[@name='sales']" position="inside">
-                 <group name="product_reference" string ="Référence de ventes">
-                 <field name="product_ref_list"
-                        context="{'default_price': list_price}"
-                         widget="one2many"
-                        string ="Référence de ventes" nolabel="1"
-                 >
-                     <tree editable="bottom">
-                         <field name="sequence" widget="handle"/>
-                         <field name="ref" string="Référence"></field>
-                         <field name="label" string="Libellé"></field>
-                         <field name="price" string = "Prix"></field>
-                     </tree>
-                 </field>
-                 </group>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">sale.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="inside">
+                <group name="product_reference" string="Référence de ventes">
+                    <field name="product_ref_list"
+                           context="{'default_price': list_price}"
+                           widget="one2many"
+                           string="Référence de ventes" nolabel="1"
+                    >
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="ref" string="Référence"></field>
+                            <field name="label" string="Libellé"></field>
+                            <field name="price" string="Prix"></field>
+                        </tree>
+                    </field>
+                </group>
             </xpath>
-        <xpath expr="//page[@name='purchase']/group[@name='vendors']/field[@name='seller_ids']" position="replace">
+            <xpath expr="//page[@name='purchase']/group[@name='vendors']/field[@name='seller_ids']" position="replace">
 
-            <field name="seller_ids" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}" nolabel="1" modifiers="{}">
+                <field name="seller_ids"
+                       context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}"
+                       nolabel="1" modifiers="{}">
 
-            </field>
+                </field>
             </xpath>
-    </field>
-</record>
+        </field>
+    </record>
 
-<record id="product_normal_form_view" model="ir.ui.view">
-    <field name="name">sale.product.product.form</field>
-    <field name="model">product.product</field>
-    <field name="inherit_id" ref="product.product_normal_form_view"/>
-    <field name="arch" type="xml">
-             <xpath expr="//page[@name='sales']" position="inside">
-                 <group>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">sale.product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="inside">
+                <group>
 
-                      <field name="product_ref_list"
-                        context="{'default_price': lst_price}"
-                         widget="one2many"
-                             string="Référence de vente"
-                 >
-                     <tree editable="bottom">
-                         <field name="sequence" widget="handle"/>
-                         <field name="ref" string="Référence"></field>
-                         <field name="label" string="Libellé"></field>
-                         <field name="price" string = "Prix"></field>
-                     </tree>
-                 </field>
-                 </group>
+                    <field name="product_ref_list"
+                           context="{'default_price': lst_price}"
+                           widget="one2many"
+                           string="Référence de vente"
+                    >
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="ref" string="Référence"></field>
+                            <field name="label" string="Libellé"></field>
+                            <field name="price" string="Prix"></field>
+                        </tree>
+                    </field>
+                </group>
 
             </xpath>
 
-            <field name="seller_ids" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}" nolabel="1" modifiers="{}">
+            <field name="seller_ids"
+                   context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}"
+                   nolabel="1" modifiers="{}">
                 <field name="name" position="after">
                     <field name="product_code"/>
                 </field>
             </field>
-    </field>
-</record>
+        </field>
+    </record>
+
+    <record id="product_template_search_view_list_ref" model="ir.ui.view">
+        <field name="name">product.template.search.product_ref_list</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="product_ref_list" string="Références vente" filter_domain="[('product_ref_list.ref', 'ilike', self)]"/>
+            </field>
+        </field>
+    </record>
 
 
 </odoo>
