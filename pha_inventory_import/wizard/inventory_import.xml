@@ -53,7 +53,7 @@
             <field name="name">Stock Inventory  Import</field>
             <field name="res_model">stock.inventory.import</field>
             <field name="view_type">form</field>
-            <field name="view_id" ref="stock_inventory_import_form"/>
+            <field name="view_id" ref="pha_stock_inventory_import_form"/>
             <field name="view_mode">tree,form</field>
             <field name="target">new</field>
             <field name="help" type="html">
