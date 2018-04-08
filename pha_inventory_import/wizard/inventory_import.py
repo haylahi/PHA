@@ -150,9 +150,7 @@ class InventoryImport(models.TransientModel):
 
             logging.warning('line.state => ' + str(line.state))
             inv_item = {}
-
             inv_item['default_code'] = line.default_code
-            inv_item['name'] = line.name
             inv_item['travee'] = line.travee
             inv_item['etagere'] = line.etagere
             inv_item['colonne'] = line.colonne
@@ -161,6 +159,7 @@ class InventoryImport(models.TransientModel):
 
 
             if line.state == 'product_not_exist':
+                inv_item['name'] = line.name
                 if line.destockage:
                     inv_item['categ_id'] = self.dest_categ.id
                 else:
