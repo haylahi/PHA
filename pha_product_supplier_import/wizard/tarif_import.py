@@ -158,7 +158,6 @@ class TarifImport(models.TransientModel):
                           'date_start': tarif.date_start,
                           'date_end': tarif.date_end,
                           }
-            print ('tarif_item:',tarif_item)
             if tarif.state == 'valid':
                 supplierinfo.create(tarif_item)
                 tarif_item['state'] = 'imported'
