@@ -8,7 +8,7 @@ from odoo.tools import pycompat
 
 
 class InventoryImportLine(models.TransientModel):
-    _name = "stock.inventory.import.line"
+    _name = "pha.stock.inventory.import.line"
 
     travee = fields.Char(string="Travée")
     etagere = fields.Char(string="Etagére")
@@ -31,7 +31,7 @@ class InventoryImportLine(models.TransientModel):
 
 
 class InventoryImport(models.TransientModel):
-    _name = "stock.inventory.import"
+    _name = "pha.stock.inventory.import"
 
     data = fields.Binary('Fichier',
                          required=True,
@@ -57,7 +57,7 @@ class InventoryImport(models.TransientModel):
 
     reader_info = []
 
-    stock_inventory_ids = fields.Many2many('stock.inventory.import.line',
+    stock_inventory_ids = fields.Many2many('pha.stock.inventory.import.line',
                                                 default=lambda self: self._context.get('stock_inventory_ids'))
     @api.multi
     def _get_stock_inventory_from_csv(self):
@@ -131,7 +131,7 @@ class InventoryImport(models.TransientModel):
             'name': ('Assignment Sub'),
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'stock.inventory.import',
+            'res_model': 'pha.stock.inventory.import',
             'view_id': False,
             'context': {'data':self.data,
                         'state': self.state,
@@ -181,7 +181,7 @@ class InventoryImport(models.TransientModel):
             'name': ('Assignment Sub'),
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'stock.inventory.import',
+            'res_model': 'pha.stock.inventory.import',
             'view_id': False,
             'context': {'default_data': self.data,
                         'default_stock_inventory_ids': unvalid_items,
