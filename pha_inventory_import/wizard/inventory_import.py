@@ -68,17 +68,15 @@ class InventoryImport(models.TransientModel):
         for i, csv_line in list:
             logging.info("line %s => %s line", i, csv_line)
             if i > 0:
-
-                product_id = self.env['product.product'].search([('default_code', '=', csv_line[0])])
+                product_id = self.env['product.product'].search([('default_code', '=', str(csv_line[0]).strip())])
                 standard_price = 0.0 if not product_id else product_id[0].standard_price
 
-
                 inv_item = {}
-                inv_item['default_code'] = csv_line[0]
-                inv_item['name'] = csv_line[2]
-                inv_item['travee'] = csv_line[3]
-                inv_item['etagere'] = csv_line[4]
-                inv_item['colonne'] = csv_line[5]
+                inv_item['default_code'] = str(csv_line[0]).strip()
+                inv_item['name'] = str(csv_line[2]).strip()
+                inv_item['travee'] = str(csv_line[3]).strip()
+                inv_item['colonne'] = str(csv_line[4]).strip()
+                inv_item['etagere'] = str(csv_line[5]).strip()
                 inv_item['destockage'] = True if csv_line[1] == "OUI" else False
                 inv_item['cost'] = 1.0 if csv_line[1] == "OUI" else standard_price
                 inv_item['qty'] = csv_line[6]
@@ -94,11 +92,13 @@ class InventoryImport(models.TransientModel):
                 if not self._is_valid_line(inv_item):
                     inv_item['state'] = 'field_not_valid'
 
-                for item in stock_inventory_items:
-                    if item[2]['default_code'] == csv_line[0]:
-                        inv_item['state'] = "product_duplicate"
+
 
                 stock_inventory_items.append((0,0,inv_item))
+
+        for item in stock_inventory_items:
+            if item[2]['default_code'] == str(csv_line[0]).strip():
+                inv_item['state'] = "product_duplicate"
 
         return stock_inventory_items
 
@@ -150,16 +150,16 @@ class InventoryImport(models.TransientModel):
 
             logging.warning('line.state => ' + str(line.state))
             inv_item = {}
-            inv_item['default_code'] = line.default_code
+
             inv_item['travee'] = line.travee
             inv_item['etagere'] = line.etagere
             inv_item['colonne'] = line.colonne
             inv_item['standard_price'] = line.cost
             inv_item['type'] = 'product'
 
-
             if line.state == 'product_not_exist':
                 inv_item['name'] = line.name
+                inv_item['default_code'] = line.default_code
                 if line.destockage:
                     inv_item['categ_id'] = self.dest_categ.id
                 else:
@@ -167,7 +167,7 @@ class InventoryImport(models.TransientModel):
                 self.env['product.product'].create(inv_item)
 
             elif line.state == 'product_exist':
-                product_id = self.env['product.product'].search([('default_code', '=', line.default_code)])
+                product_id = self.env['product.product'].search([('default_code','=', line.default_code)])
                 product_id[0].write(inv_item)
 
 
