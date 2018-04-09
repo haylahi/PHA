@@ -4,7 +4,7 @@
 
         <record id="pha_stock_inventory_import_form" model="ir.ui.view">
             <field name="name">Stock Iventory</field>
-            <field name="model">stock.inventory.import</field>
+            <field name="model">pha.stock.inventory.import</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
@@ -51,7 +51,7 @@
 
         <record model="ir.actions.act_window" id="pha_stock_inventory_import_action">
             <field name="name">Stock Inventory  Import</field>
-            <field name="res_model">stock.inventory.import</field>
+            <field name="res_model">pha.stock.inventory.import</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="pha_stock_inventory_import_form"/>
             <field name="view_mode">tree,form</field>
