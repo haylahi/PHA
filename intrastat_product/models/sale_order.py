@@ -15,7 +15,7 @@ class SaleOrder(models.Model):
         string='Intrastat Declaration',
         related='company_id.intrastat_dispatches', readonly=True)
 
-    @api.multi
+
     def _prepare_invoice(self):
         '''Copy destination country to invoice'''
         vals = super(SaleOrder, self)._prepare_invoice()
