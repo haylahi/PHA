@@ -69,7 +69,13 @@ class InventoryImport(models.TransientModel):
             logging.info("line %s => %s line", i, csv_line)
             if i > 0:
                 product_id = self.env['product.product'].search([('default_code', '=', str(csv_line[0]).strip())])
-                standard_price = 0.0 if not product_id else product_id[0].standard_price
+
+                if not product_id:
+                    standard_price = 0.0
+                elif product_id and product_id[0].categ_id.id == self.dest_categ.id:
+                    standard_price = 1
+                else:
+                    standard_price = product_id[0].standard_price
 
                 inv_item = {}
                 inv_item['default_code'] = str(csv_line[0]).strip()
@@ -96,9 +102,10 @@ class InventoryImport(models.TransientModel):
 
                 stock_inventory_items.append((0,0,inv_item))
 
-        for item in stock_inventory_items:
-            if item[2]['default_code'] == str(csv_line[0]).strip():
-                inv_item['state'] = "product_duplicate"
+        for i, item in enumerate(stock_inventory_items):
+            if i < len(stock_inventory_items)-1:
+                if item[2]['default_code'] == str(csv_line[0]).strip():
+                    inv_item['state'] = "product_duplicate"
 
         return stock_inventory_items
 
@@ -156,21 +163,20 @@ class InventoryImport(models.TransientModel):
             inv_item['colonne'] = line.colonne
             inv_item['standard_price'] = line.cost
             inv_item['type'] = 'product'
+            if line.destockage:
+                inv_item['categ_id'] = self.dest_categ.id
 
             if line.state == 'product_not_exist':
                 inv_item['name'] = line.name
                 inv_item['default_code'] = line.default_code
-                if line.destockage:
-                    inv_item['categ_id'] = self.dest_categ.id
-                else:
+
+                if not line.destockage:
                     inv_item['categ_id'] = self.new_prd_categ.id
                 self.env['product.product'].create(inv_item)
 
             elif line.state == 'product_exist':
                 product_id = self.env['product.product'].search([('default_code','=', line.default_code)])
                 product_id[0].write(inv_item)
-
-
             else:
                 inv_item['state'] = line.state
                 unvalid_items.append((0,0,inv_item))
