@@ -96,15 +96,14 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def update_sale_price(self):
+        price_scale = self.env['price.scale'].search([('state', '=', 'open')])
         for rec in self:
-            logging.info('test : %s' % rec)
-            logging.info('test : %s' % rec[0].highest_price)
             rec= rec[0]
-            logging.info('test : %s' % rec.highest_price)
-            price_scale = self.env['price.scale'].search([('state','=','open')])
-            coef = price_scale[0].get_coef(rec.highest_price)
-            rec.list_price = coef * rec.highest_price
-            rec.standard_price = rec.lowest_price
+            #FIXME: valeur en hard ici, spécifique pour pha pour ignorer le calcule des produits déstockable
+            if rec.categ_id.name != 'Déstockable':
+                coef = price_scale[0].get_coef(rec.highest_price)
+                rec.list_price = coef * rec.highest_price
+                rec.standard_price = rec.lowest_price
 
     @api.multi
     def update_all(self):
