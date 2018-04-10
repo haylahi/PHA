@@ -20,20 +20,18 @@
 #
 ##############################################################################
 
-from odoo import models
+from odoo import models,fields, api
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    def _prepare_invoice(self, cr, uid, order, lines, context=None):
+    @api.multi
+    def _prepare_invoice(self):
         '''Copy destination country and departure department on invoice'''
-        invoice_vals = super(SaleOrder, self)._prepare_invoice(
-            cr, uid, order, lines, context=context)
-        if order.partner_shipping_id and order.partner_shipping_id.country_id:
-            invoice_vals['intrastat_country_id'] = \
-                order.partner_shipping_id.country_id.id
-        if order.picking_ids:
-            invoice_vals['intrastat_department'] = \
-                order.picking_ids[0].intrastat_department
+        invoice_vals = super(SaleOrder, self)._prepare_invoice()
+        if self.partner_shipping_id and self.partner_shipping_id.country_id:
+            invoice_vals['intrastat_country_id'] = self.partner_shipping_id.country_id.id
+        if self.picking_ids:
+            invoice_vals['intrastat_department'] = self.picking_ids[0].intrastat_department
         return invoice_vals

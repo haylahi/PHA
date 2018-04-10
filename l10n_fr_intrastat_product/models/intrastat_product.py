@@ -157,9 +157,9 @@ class L10nFrReportIntrastatProduct(models.Model):
                         company.export_obligation_level
         return result
 
-    @api.constrains('start_date')
-    def _product_check_start_date(self):
-        self._check_start_date()
+    # @api.constrains('start_date')
+    # def _product_check_start_date(self):
+    #     self._check_start_date()
 
     @api.one
     @api.constrains('type', 'obligation_level')
@@ -558,7 +558,7 @@ class L10nFrReportIntrastatProduct(models.Model):
     def generate_product_lines_from_invoice(self):
         '''Function called by the button on form view'''
         self.ensure_one()
-        self._check_generate_lines()
+        # self._check_generate_lines()
         line_obj = self.env['l10n.fr.report.intrastat.product.line']
         to_remove_lines = line_obj.search([
             ('parent_id', '=', self.id),
@@ -697,7 +697,7 @@ class L10nFrReportIntrastatProduct(models.Model):
         start_date_str = self.start_date
         start_date_datetime = fields.Date.from_string(start_date_str)
 
-        self._check_generate_xml()
+        # self._check_generate_xml()
 
         my_company_vat = self.company_id.partner_id.vat.replace(' ', '')
 
