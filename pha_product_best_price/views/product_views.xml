@@ -51,6 +51,8 @@
         <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
         <field name="arch" type="xml">
             <label for="date_start" position="before">
+                <field name="state_highest_price" invisible="1"/>
+                <field name="state_lowest_price" invisible="1"/>
                 <field name="net_price"/>
             </label>
 
