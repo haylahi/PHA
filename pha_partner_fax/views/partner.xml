@@ -19,6 +19,13 @@
                     <field name="vat"/>
                     <field name="tva_migration"/>
                 </xpath>
+
+                <notebook>
+                    <page string="Parc Matériels" attrs="{'invisible': [('supplier', '=', True)]}">
+                        <field name="parc_materials" placeholder="Parc Matériels..."/>
+                    </page>
+                </notebook>
+
             </field>
         </record>
 

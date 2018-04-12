@@ -7,3 +7,4 @@ class ResPartner(models.Model):
 
     fax = fields.Char(string='Fax')
     tva_migration = fields.Char(string='TVA Migration')
+    parc_materials = fields.Text(string='Parc Matériels')
