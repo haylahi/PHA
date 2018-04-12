@@ -22,6 +22,20 @@
             </field>
         </record>
 
+        <record id="view_partner_tree_inherited" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="city"/>
+                    <field name="zip"/>
+                </xpath>
+
+            </field>
+        </record>
+
         <record id="view_partner_form_hide_siret" model="ir.ui.view">
             <field name="name">res.partner.form.hide.siret</field>
             <field name="model">res.partner</field>
@@ -32,5 +46,23 @@
                 </xpath>
             </field>
         </record>
+
+
+
+
+           <record id="partner_search_view" model="ir.ui.view">
+            <field name="name">partner.search.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="city" filter_domain="[('city', 'ilike', raw_value)]"/>
+                    <field name="zip" filter_domain="[('zip', 'ilike', self)]"/>
+                </field>
+            </field>
+        </record>
+
+
+
     </data>
 </odoo>

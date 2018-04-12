@@ -70,7 +70,7 @@ class InventoryImport(models.TransientModel):
                 inv_item['qty'] = csv_line[1]
                 inv_item['lot_name'] = csv_line[3] if csv_line[3] else "-"
                 if product_id:
-                    inv_item['product_id'] = product_id.id
+                    inv_item['product_id'] = product_id[0].id
                     inv_item['state'] = 'product_exist'
                     lot_id = self._check_if_lot_exists(product_id, csv_line[3])
                     if lot_id :
