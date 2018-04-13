@@ -2,9 +2,9 @@
 <odoo>
     <data>
 
-        <record id="stock_inventory_import_form" model="ir.ui.view">
+        <record id="pha_stock_inventory_import_form" model="ir.ui.view">
             <field name="name">Stock Iventory</field>
-            <field name="model">stock.inventory.import</field>
+            <field name="model">pha.stock.inventory.import</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
@@ -49,11 +49,11 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="stock_inventory_import_action">
+        <record model="ir.actions.act_window" id="pha_stock_inventory_import_action">
             <field name="name">Stock Inventory  Import</field>
-            <field name="res_model">stock.inventory.import</field>
+            <field name="res_model">pha.stock.inventory.import</field>
             <field name="view_type">form</field>
-            <field name="view_id" ref="stock_inventory_import_form"/>
+            <field name="view_id" ref="pha_stock_inventory_import_form"/>
             <field name="view_mode">tree,form</field>
             <field name="target">new</field>
             <field name="help" type="html">
@@ -61,9 +61,9 @@
                 </p>
             </field>
         </record>
-        <menuitem id="stock_prd_lot_import_menu " name="Import Inventory"
+        <menuitem id="pha_stock_prd_lot_import_menu " name="PHA Update Products Inventory"
                   parent="stock.menu_stock_inventory_control"
-                  action="stock_inventory_import_action"
+                  action="pha_stock_inventory_import_action"
                   sequence="102"/>
 
     </data>

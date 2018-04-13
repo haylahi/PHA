@@ -78,15 +78,15 @@ class ProductTemplate(models.Model):
 
         default_currency = self.env.user.company_id.currency_id
         if highest_price != 0 :
-            hp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',highest_price)])[0]
-            if hp_line.currency_id.id != default_currency.id:
-                highest_price = highest_price / hp_line.currency_id.rate
+            hp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',highest_price)])
+            if len(hp_line) != 0 and hp_line[0].currency_id.id != default_currency.id:
+                highest_price = highest_price / hp_line[0].currency_id.rate
             hp_line.write({'state_highest_price': True})
 
         if lowest_price != 0 :
-            lp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',lowest_price)])[0]
-            if lp_line.currency_id.id != default_currency.id:
-                lowest_price = lowest_price / lp_line.currency_id.rate
+            lp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',lowest_price)])
+            if len(lp_line) != 0 and lp_line[0].currency_id.id != default_currency.id:
+                lowest_price = lowest_price / lp_line[0].currency_id.rate
             lp_line.write({'state_lowest_price': True})
 
         self.highest_price = highest_price
@@ -96,15 +96,14 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def update_sale_price(self):
+        price_scale = self.env['price.scale'].search([('state', '=', 'open')])
         for rec in self:
-            logging.info('test : %s' % rec)
-            logging.info('test : %s' % rec[0].highest_price)
             rec= rec[0]
-            logging.info('test : %s' % rec.highest_price)
-            price_scale = self.env['price.scale'].search([('state','=','open')])
-            coef = price_scale[0].get_coef(rec.highest_price)
-            rec.list_price = coef * rec.highest_price
-            rec.standard_price = rec.lowest_price
+            #FIXME: valeur en hard ici, spécifique pour pha pour ignorer le calcule des produits déstockable
+            if rec.categ_id.name != 'Déstockable':
+                coef = price_scale[0].get_coef(rec.highest_price)
+                rec.list_price = coef * rec.highest_price
+                rec.standard_price = rec.lowest_price
 
     @api.multi
     def update_all(self):
