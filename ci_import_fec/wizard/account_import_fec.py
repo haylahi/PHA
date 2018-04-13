@@ -46,7 +46,7 @@ class AccountImportFEC(models.TransientModel):
     fec_file = fields.Binary(required=True)
     account_journal_ids = fields.Many2many('account.journal', string='Account Journals',
                                            help="Let it empty if you want to import all account moves")
-    import_reconciliation = fields.Boolean(default=True)
+    import_reconciliation = fields.Boolean(default=False)
     delimiter = fields.Char(required=True, default=';')
     line_ids = fields.Many2many('ci.account.import.fec.line', 'fec_line_rel', 'child_imp_id',
                                 'parent_imp_id', string="Journal lines")
@@ -218,23 +218,24 @@ class AccountImportFEC(models.TransientModel):
     @api.model
     def _reconcile(self, move_ids):
         if move_ids:
-            line_obj = self.env['account.move.line']
-            lines_to_reconcile = line_obj.search([('is_reconcile_mapping', '=', True),
-                                                  ('account_id.reconcile', '=', True),
-                                                  ('move_id', 'in', move_ids)])
+            for move_id in move_ids:
+                line_obj = self.env['account.move.line']
+                lines_to_reconcile = line_obj.search([('is_reconcile_mapping', '=', True),
+                                                      ('account_id.reconcile', '=', True),
+                                                      ('move_id', '=', move_id)])
 
-            if lines_to_reconcile:
-                for line in lines_to_reconcile:
-                    if line.is_reconcile_mapping and line.fec_reconcile_mapping:
-                        reconcile_id = self.env['account.full.reconcile'].search(
-                            [('name', '=', line.fec_reconcile_mapping)])
-                        if not reconcile_id:
-                            reconcile_id = self.env['account.full.reconcile'].create(
-                                {'name': line.fec_reconcile_mapping})
-                        lines_to_reconcile.write({
-                            'full_reconcile_id': reconcile_id.id
-                        })
-                        logging.info("---------- Lettrage : %s Success", lines_to_reconcile)
+                if lines_to_reconcile:
+                    for line in lines_to_reconcile:
+                        if line.is_reconcile_mapping and line.fec_reconcile_mapping:
+                            reconcile_id = self.env['account.full.reconcile'].search(
+                                [('name', '=', line.fec_reconcile_mapping)])
+                            if not reconcile_id:
+                                reconcile_id = self.env['account.full.reconcile'].create(
+                                    {'name': line.fec_reconcile_mapping})
+                            line.write({
+                                'full_reconcile_id': reconcile_id.id
+                            })
+                            logging.info("---------- Lettrage : %s Success", line)
         return True
 
     _fec_cache = {}
