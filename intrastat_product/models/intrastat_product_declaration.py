@@ -666,7 +666,7 @@ class IntrastatProductDeclaration(models.Model):
 
     def group_line_hashcode(self, computation_line):
         hc_fields = self._group_line_hashcode_fields(computation_line)
-        hashcode = '-'.join([unicode(f) for f in hc_fields.itervalues()])
+        hashcode = '-'.join([str(f) for f in hc_fields.values()])
         return hashcode
 
     @api.multi
