@@ -5,24 +5,19 @@
         <record id="pha_stock_inventory_import_form" model="ir.ui.view">
             <field name="name">Stock Iventory</field>
             <field name="model">pha.stock.inventory.import</field>
+            <field name="inherit_id" ref="base_csv_importer.bci_importer_form"/>
             <field name="arch" type="xml">
-                <form>
-                    <header>
-                        <field name="state" widget="statusbar"/>
-                    </header>
-                    <group attrs="{'invisible':[('state', '!=', 'draft')]}">
-                        <field name="data" string="Fichier csv"/>
-
-
-                    </group>
+                <group name="input_file" position="after">
                     <group attrs="{'invisible':[('state', '=', 'imported')]}">
-                        <field name="dest_categ" />
-                        <field name="new_prd_categ" />
+                        <field name="dest_categ"/>
+                        <field name="new_prd_categ"/>
                     </group>
 
                     <field name="stock_inventory_ids"
                            attrs="{'invisible':[('state', 'in', ['draft',])]}">
-                        <tree create="false"  editable="top" decoration-danger="state in ['field_not_valid', 'product_duplicate']" decoration-success="state == 'product_not_exist'">
+                        <tree create="false" editable="top"
+                              decoration-danger="state in ['field_not_valid', 'product_duplicate']"
+                              decoration-success="state == 'product_not_exist'">
                             <field name="default_code"></field>
                             <field name="name"></field>
                             <field name="qty"></field>
@@ -34,37 +29,26 @@
                             <field name="state"></field>
                         </tree>
                     </field>
-
-                    <footer>
-                        <button name="validate" type="object" string="Validate"
-                                class="oe_button oe_form_button oe_highlight"
-                                attrs="{'invisible':[('state', 'in', ['validated','imported'])]}"/>
-                        <button name="import_inventory" type="object"
-                                string="Import"
-                                attrs="{'invisible':[('state', 'in', ['draft','imported'])]}"
-                                class="oe_button oe_form_button oe_highlight"/>
-                    </footer>
-
-                </form>
+                </group>
             </field>
-        </record>
+    </record>
 
-        <record model="ir.actions.act_window" id="pha_stock_inventory_import_action">
-            <field name="name">Stock Inventory  Import</field>
-            <field name="res_model">pha.stock.inventory.import</field>
-            <field name="view_type">form</field>
-            <field name="view_id" ref="pha_stock_inventory_import_form"/>
-            <field name="view_mode">tree,form</field>
-            <field name="target">new</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Import
-                </p>
-            </field>
-        </record>
-        <menuitem id="pha_stock_prd_lot_import_menu " name="PHA Update Products Inventory"
-                  parent="stock.menu_stock_inventory_control"
-                  action="pha_stock_inventory_import_action"
-                  sequence="102"/>
+    <record model="ir.actions.act_window" id="pha_stock_inventory_import_action">
+        <field name="name">Stock Inventory Import</field>
+        <field name="res_model">pha.stock.inventory.import</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="pha_stock_inventory_import_form"/>
+        <field name="view_mode">tree,form</field>
+        <field name="target">new</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Import
+            </p>
+        </field>
+    </record>
+    <menuitem id="pha_stock_prd_lot_import_menu " name="PHA Update Products Inventory"
+              parent="stock.menu_stock_inventory_control"
+              action="pha_stock_inventory_import_action"
+              sequence="102"/>
 
-    </data>
-</odoo>
+</data>
+        </odoo>

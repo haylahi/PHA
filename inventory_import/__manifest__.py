@@ -12,7 +12,7 @@
     'summary': 'Import inventory ',
     'author': '',
     'depends': [
-        'sale_stock',
+        'sale_stock','base_csv_importer'
         ],
     'data': [
         'wizard/inventory_import.xml'
