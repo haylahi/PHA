@@ -30,28 +30,13 @@ class InventoryImportLine(models.TransientModel):
 
 
 class InventoryImport(models.TransientModel):
+    _inherit = "bci.importer"
     _name = "stock.inventory.import"
 
-    data = fields.Binary('Fichier',
-                         required=True,
-                         default=lambda self: self._context.get('data'))
-    name = fields.Char('Filename')
-    delimeter = fields.Char('Delimeter',
-                            default=';',
-                            help='Default delimeter is ";"')
-    lineterminator = fields.Char('Line terminator',
-                            default='\n',
-                            help='Default delimeter is "\n"')
-    state = fields.Selection(selection=[('draft', 'Brouillon'),
-                                        ('validated', 'Validation'),
-                                        ('imported', 'Importation')],
-                             default=lambda self: self._context.get('state','draft')
-                             )
     stock_inventory_ids = fields.Many2many('stock.inventory.import.line')
     inv_name = fields.Char('Inventory Name')
     location_id = fields.Many2one('stock.location', "Location")
 
-    reader_info = []
 
     @api.multi
     def _get_stock_inventory_from_csv(self):
@@ -85,48 +70,37 @@ class InventoryImport(models.TransientModel):
 
         return stock_inventory_items
 
-
     @api.multi
-    def validate(self):
-
-        if not self.data:
-            raise exceptions.Warning(_("You need to select a file!"))
-
-        csv_data = base64.b64decode(self.data)
-        csv_data = BytesIO(csv_data.decode('utf-8').encode('utf-8'))
-        csv_iterator = pycompat.csv_reader(csv_data,delimiter=";")
-
-        logging.info("csv_iterator" + str(csv_iterator))
-
-        try:
-            self.reader_info=[]
-            self.reader_info.extend(csv_iterator)
-            csv_data.close()
-            # self.stock_production_lot_ids = self._get_stock_prd_lot_from_csv()
-            self.state = 'validated'
-        except Exception:
-            raise exceptions.Warning(_("Not a valid file!"))
-
-
-
-
-        return {
-            'name': ('Assignment Sub'),
+    def get_action(self,ctx=None):
+        view_id = self.env.ref("inventory_import.stock_inventory_import_form")
+        action = {
+            'name': ('Inventory Import'),
             'view_type': 'form',
             'view_mode': 'form',
+            'view_id': view_id.id,
             'res_model': 'stock.inventory.import',
-            'view_id': False,
-            'context': {'default_data':self.data,
-                        'default_state': self.state,
-                        'default_inv_name': self.inv_name,
-                        'default_location_id': self.location_id.id,
-                        'default_stock_inventory_ids': self._get_stock_inventory_from_csv()},
             'type': 'ir.actions.act_window',
             'target':'new'
         }
+        if ctx :
+            action['context']=ctx
+        return action
 
     @api.multi
-    def import_inventory(self):
+    def validate(self):
+        self.get_data()
+
+        ctx = {'default_data':self.data,
+                'default_state': self.state,
+                'default_inv_name': self.inv_name,
+                'default_location_id': self.location_id.id,
+                'default_stock_inventory_ids': self._get_stock_inventory_from_csv()
+               }
+
+        return self.get_action(ctx)
+
+    @api.multi
+    def do_import(self):
 
         unvalid_items = []
 
@@ -166,6 +140,7 @@ class InventoryImport(models.TransientModel):
         inv_id = self.env['stock.inventory'].create(inv_item)
 
         self.state = 'imported'
+
         return {
             'name': ('Assignment Sub'),
             'view_type': 'form',
