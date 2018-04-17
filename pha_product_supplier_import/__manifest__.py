@@ -12,14 +12,10 @@
 
     'category': 'Website',
     'version': '0.1',
-    'depends': ['product','product_supplierinfo_discount','purchase_discount','pha_product_best_price'],
+    'depends': ['product','product_supplierinfo_discount','purchase_discount','pha_product_best_price','base_csv_importer'],
     'data': [
         'wizard/tarif_import.xml',
         'views/product_views.xml',
-
-
-
-
     ],
 
     'installable': True,
