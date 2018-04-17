@@ -7,15 +7,6 @@ import datetime
 import logging
 from odoo.tools import pycompat
 
-ACTION = {
-    'name': ('Tarifs'),
-    'view_type': 'form',
-    'view_mode': 'form',
-    'res_model': 'tarif.import',
-    'type': 'ir.actions.act_window',
-    'target': 'new'
-}
-
 class TarifLine(models.TransientModel):
     _name = "tarif.line"
 
@@ -39,39 +30,13 @@ class TarifLine(models.TransientModel):
     import_id = fields.Many2one("tarif.import", ondelete="cascade")
 
 class TarifImport(models.TransientModel):
+    _inherit = "bci.importer"
     _name = "tarif.import"
 
-    data = fields.Binary('Fichier',
-                         required=True,
-                         default=lambda self: self._context.get('data'))
-    name = fields.Char('Filename')
     show_valid = fields.Boolean('Ignorer les non valides')
-    encoding = fields.Selection([('iso8859_10','Windows Excel'),
-                                  ('latin_1','Europe France'),
-                                  ('iso8859_15','Europe France - Euro'),
-                                  ('iso8859_6','Arabe'),
-                                  ('utf_8','Unicode - utf-8'),
-                                  ('utf_16','Unicode - utf-16'),
-                                  ],'Encodage Caractères ',default='utf_8')
-    delimeter = fields.Selection([(',', 'Virgule ","'),
-                                  (';', 'Point virgule ";"')]
-                                 ,'Delimeter',
-                            default=',')
+    encoding = fields.Selection(default='iso8859_10')
 
-    lineterminator = fields.Char('Line terminator',
-                                 default='\n',
-                                 help='Default delimeter is "\n"')
-
-    state = fields.Selection(selection=[('draft', 'Brouillon'),
-                                        ('validated', 'Validation'),
-                                        ('imported', 'Importation')],
-                             default=lambda self: self._context.get('state', 'draft')
-                             )
-
-    reader_info = []
     tarif_ids = fields.One2many("tarif.line","import_id",default=lambda self: self._context.get('tarifs_ids'))
-    # tarif_ids = fields.Many2many('tarif.line',
-    #                              default=lambda self: self._context.get('tarifs_ids'))
     supplier_id = fields.Many2one("res.partner", readonly=True, default=lambda self: self._context.get('supplier_id'))
 
     @api.multi
@@ -117,31 +82,33 @@ class TarifImport(models.TransientModel):
         return tarif_items
 
     @api.multi
-    def validate(self):
-        if not self.data:
-            raise exceptions.Warning(_("You need to select a file!"))
-
-        csv_data = base64.b64decode(self.data)
-        csv_data = BytesIO(csv_data.decode(self.encoding).encode('utf-8'))
-        csv_iterator = pycompat.csv_reader(csv_data, quotechar="'", delimiter=self.delimeter)
-
-        try:
-            self.reader_info = []
-            self.reader_info.extend(csv_iterator)
-            csv_data.close()
-            self.state = 'validated'
-        except Exception as e:
-            print("Not a valid file!", e)
-
-        ACTION['context']= {'data': self.data,
-                            'state': self.state,
-                            'supplier_id': self.supplier_id.id,
-                            'tarifs_ids': self._get_tarif_from_csv()
-                        }
-        return ACTION
+    def get_action(self,ctx=None):
+        view_id = self.env.ref("pha_product_supplier_import.tarif_import_form")
+        action ={
+            'name': ('Tarifs'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view_id.id,
+            'res_model': 'tarif.import',
+            'type': 'ir.actions.act_window',
+            'context': ctx,
+            'target': 'new'
+        }
+        return action
 
     @api.multi
-    def import_tarifs(self):
+    def validate(self):
+        self.get_data()
+
+        ctx = {'data': self.data,
+                'state': self.state,
+                'supplier_id': self.supplier_id.id,
+                'tarifs_ids': self._get_tarif_from_csv()
+            }
+        return self.get_action(ctx)
+
+    @api.multi
+    def do_import(self):
         unvalid_items = []
         supplierinfo = self.env['product.supplierinfo']
         for tarif in self.tarif_ids:
@@ -168,8 +135,8 @@ class TarifImport(models.TransientModel):
 
         self.state = 'imported'
 
-        ACTION['context']= {'data': self.data,
-                            'tarif_ids': unvalid_items,
-                            'state': self.state
-                        }
-        return ACTION
+        ctx = {'data': self.data,
+                'tarif_ids': unvalid_items,
+                'state': self.state
+            }
+        return self.get_action(ctx)

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="bci_importer_form" model="ir.ui.view">
+            <field name="name">Base csv importer form</field>
+            <field name="model">bci.importer</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group name="input_file" attrs="{'invisible':[('state', '!=', 'draft')]}">
+                        <group >
+                            <field name="data" string="Fichier csv"/>
+                        </group>
+                        <group span="1" attrs="{'invisible':[('data', '=', False)]}">
+                                <field name="encoding" />
+                                <field name="delimeter" widget="radio" />
+                                <field name="quotechar" widget="radio" />
+                            <!--<field name="lineterminator"/>-->
+                        </group>
+                    </group>
+                    <group name="validated" attrs="{'invisible':[('state', '!=', 'validated')]}">
+                        <!--Put the fields you want to show in state validated here-->
+                    </group>
+                    <group name="imported" attrs="{'invisible':[('state', '!=', 'imported')]}">
+                        <!--Put the fields you want to show in state imported here-->
+                    </group>
+
+                    <footer>
+                        <button name="validate" type="object" string="Validate"
+                                class="oe_button oe_form_button oe_highlight"
+                                attrs="{'invisible':[('state', 'in', ['validated','imported'])]}"/>
+
+                        <button name="do_import" type="object"
+                                string="Import"
+                                attrs="{'invisible':[('state', 'in', ['draft','imported'])]}"
+                                class="oe_button oe_form_button oe_highlight"/>
+                        <button special="cancel" string="Fermer"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="bci_importer_action">
+            <field name="name">Base CSV importer Action</field>
+            <field name="res_model">bci.importer</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="bci_importer_form"/>
+            <field name="view_mode">tree,form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>
