@@ -11,14 +11,21 @@
     <field name="model">res.config.settings</field>
     <field name="inherit_id" ref="account.res_config_settings_view_form" />
     <field name="arch" type="xml">
-        <!--<xpath expr="//field[@name='group_cash_rounding']/.." position="after">-->
-            <field name='group_cash_rounding' position="after">
-            <group   name="intrastat" >
-              <div></div><div></div>
-<h2>Intrastat</h2>
-                <field name="intrastat_remind_user_ids" widget="many2many_tags" />
+
+        <xpath expr="//div[@data-string='Invoicing']" position="inside">
+             <h2>Intrastat</h2>
+            <group name="intrastat">
+                <field name="intrastat_remind_user_ids" widget="many2many_tags"/>
             </group>
-            </field>
+       </xpath>
+
+
+        <!--<field name='group_cash_rounding' position="after">-->
+            <!--<group name="intrastat">-->
+                <!--<h2>Intrastat</h2>-->
+                <!--<field name="intrastat_remind_user_ids" widget="many2many_tags"/>-->
+            <!--</group>-->
+        <!--</field>-->
         <!--</xpath>-->
     </field>
 </record>
