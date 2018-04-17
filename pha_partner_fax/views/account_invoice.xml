@@ -10,7 +10,7 @@
                 <xpath expr="//field[@name='name']" position="replace">
                     <field name="name"/>
                 </xpath>
-                <xpath expr="//field[@name='partner_id']" position="after">
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
                     <field name="category_id" widget="many2many_tags"
                            options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
                 </xpath>
