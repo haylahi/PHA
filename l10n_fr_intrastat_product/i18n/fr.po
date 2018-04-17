@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e-20180122\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-15 21:32+0000\n"
-"PO-Revision-Date: 2018-04-16 12:27+0100\n"
+"PO-Revision-Date: 2018-04-17 17:44+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -191,7 +191,7 @@ msgstr "Une transaction Intrastat existe déjà pour cette société avec le mê
 #. module: l10n_fr_intrastat_product
 #: selection:intrastat.transaction,fr_intrastat_product_type:0
 msgid "Arrivals"
-msgstr "Arrivées"
+msgstr "Introductions"
 
 #. module: l10n_fr_intrastat_product
 #: model:ir.model,name:l10n_fr_intrastat_product.model_res_company
@@ -272,12 +272,12 @@ msgstr "Departement"
 #: code:addons/l10n_fr_intrastat_product/models/intrastat_product.py:322
 #, python-format
 msgid "Department is not set on line %d."
-msgstr "Department is not set on line %d."
+msgstr "Le département n'est pas défini sur la ligne% d."
 
 #. module: l10n_fr_intrastat_product
 #: selection:intrastat.transaction,fr_intrastat_product_type:0
 msgid "Dispatches"
-msgstr "Dispatches"
+msgstr "Expéditions"
 
 #. module: l10n_fr_intrastat_product
 #: model:ir.model.fields,field_description:l10n_fr_intrastat_product.field_l10n_fr_intrastat_product_computation_line_display_name
@@ -319,7 +319,7 @@ msgstr "Si ce partenaire est situé en dehors de l'UE mais que vous livrez des p
 #: code:addons/l10n_fr_intrastat_product/models/company.py:27
 #, python-format
 msgid "In France, Arrival DEB can only be Exempt or Extended."
-msgstr "En France, Arrival DEB ne peut être ni exonéré ni étendu."
+msgstr "En France, DEB introduction ne peut être ni exonéré ni étendu."
 
 #. module: l10n_fr_intrastat_product
 #: model:ir.model.fields,field_description:l10n_fr_intrastat_product.field_l10n_fr_intrastat_product_declaration_computation_line_ids
@@ -380,12 +380,12 @@ msgstr "Numéro de TVA du partenaire requis ?"
 #. module: l10n_fr_intrastat_product
 #: model:ir.model.fields,field_description:l10n_fr_intrastat_product.field_intrastat_unit_fr_xml_label
 msgid "Label for DEB"
-msgstr "Label for DEB"
+msgstr "Label pour DEB"
 
 #. module: l10n_fr_intrastat_product
 #: model:ir.model.fields,help:l10n_fr_intrastat_product.field_intrastat_unit_fr_xml_label
 msgid "Label used in the XML file export of the French Intrastat Product Declaration for this unit of measure."
-msgstr "Label used in the XML file export of the French Intrastat Product Declaration for this unit of measure."
+msgstr "Libellé utilisé dans l'exportation de fichier XML de la déclaration de produit Intrastat pour cette unité de mesure."
 
 #. module: l10n_fr_intrastat_product
 #: model:ir.model.fields,field_description:l10n_fr_intrastat_product.field_l10n_fr_intrastat_product_computation_line___last_update
@@ -511,7 +511,7 @@ msgstr "Seules les données fiscales doivent être fournies pour ce code régime
 #: model:ir.model.fields,help:l10n_fr_intrastat_product.field_l10n_fr_intrastat_product_computation_line_fr_partner_id
 #: model:ir.model.fields,help:l10n_fr_intrastat_product.field_l10n_fr_intrastat_product_declaration_line_fr_partner_id
 msgid "Origin partner for arrivals. Destination partner (or his fiscal representative) for dispatches"
-msgstr "Origin partner for arrivals. Destination partner (or his fiscal representative) for dispatches"
+msgstr "Partenaire d'origine pour les introductions. Partenaire de destination (ou son représentant fiscal) pour les expéditions"
 
 #. module: l10n_fr_intrastat_product
 #: model:ir.model.fields,field_description:l10n_fr_intrastat_product.field_l10n_fr_intrastat_product_computation_line_fr_partner_id
