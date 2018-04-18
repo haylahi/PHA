@@ -7,13 +7,12 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e-20180122\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-16 14:38+0000\n"
-"PO-Revision-Date: 2018-04-16 16:01+0100\n"
+"PO-Revision-Date: 2018-04-17 17:45+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
 "Language: en\n"
 "X-Generator: Poedit 2.0.6\n"
 
@@ -144,7 +143,7 @@ msgstr "Montant dans la devise de l'entreprise à écrire dans la déclaration. 
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_arrivals
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_view_search
 msgid "Arrivals"
-msgstr "Arrivées"
+msgstr "Introductions"
 
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_view_form
@@ -310,24 +309,24 @@ msgstr "Declaration"
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line_declaration_line_id
 msgid "Declaration Line"
-msgstr "Declaration Line"
+msgstr "Ligne de déclaration"
 
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_view_form
 msgid "Declaration Lines"
-msgstr "Declaration Lines"
+msgstr "Lignes de déclaration"
 
 #. module: intrastat_product
 #: code:addons/intrastat_product/models/intrastat_product_declaration.py:30
 #, python-format
 msgid "Declaration for Arrivals"
-msgstr "Déclaration pour les arrivées"
+msgstr "Déclaration pour les introductions"
 
 #. module: intrastat_product
 #: code:addons/intrastat_product/models/intrastat_product_declaration.py:32
 #, python-format
 msgid "Declaration for Dispatches"
-msgstr "Déclaration pour les dépêches"
+msgstr "Déclaration pour les expéditions"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_incoterm_id
@@ -339,37 +338,37 @@ msgstr "Incoterm par défaut pour Intrastat"
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_region_id
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_region_id
 msgid "Default Intrastat Region"
-msgstr "Default Intrastat Region"
+msgstr "Région Intrastat par défaut"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_transaction_out_invoice
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_transaction_out_invoice
 msgid "Default Intrastat Transaction For Customer Invoice"
-msgstr "Default Intrastat Transaction For Customer Invoice"
+msgstr "Transaction Intrastat par défaut pour la facture client"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_transaction_in_invoice
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_transaction_in_invoice
 msgid "Default Intrastat Transaction For Supplier Invoices"
-msgstr "Default Intrastat Transaction For Supplier Invoices"
+msgstr "Transaction Intrastat par défaut pour les factures fournisseurs"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_transaction_in_refund
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_transaction_in_refund
 msgid "Default Intrastat Transaction For Supplier Refunds"
-msgstr "Default Intrastat Transaction For Supplier Refunds"
+msgstr "Transaction Intrastat par défaut pour les remboursements de fournisseurs"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_transaction_out_refund
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_transaction_out_refund
 msgid "Default Intrastat Transaction for Customer Refunds"
-msgstr "Default Intrastat Transaction for Customer Refunds"
+msgstr "Transaction Intrastat par défaut pour les remboursements de clients"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_transport_id
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_transport_id
 msgid "Default Transport Mode"
-msgstr "Default Transport Mode"
+msgstr "Mode de transport par défaut"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_region_description
@@ -392,14 +391,14 @@ msgstr "Région de destination"
 #. module: intrastat_product
 #: model:ir.model.fields,help:intrastat_product.field_account_invoice_src_dest_country_id
 msgid "Destination country for dispatches. Origin country for arrivals."
-msgstr "Pays de destination pour les dépêches. Pays d'origine pour les arrivées."
+msgstr "Pays de destination pour les expéditions. Pays d'origine pour les introductions."
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_dispatches
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_dispatches
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_view_search
 msgid "Dispatches"
-msgstr "Dispatches"
+msgstr "Expéditions"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line_display_name
@@ -489,7 +488,7 @@ msgstr "Regrouper par"
 #. module: intrastat_product
 #: model:ir.model,name:intrastat_product.model_hs_code
 msgid "H.S. Code"
-msgstr "Code S.H."
+msgstr "H.S. Code"
 
 #. module: intrastat_product
 #: model:ir.ui.menu,name:intrastat_product.intrastat_code_menu
@@ -511,7 +510,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:intrastat_product.field_res_company_intrastat_accessory_costs
 #: model:ir.model.fields,field_description:intrastat_product.field_res_config_settings_intrastat_accessory_costs
 msgid "Include Accessory Costs in Fiscal Value of Product"
-msgstr "Include Accessory Costs in Fiscal Value of Product"
+msgstr "Inclure les coûts accessoires dans la valeur fiscale du produit"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line_incoterm_id
@@ -524,12 +523,12 @@ msgstr "Incoterm"
 #. module: intrastat_product
 #: model:intrastat.transport_mode,name:intrastat_product.intrastat_transport_8
 msgid "Inland waterway"
-msgstr "Inland waterway"
+msgstr "Voie navigable intérieure"
 
 #. module: intrastat_product
 #: model:intrastat.transport_mode,description:intrastat_product.intrastat_transport_8
 msgid "Inland waterway transport"
-msgstr "Inland waterway transport"
+msgstr "Transport fluvial"
 
 #. module: intrastat_product
 #: model:ir.model.fields,help:intrastat_product.field_res_company_intrastat_incoterm_id
@@ -544,7 +543,7 @@ msgstr "Les Incoterms sont une série de termes commerciaux prédéfinie utilis�
 #: model:ir.model.fields,field_description:intrastat_product.field_l10n_fr_intrastat_product_computation_line_hs_code_id
 #: model:ir.model.fields,field_description:intrastat_product.field_l10n_fr_intrastat_product_declaration_line_hs_code_id
 msgid "Intrastat Code"
-msgstr "Intrastat Code"
+msgstr "Code Intrastat"
 
 #. module: intrastat_product
 #: code:addons/intrastat_product/models/hs_code.py:26
@@ -574,17 +573,17 @@ msgstr "Déclaration Intrastat"
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_line_view_form
 msgid "Intrastat Declaration Line"
-msgstr "Intrastat Declaration Line"
+msgstr "Ligne de déclaration Intrastat"
 
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_line_view_tree
 msgid "Intrastat Declaration Lines"
-msgstr "Intrastat Declaration Lines"
+msgstr "Lignes de déclaration Intrastat"
 
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_view_graph
 msgid "Intrastat Product"
-msgstr "Intrastat Product"
+msgstr "Produit Intrastat"
 
 #. module: intrastat_product
 #: model:ir.model,name:intrastat_product.model_intrastat_product_computation_line
@@ -594,14 +593,14 @@ msgstr "Intrastat Product Computataion Lines"
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_computation_line_ids
 msgid "Intrastat Product Computation Lines"
-msgstr "Intrastat Product Computation Lines"
+msgstr "Lignes de calcul de produits Intrastat"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line_parent_id
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_line_parent_id
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_view_form
 msgid "Intrastat Product Declaration"
-msgstr "Intrastat Product Declaration"
+msgstr "Déclaration de produit Intrastat"
 
 #. module: intrastat_product
 #: model:ir.model,name:intrastat_product.model_intrastat_product_declaration_line
@@ -842,45 +841,45 @@ msgstr "Origin Region"
 #. module: intrastat_product
 #: model:ir.model.fields,help:intrastat_product.field_account_invoice_src_dest_region_id
 msgid "Origin region for dispatches, destination region for arrivals. This field is used for the Intrastat Declaration."
-msgstr "Origin region for dispatches, destination region for arrivals. This field is used for the Intrastat Declaration."
+msgstr "Région d'origine pour les expéditions, région de destination pour les introductions. Ce champ est utilisé pour la déclaration Intrastat."
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_account_invoice_src_dest_country_id
 msgid "Origin/Destination Country"
-msgstr "Origin/Destination Country"
+msgstr "Origine / Pays de destination"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_account_invoice_src_dest_region_id
 msgid "Origin/Destination Region"
-msgstr "Origin/Destination Region"
+msgstr "Origine / Destination Région"
 
 #. module: intrastat_product
 #: model:intrastat.transport_mode,name:intrastat_product.intrastat_transport_9
 msgid "Own propulsion"
-msgstr "Own propulsion"
+msgstr "Propulsion propre"
 
 #. module: intrastat_product
 #: model:intrastat.transport_mode,description:intrastat_product.intrastat_transport_9
 msgid "Own propulsion (imported or exported means of transport crossing the border under their own power, e.g. aircraft, lorries, boats, etc.)"
-msgstr "Own propulsion (imported or exported means of transport crossing the border under their own power, e.g. aircraft, lorries, boats, etc.)"
+msgstr "Propulsion propre (moyens de transport importés ou exportés traversant la frontière par leurs propres moyens, par exemple avions, camions, bateaux, etc.)"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_year_month
 #: model:ir.model.fields,field_description:intrastat_product.field_l10n_fr_intrastat_product_declaration_year_month
 msgid "Period"
-msgstr "Period"
+msgstr "Période"
 
 #. module: intrastat_product
 #: code:addons/intrastat_product/models/intrastat_product_declaration.py:255
 #, python-format
 msgid "Please adjust this line manually."
-msgstr "Please adjust this line manually."
+msgstr "S'il vous plaît ajuster cette ligne manuellement."
 
 #. module: intrastat_product
 #: code:addons/intrastat_product/models/intrastat_product_declaration.py:267
 #, python-format
 msgid "Please correct the Intrastat Supplementary Unit settings and regenerate the lines or adjust the lines with Intrastat Code '%s' manually"
-msgstr "Veuillez corriger les paramètres de l'unité supplémentaire Intrastat et régénérer les lignes ou ajuster les lignes manuellement avec le code Intrastat '% s'"
+msgstr "Veuillez corriger les paramètres de l'unité supplémentaire intrastat et régénérer les lignes ou ajuster les lignes manuellement avec le code Intrastat '% s'."
 
 #. module: intrastat_product
 #: code:addons/intrastat_product/models/intrastat_product_declaration.py:298
@@ -930,7 +929,7 @@ msgstr "Rail"
 #. module: intrastat_product
 #: model:intrastat.transport_mode,description:intrastat_product.intrastat_transport_2
 msgid "Railway transport (including lorries on railway wagons)"
-msgstr "Railway transport (including lorries on railway wagons)"
+msgstr "Transport ferroviaire (y compris les camions sur les wagons de chemin de fer)"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_unit_uom_id
@@ -941,7 +940,7 @@ msgstr "Regular UoM"
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_line_view_form
 msgid "Related Transactions"
-msgstr "Related Transactions"
+msgstr "Transactions connexes"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line_reporting_level
@@ -951,7 +950,7 @@ msgstr "Related Transactions"
 #: model:ir.model.fields,field_description:intrastat_product.field_l10n_fr_intrastat_product_declaration_line_reporting_level
 #: model:ir.model.fields,field_description:intrastat_product.field_l10n_fr_intrastat_product_declaration_reporting_level
 msgid "Reporting Level"
-msgstr "Reporting Level"
+msgstr "Niveau de reporting"
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_revision
@@ -962,42 +961,42 @@ msgstr "Revision"
 #. module: intrastat_product
 #: model:intrastat.transport_mode,name:intrastat_product.intrastat_transport_3
 msgid "Road"
-msgstr "Road"
+msgstr "Route"
 
 #. module: intrastat_product
 #: model:intrastat.transport_mode,description:intrastat_product.intrastat_transport_3
 msgid "Road Transport"
-msgstr "Road Transport"
+msgstr "Transport routier"
 
 #. module: intrastat_product
 #: model:intrastat.transport_mode,name:intrastat_product.intrastat_transport_1
 msgid "Sea"
-msgstr "Sea"
+msgstr "Mer"
 
 #. module: intrastat_product
 #: model:intrastat.transport_mode,description:intrastat_product.intrastat_transport_1
 msgid "Sea Transport (including wagons, motor vehicles, trailers, semi-trailers and lighters on board of a ship)"
-msgstr "Sea Transport (including wagons, motor vehicles, trailers, semi-trailers and lighters on board of a ship)"
+msgstr "Transport maritime (y compris les wagons, les véhicules à moteur, les remorques, les semi-remorques et les briquets à bord d'un navire)"
 
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_view_search
 msgid "Search Intrastat Product Declarations"
-msgstr "Search Intrastat Product Declarations"
+msgstr "Rechercher les déclarations de produits Intrastat"
 
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_unit_search
 msgid "Search Intrastat Supplementary Units"
-msgstr "Search Intrastat Supplementary Units"
+msgstr "Rechercher des unités supplémentaires Intrastat"
 
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_transaction_mode_search
 msgid "Search Intrastat Transaction Types"
-msgstr "Search Intrastat Transaction Types"
+msgstr "Rechercher les types de transactions Intrastat"
 
 #. module: intrastat_product
 #: model:ir.ui.view,arch_db:intrastat_product.intrastat_transport_mode_search
 msgid "Search Intrastat Transport Modes"
-msgstr "Search Intrastat Transport Modes"
+msgstr "Rechercher les modes de transport Intrastat"
 
 #. module: intrastat_product
 #: model:ir.model.fields,help:intrastat_product.field_intrastat_product_computation_line_type
@@ -1007,12 +1006,12 @@ msgstr "Search Intrastat Transport Modes"
 #: model:ir.model.fields,help:intrastat_product.field_l10n_fr_intrastat_product_declaration_line_type
 #: model:ir.model.fields,help:intrastat_product.field_l10n_fr_intrastat_product_declaration_type
 msgid "Select the declaration type."
-msgstr "Select the declaration type."
+msgstr "Sélectionnez le type de déclaration."
 
 #. module: intrastat_product
 #: model:ir.model.fields,help:intrastat_product.field_intrastat_unit_uom_id
 msgid "Select the regular Unit of Measure of Odoo that corresponds to this Intrastat Supplementary Unit."
-msgstr "Select the regular Unit of Measure of Odoo that corresponds to this Intrastat Supplementary Unit."
+msgstr "Sélectionnez l'unité de mesure habituelle de Odoo qui correspond à cette unité supplémentaire Intrastat."
 
 #. module: intrastat_product
 #: code:addons/intrastat_product/models/intrastat_product_declaration.py:38

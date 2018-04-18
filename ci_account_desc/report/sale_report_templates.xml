@@ -14,8 +14,16 @@
                     <!-- Lines associated -->
                     <t t-foreach="layout_category['lines']" t-as="l">
                         <tr>
-                            <td><span t-field="l.name"/></td>
+                            <t t-if="l.product_id.is_title == True">
+                                <td colspan="7">
+                                    <span t-field="l.product_id.description_title"/>
+                                </td>
+                            </t>
+
                             <t t-if="l.product_id.is_title == False">
+                                <td>
+                                    <span t-field="l.name"/>
+                                </td>
                                 <td class="text-right">
                                     <span t-field="l.product_uom_qty"/>
                                     <span t-field="l.product_uom" groups="product.group_uom"/>
@@ -31,22 +39,25 @@
                                 </td>
                                 <td class="text-right" groups="sale.group_show_price_subtotal">
                                     <span t-field="l.price_subtotal"
-                                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                          t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                 </td>
                                 <td class="text-right" groups="sale.group_show_price_total">
                                     <span t-field="l.price_total"
-                                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                          t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                 </td>
                             </t>
                         </tr>
                     </t>
 
-                    <t t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']" groups="sale.group_sale_layout">
+                    <t t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']"
+                       groups="sale.group_sale_layout">
                         <tr class="text-right">
                             <td colspan="6">
-                                <strong>Subtotal: </strong>
-                                <t t-set="subtotal" t-value="sum(line.price_subtotal for line in layout_category['lines'])"/>
-                                <span t-esc="subtotal" t-options="{'widget': 'monetary', 'display_currency': doc.pricelist_id.currency_id}"/>
+                                <strong>Subtotal:</strong>
+                                <t t-set="subtotal"
+                                   t-value="sum(line.price_subtotal for line in layout_category['lines'])"/>
+                                <span t-esc="subtotal"
+                                      t-options="{'widget': 'monetary', 'display_currency': doc.pricelist_id.currency_id}"/>
                             </td>
                         </tr>
                     </t>

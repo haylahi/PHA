@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="verified_view_res_partner_filter">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter name="inactive" position="before">
+                    <filter string="Non Verifié" name="not_verified" domain="[('is_verified','=',False)]"/>
+                    <filter string="Verifié" name="verified" domain="[('is_verified','=',True)]"/>
+                    <separator/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_partner_form_verified_data" model="ir.ui.view">
+            <field name="name">res.partner.verified.data</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <button name="toggle_active" position="before">
+                    <button name="check_object" type="object"
+                            class="oe_stat_button" icon="fa-check-square">
+                        <field name="is_verified" widget="boolean_button"
+                               options="{'terminology':{'string_true': 'Verifié',
+                                       'hover_true': 'Verifié',
+                                       'string_false': 'Non Verifié',
+                                       'hover_false': 'Non Verifié'}}"/>
+                    </button>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>
