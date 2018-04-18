@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# © 2017-2018 CADR'IN SITU (http://www.cadrinsitu.com/)
+# @author: Tarik ARAB <tarik.arab@gmail.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import time
 from odoo import api, fields, models, _, exceptions
