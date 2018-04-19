@@ -41,10 +41,13 @@ class IntrastatProductDeclaration(models.Model):
     @api.onchange('type')
     def _onchange_type(self):
         if self.type == 'arrivals':
+            self.product_origin_country_id = self.inv_line.invoice_id.partner_id.country
             self.reporting_level = \
                 self.company_id.intrastat_arrivals == 'extended' \
                 and 'extended' or 'standard'
         if self.type == 'dispatches':
+            # self.product_origin_country_id = self.company_id.country
+            # self.product_origin_country_id = self.env.user.company_id.country
             self.reporting_level = \
                 self.company_id.intrastat_dispatches == 'extended' \
                 and 'extended' or 'standard'
@@ -794,9 +797,11 @@ class IntrastatProductComputationLine(models.Model):
     transport_id = fields.Many2one(
         'intrastat.transport_mode',
         string='Transport Mode')
+
     product_origin_country_id = fields.Many2one(
         'res.country', string='Country of Origin of the Product',
         help="Country of origin of the product i.e. product 'made in ____'")
+
 
     @api.multi
     @api.depends('transport_id')
