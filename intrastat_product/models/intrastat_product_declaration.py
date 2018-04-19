@@ -41,7 +41,7 @@ class IntrastatProductDeclaration(models.Model):
     @api.onchange('type')
     def _onchange_type(self):
         if self.type == 'arrivals':
-            self.product_origin_country_id = self.inv_line.invoice_id.partner_id.country
+            # self.product_origin_country_id = self.inv_line.invoice_id.partner_id.country
             self.reporting_level = \
                 self.company_id.intrastat_arrivals == 'extended' \
                 and 'extended' or 'standard'
