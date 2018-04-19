@@ -2,7 +2,7 @@
 <odoo>
 
     <record model="ir.ui.view" id="title_product_search_form_view">
-        <field name="name">repair.product.search.form</field>
+        <field name="name">title.product.search.form</field>
         <field name="model">product.template</field>
         <field name="priority">50</field>
         <field name="arch" type="xml">
@@ -14,7 +14,7 @@
     </record>
 
     <record model="ir.ui.view" id="title_products_tree">
-        <field name="name">Repair products</field>
+        <field name="name">Title products</field>
         <field name="model">product.template</field>
         <field name="priority">50</field>
         <field name="arch" type="xml">
@@ -47,7 +47,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="action_title_products">
-        <field name="name">Repair Products</field>
+        <field name="name">Title Products</field>
         <field name="res_model">product.template</field>
         <field name="domain">[('is_title','=',True), ('type', '=', 'service')]</field>
         <field name="context">{'is_title':True, 'type':'service', 'default_is_title': True, 'default_sale_ok': True,

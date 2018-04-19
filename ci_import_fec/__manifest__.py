@@ -16,6 +16,9 @@
     'version': '0.1',
     'depends': ['account', 'l10n_fr'],
     'data': [
+        'security/ir.model.access.csv',
+        'views/fec_config_views.xml',
+        'data/fec_config_data.xml',
         'wizard/account_import_fec_view.xml',
     ],
     'installable': True,

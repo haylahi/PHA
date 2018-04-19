@@ -15,8 +15,18 @@ import base64
 
 _logger = logging.getLogger(__name__)
 
+ACTION = {
+    'name': _('Import FEC'),
+    'type': 'ir.actions.act_window',
+    'view_type': 'form',
+    'view_mode': 'form',
+    'res_model': 'ci.account.import.fec',
+    'views': [(False, 'form')],
+    'target': 'new',
+}
 
-class CIAccountImportFECPartner(models.Model):
+
+class ImportFECPartner(models.Model):
     _name = "ci.account.import.fec.partner"
 
     name = fields.Char('Name')
@@ -24,7 +34,7 @@ class CIAccountImportFECPartner(models.Model):
     partner_dst = fields.Many2one('res.partner', string=' destination')
 
 
-class CIAccountImportFECCompte(models.Model):
+class ImportFECCompte(models.Model):
     _name = "ci.account.import.fec.compte"
 
     name = fields.Char('Name')
@@ -33,7 +43,7 @@ class CIAccountImportFECCompte(models.Model):
                                  help="Let it empty if you want to import all account moves")
 
 
-class CIAccountImportFECLine(models.Model):
+class ImportFECLine(models.Model):
     _name = "ci.account.import.fec.line"
 
     name = fields.Char('Name')
@@ -41,8 +51,16 @@ class CIAccountImportFECLine(models.Model):
     journal_code_dst = fields.Many2one('account.journal', string='Dest Account Journals',
                                        help="Let it empty if you want to import all account moves")
 
+    state = fields.Selection([
+        ('step1', 'Step1'),
+        ('step2', 'Step2'),
+        ('step3', 'Step3'),
+        ('step4', 'Step4'),
+    ], 'Status', default='step1',
+        copy=False, readonly=True, required=True)
 
-class AccountImportFEC(models.TransientModel):
+
+class ImportFEC(models.TransientModel):
     _name = "ci.account.import.fec"
 
     fec_file = fields.Binary(required=True)
@@ -63,12 +81,21 @@ class AccountImportFEC(models.TransientModel):
                                  ('utf_8', 'Unicode - utf-8'),
                                  ('utf_16', 'Unicode - utf-16'),
                                  ], 'Encodage Caractères ', default='latin_1')
+
+    state = fields.Selection([
+        ('step1', 'Step1'),
+        ('step2', 'Step2'),
+        ('step3', 'Step3'),
+        ('step4', 'Step4'),
+    ], 'Status', default='step1',
+        copy=False, readonly=True, required=True)
+
     reader_info = []
 
     @api.multi
-    def get_file_csv_data(self):
+    def get_file_csv_data(self, file):
         self.ensure_one()
-        csv_data = base64.b64decode(self.fec_file)
+        csv_data = base64.b64decode(file)
         csv_data = BytesIO(csv_data.decode(self.encoding).encode('utf-8'))
         csv_iterator = pycompat.csv_reader(csv_data, quotechar="'", delimiter=self.delimiter)
         file_reader = []
@@ -88,10 +115,10 @@ class AccountImportFEC(models.TransientModel):
 
         return file_reader
 
+    # @api.onchange('fec_file')
+    # @api.depends('line_ids', 'account_ids')
     @api.multi
-    @api.onchange('fec_file')
-    @api.depends('line_ids', 'account_ids')
-    def onchange_fec_file(self):
+    def import_fec_file(self):
         for obj in self:
             import_line_obj = obj.env['ci.account.import.fec.line']
             journal_obj = obj.env['account.journal']
@@ -101,7 +128,7 @@ class AccountImportFEC(models.TransientModel):
             partner_obj = obj.env['res.partner']
 
             if obj.fec_file:
-                file_reader = obj.get_file_csv_data()
+                file_reader = obj.get_file_csv_data(self.fec_file)
                 journal_codes = set(list(map(lambda row: row['JournalCode'], file_reader)))
                 account_codes = set(list(map(lambda row: row['CompteNum'], file_reader)))
                 partner_codes = set(list(map(lambda row: row['CompAuxNum'], file_reader)))
@@ -153,6 +180,12 @@ class AccountImportFEC(models.TransientModel):
                 obj.line_ids = line_ids
                 obj.account_ids = account_ids
                 obj.partner_ids = partner_ids
+                obj.state = 'step1'
+
+    @api.multi
+    def verification_step(self):
+        if self.state == 'step2':
+            self.state = 'step3'
 
     @api.multi
     def import_fec(self):
@@ -178,6 +211,67 @@ class AccountImportFEC(models.TransientModel):
             for index, row in enumerate(data):
                 if row['JournalCode'] not in journal_codes:
                     del data[index]
+        return True
+
+    @api.multi
+    def verify_journal(self, data):
+        self.ensure_one()
+        journal_codes = set(list(map(lambda row: row['JournalCode'], data)))
+        return self._verify_data(journal_code=journal_codes)
+
+    @api.multi
+    def verify_account(self, data):
+        self.ensure_one()
+        account_codes = set(list(map(lambda row: row['CompteNum'], data)))
+        return self._verify_data(account_code=account_codes)
+
+    @api.model
+    def _verify_data(self, journal_code=False, account_code=False):
+        message = ""
+        journal_codes = []
+        account_codes = []
+        if journal_code:
+            logging.info("**************** DEBUT Verification Journaux ****************")
+            for x in journal_code:
+                line_id = self.env['ci.account.import.fec.line'].search([('journal_code_src', '=', x)])
+                if not line_id or not line_id.journal_code_dst.code:
+                    journal_codes.append(line_id.journal_code_src)
+            logging.info("**************** FIN Verification Journaux ****************")
+        if account_code:
+            logging.info("**************** DEBUT Verification Comptes ****************")
+            for y in account_code:
+                account_line_id = self.env['ci.account.import.fec.compte'].search([('compte_src', '=', y)])
+                if not account_line_id or not account_line_id.compte_dst.code:
+                    account_codes.append(account_line_id.compte_src)
+            logging.info("**************** FIN Verification Comptes ****************")
+
+        if journal_codes:
+            message = message + _("Journal lines %s are not mapped with a journal code!") % journal_codes
+        if account_codes:
+            message = message + _("\nAccount lines %s are not mapped with an Account code!") % account_codes
+        if message:
+            raise exceptions.Warning(message)
+
+        return True
+
+    @api.multi
+    def _verif_assert_balanced(self, data):
+        prec = self.env['decimal.precision'].precision_get('Account')
+
+        message = _("Cannot create unbalanced journal entry for following EcritureNum : ")
+        error = False
+
+        for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
+            lines = list(lines)
+            debit = sum(map(lambda row: self._get_amount(row['Debit']), lines))
+            credit = sum(map(lambda row: self._get_amount(row['Credit']), lines))
+
+            if abs(debit - credit) > 10 ** (-max(5, prec)):
+                error = True
+                message = message + "\nName = " + ecritureNum + "; Debit = " + str(debit) + "; Credit : " + str(credit)
+
+        if error:
+            raise exceptions.Warning(message)
         return True
 
     @api.model
@@ -304,51 +398,6 @@ class AccountImportFEC(models.TransientModel):
             values = dict((rec[field], rec['id']) for rec in self.env[model].search_read([], [field]))
             self._fec_cache.setdefault(company_id, {})[model] = values
         return self._fec_cache[company_id][model]
-
-    @api.model
-    def _verify_data(self, journal_code, account_code):
-        message = ""
-        journal_codes = []
-        account_codes = []
-
-        for x in journal_code:
-            line_id = self.env['ci.account.import.fec.line'].search([('journal_code_src', '=', x)])
-            if not line_id or not line_id.journal_code_dst.code:
-                journal_codes.append(line_id.journal_code_src)
-
-        for y in account_code:
-            account_line_id = self.env['ci.account.import.fec.compte'].search([('compte_src', '=', y)])
-            if not account_line_id or not account_line_id.compte_dst.code:
-                account_codes.append(account_line_id.compte_src)
-
-        if journal_codes:
-            message = message + _("Journal lines %s are not mapped with a journal code!") % journal_codes
-        if account_codes:
-            message = message + _("\nAccount lines %s are not mapped with an Account code!") % account_codes
-        if message:
-            raise exceptions.Warning(message)
-
-        return True
-
-    @api.multi
-    def _verif_assert_balanced(self, data):
-        prec = self.env['decimal.precision'].precision_get('Account')
-
-        message = _("Cannot create unbalanced journal entry for following EcritureNum : ")
-        error = False
-
-        for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
-            lines = list(lines)
-            debit = sum(map(lambda row: self._get_amount(row['Debit']), lines))
-            credit = sum(map(lambda row: self._get_amount(row['Credit']), lines))
-
-            if abs(debit - credit) > 10 ** (-max(5, prec)):
-                error = True
-                message = message + "\nName = " + ecritureNum + "; Debit = " + str(debit) + "; Credit : " + str(credit)
-
-        if error:
-            raise exceptions.Warning(message)
-        return True
 
     @api.model
     def _get_journal_from_line(self, code):

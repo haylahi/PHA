@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2017-2018 CADR'IN SITU (http://www.cadrinsitu.com/)
+  @author: Tarik ARAB <tarik.arab@gmail.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo noupdate="0">
+
+    <record id="fec_config_01" model="ci.account.import.fec.config">
+        <field name="start_code">100000</field>
+        <field name="end_code">110000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_equity"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_02" model="ci.account.import.fec.config">
+        <field name="start_code">120000</field>
+        <field name="end_code">128900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_unaffected_earnings"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_03" model="ci.account.import.fec.config">
+        <field name="start_code">129000</field>
+        <field name="end_code">190000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_equity"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_04" model="ci.account.import.fec.config">
+        <field name="start_code">200000</field>
+        <field name="end_code">209000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_05" model="ci.account.import.fec.config">
+        <field name="start_code">210000</field>
+        <field name="end_code">279000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_fixed_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_06" model="ci.account.import.fec.config">
+        <field name="start_code">280000</field>
+        <field name="end_code">289000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_07" model="ci.account.import.fec.config">
+        <field name="start_code">290000</field>
+        <field name="end_code">299000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_08" model="ci.account.import.fec.config">
+        <field name="start_code">300000</field>
+        <field name="end_code">399000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_09" model="ci.account.import.fec.config">
+        <field name="start_code">400000</field>
+        <field name="end_code">408900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_payable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_10" model="ci.account.import.fec.config">
+        <field name="start_code">409000</field>
+        <field name="end_code">409900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+
+    <record id="fec_config_11" model="ci.account.import.fec.config">
+        <field name="start_code">410000</field>
+        <field name="end_code">418900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_12" model="ci.account.import.fec.config">
+        <field name="start_code">419000</field>
+        <field name="end_code">419900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_13" model="ci.account.import.fec.config">
+        <field name="start_code">420000</field>
+        <field name="end_code">421900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_payable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_14" model="ci.account.import.fec.config">
+        <field name="start_code">422000</field>
+        <field name="end_code">424900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_15" model="ci.account.import.fec.config">
+        <field name="start_code">425000</field>
+        <field name="end_code">425900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_16" model="ci.account.import.fec.config">
+        <field name="start_code">426000</field>
+        <field name="end_code">428600</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_17" model="ci.account.import.fec.config">
+        <field name="start_code">428700</field>
+        <field name="end_code">429900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_18" model="ci.account.import.fec.config">
+        <field name="start_code">430000</field>
+        <field name="end_code">438600</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_19" model="ci.account.import.fec.config">
+        <field name="start_code">438700</field>
+        <field name="end_code">441900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_20" model="ci.account.import.fec.config">
+        <field name="start_code">442000</field>
+        <field name="end_code">442500</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_21" model="ci.account.import.fec.config">
+        <field name="start_code">443000</field>
+        <field name="end_code">443700</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_22" model="ci.account.import.fec.config">
+        <field name="start_code">443800</field>
+        <field name="end_code">443900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_23" model="ci.account.import.fec.config">
+        <field name="start_code">444000</field>
+        <field name="end_code">445500</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_24" model="ci.account.import.fec.config">
+        <field name="start_code">445600</field>
+        <field name="end_code">445690</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_25" model="ci.account.import.fec.config">
+        <field name="start_code">445700</field>
+        <field name="end_code">445800</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_26" model="ci.account.import.fec.config">
+        <field name="start_code">445810</field>
+        <field name="end_code">445839</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_27" model="ci.account.import.fec.config">
+        <field name="start_code">445840</field>
+        <field name="end_code">445859</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_28" model="ci.account.import.fec.config">
+        <field name="start_code">445860</field>
+        <field name="end_code">445869</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_29" model="ci.account.import.fec.config">
+        <field name="start_code">445870</field>
+        <field name="end_code">449000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_30" model="ci.account.import.fec.config">
+        <field name="start_code">450000</field>
+        <field name="end_code">454000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+
+
+    <record id="fec_config_31" model="ci.account.import.fec.config">
+        <field name="start_code">455000</field>
+        <field name="end_code">455900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_payable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_32" model="ci.account.import.fec.config">
+        <field name="start_code">456000</field>
+        <field name="end_code">456900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_33" model="ci.account.import.fec.config">
+        <field name="start_code">457000</field>
+        <field name="end_code">458000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_34" model="ci.account.import.fec.config">
+        <field name="start_code">458100</field>
+        <field name="end_code">463900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_35" model="ci.account.import.fec.config">
+        <field name="start_code">464000</field>
+        <field name="end_code">464900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_36" model="ci.account.import.fec.config">
+        <field name="start_code">465000</field>
+        <field name="end_code">466900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_37" model="ci.account.import.fec.config">
+        <field name="start_code">467000</field>
+        <field name="end_code">468600</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_38" model="ci.account.import.fec.config">
+        <field name="start_code">468700</field>
+        <field name="end_code">476000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_39" model="ci.account.import.fec.config">
+        <field name="start_code">477000</field>
+        <field name="end_code">480000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_40" model="ci.account.import.fec.config">
+        <field name="start_code">481000</field>
+        <field name="end_code">486000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+
+
+    <record id="fec_config_41" model="ci.account.import.fec.config">
+        <field name="start_code">487000</field>
+        <field name="end_code">488600</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_42" model="ci.account.import.fec.config">
+        <field name="start_code">488700</field>
+        <field name="end_code">490000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_43" model="ci.account.import.fec.config">
+        <field name="start_code">491000</field>
+        <field name="end_code">496100</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_44" model="ci.account.import.fec.config">
+        <field name="start_code">496200</field>
+        <field name="end_code">499000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="fec_config_45" model="ci.account.import.fec.config">
+        <field name="start_code">500000</field>
+        <field name="end_code">507000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_46" model="ci.account.import.fec.config">
+        <field name="start_code">507100</field>
+        <field name="end_code">508000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_47" model="ci.account.import.fec.config">
+        <field name="start_code">508100</field>
+        <field name="end_code">508200</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_48" model="ci.account.import.fec.config">
+        <field name="start_code">508300</field>
+        <field name="end_code">508700</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_49" model="ci.account.import.fec.config">
+        <field name="start_code">508800</field>
+        <field name="end_code">511600</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_50" model="ci.account.import.fec.config">
+        <field name="start_code">511700</field>
+        <field name="end_code">515900</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+
+
+    <record id="fec_config_51" model="ci.account.import.fec.config">
+        <field name="start_code">516000</field>
+        <field name="end_code">518500</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_52" model="ci.account.import.fec.config">
+        <field name="start_code">518600</field>
+        <field name="end_code">518700</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_53" model="ci.account.import.fec.config">
+        <field name="start_code">518800</field>
+        <field name="end_code">529000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_54" model="ci.account.import.fec.config">
+        <field name="start_code">530000</field>
+        <field name="end_code">539000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_55" model="ci.account.import.fec.config">
+        <field name="start_code">540000</field>
+        <field name="end_code">590000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_56" model="ci.account.import.fec.config">
+        <field name="start_code">600000</field>
+        <field name="end_code">690000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <record id="fec_config_57" model="ci.account.import.fec.config">
+        <field name="start_code">700000</field>
+        <field name="end_code">799000</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="user_type_id" ref="account.data_account_type_revenue"/>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+</odoo>
