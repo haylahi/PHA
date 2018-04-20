@@ -63,8 +63,7 @@
         <field name="name">Import Configuration</field>
         <field name="res_model">ci.account.import.fec.config</field>
         <field name="domain">[]</field>
-        <field name="context">{}
-        </field>
+        <field name="context">{}</field>
         <field name="search_view_id" ref="import_fec_search_form_view"/>
     </record>
 
@@ -84,8 +83,5 @@
 
     <menuitem name="Import FEC" id="menu_import_fec_parent"
               parent="account.account_account_menu" sequence="10"/>
-
-    <menuitem name="Configuration" id="menu_import_fec_conf"
-              parent="menu_import_fec_parent" sequence="1" action="action_import_fec"/>
 
 </odoo>
