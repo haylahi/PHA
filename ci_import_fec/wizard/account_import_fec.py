@@ -303,6 +303,7 @@ class ImportFEC(models.TransientModel):
             logging.info("**************** FIN Configuration comptes tiers ****************")
             return partner_ids
 
+    @api.multi
     def config_compte_tiers(self, code_src, code, type, partner):
         account_obj = self.env['account.account']
         account_tiers_id = account_obj.search([('code', '=', code)])
