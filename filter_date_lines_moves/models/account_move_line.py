@@ -8,9 +8,8 @@ _logger = logging.getLogger(__name__)
 
 from datetime import datetime
 
-from odoo.tools import pycompat
 
-class account_move_line(models.AbstractModel):
+class account_move_line(models.Model):
     _inherit = "account.move.line"
     
     #date_month = fields.Char(string='Date Month',compute='_get_date_month',readonly=True)
@@ -30,6 +29,8 @@ class account_move_line(models.AbstractModel):
     
     #date_year= fields.Selection([(a,str(a)) for a in range(datetime.now().year-10,datetime.now().year+1)],string='Année', compute='_get_date_year', readonly=True, store=True)
     date_year = fields.Integer(string='Année', compute='_get_date_year', readonly=True, store=True)
+    
+    
     @api.one
     @api.depends('date')
     def _get_date_month(self):
@@ -51,3 +52,5 @@ class account_move_line(models.AbstractModel):
         _logger.info("\n\n mois : "+ str(year)) 
 
         self.date_year = year
+        
+    
