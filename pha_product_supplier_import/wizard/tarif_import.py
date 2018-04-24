@@ -3,9 +3,10 @@ from odoo import api, fields, models, _, tools
 from odoo.exceptions import UserError, ValidationError
 import base64, csv
 from io import BytesIO, StringIO
-import datetime
+from datetime import datetime
 import logging
 from odoo.tools import pycompat
+from odoo.tools.profiler import profile
 
 class TarifLine(models.TransientModel):
     _name = "tarif.line"
@@ -47,6 +48,7 @@ class TarifImport(models.TransientModel):
         else :
             raise UserError(_("No currency found with code %s" %code))
 
+    @profile
     @api.multi
     def _get_tarif_from_csv(self):
         tarif_items = []
@@ -63,13 +65,14 @@ class TarifImport(models.TransientModel):
                 tarif_item['min_qty'] = csv_line[3]
                 tarif_item['max_qty'] = csv_line[4]
 
-                tarif_item['price'] = float(csv_line[5].replace(",","."))
+                tarif_item['price'] = float(csv_line[5].replace(",", "."))
                 tarif_item['discount'] = float(csv_line[6].replace(",", "."))
                 tarif_item['currency_id'] = self._get_currency(csv_line[7])
 
-                tarif_item['date_start'] = datetime.datetime.strptime(csv_line[8],'%d/%m/%Y').date()
-                tarif_item['date_end'] = datetime.datetime.strptime(csv_line[9],'%d/%m/%Y').date()
+                tarif_item['date_start'] = datetime.strptime(csv_line[8], '%d/%m/%Y').date()
+                tarif_item['date_end'] = datetime.strptime(csv_line[9], '%d/%m/%Y').date()
                 if product_tmpl_id:
+
                     tarif_item['state'] = 'valid'
                     tarif_item['product_tmpl_id'] = product_tmpl_id[0].id
                     tarif_items.append((0, 0, tarif_item))

@@ -12,6 +12,12 @@
                         <label for="is_title"/>
                     </div>
                 </xpath>
+
+                <notebook position="inside">
+                    <page string="Title description" attrs="{'invisible': [('is_title', '=', False)]}">
+                        <field name="description_title" nolabel="1"/>
+                    </page>
+                </notebook>
             </field>
         </record>
     </data>

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# © 2017-2018 CADR'IN SITU (http://www.cadrinsitu.com/)
+# @author: Tarik ARAB <tarik.arab@gmail.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import time
 from odoo import api, fields, models, _, exceptions
@@ -13,37 +15,81 @@ import base64
 
 _logger = logging.getLogger(__name__)
 
+ACTION = {
+    'name': _('Import FEC'),
+    'type': 'ir.actions.act_window',
+    'view_type': 'form',
+    'view_mode': 'form',
+    'res_model': 'ci.account.import.fec',
+    'views': [(False, 'form')],
+    'target': 'new',
+}
 
-class CIAccountImportFECPartner(models.Model):
+
+class ImportFECPartner(models.Model):
     _name = "ci.account.import.fec.partner"
 
     name = fields.Char('Name')
     partner_src = fields.Char('Partner Code Source')
     partner_dst = fields.Many2one('res.partner', string=' destination')
+    compte_dst = fields.Many2one('account.account', string='Dest Account')
+
+    type = fields.Selection([
+        ('C', 'Client'),
+        ('F', 'Fournisseur'),
+    ], 'Type')
+
+    state = fields.Selection([
+        ('valid_general', 'Valide - [General]'),
+        ('valid_tiers', 'Valide - [Tiers]'),
+        ('no_partner', 'Partenaire non existant'),
+    ], 'Status',
+        copy=False, readonly=True)
 
 
-class CIAccountImportFECCompte(models.Model):
+class ImportFECCompte(models.Model):
     _name = "ci.account.import.fec.compte"
 
     name = fields.Char('Name')
     compte_src = fields.Char('Account Code Source')
-    compte_dst = fields.Many2one('account.account', string='Dest Account Journals',
-                                 help="Let it empty if you want to import all account moves")
+    compte_dst = fields.Many2one('account.account', string='Dest Account Journals')
+
+    type = fields.Selection([
+        ('general', 'Général'),
+        ('tiers', 'Tiers'),
+    ], 'Type', default='general',
+        copy=False, )
+
+    state = fields.Selection([
+        ('not_valid', 'Non valide'),
+        ('valid', 'Valide'),
+    ], 'Status',
+        copy=False, )
 
 
-class CIAccountImportFECLine(models.Model):
+class ImportFECLine(models.Model):
     _name = "ci.account.import.fec.line"
 
     name = fields.Char('Name')
     journal_code_src = fields.Char('Journal Code Source')
+    journal_name_src = fields.Char('Journal Name Source')
     journal_code_dst = fields.Many2one('account.journal', string='Dest Account Journals',
-                                       help="Let it empty if you want to import all account moves")
+                                       help="Le journal qui sera associé à l'écriture comptable dans Odoo")
+
+    state = fields.Selection([
+        ('not_valid', 'Non valide'),
+        ('valid', 'Valide'),
+    ], 'Status',
+        copy=False, readonly=True, required=True)
 
 
-class AccountImportFEC(models.TransientModel):
+class ImportFEC(models.TransientModel):
     _name = "ci.account.import.fec"
 
     fec_file = fields.Binary(required=True)
+
+    matrix_tiers_file = fields.Binary('Matrice des tiers')
+
     account_journal_ids = fields.Many2many('account.journal', string='Account Journals',
                                            help="Let it empty if you want to import all account moves")
     import_reconciliation = fields.Boolean(default=False)
@@ -61,12 +107,24 @@ class AccountImportFEC(models.TransientModel):
                                  ('utf_8', 'Unicode - utf-8'),
                                  ('utf_16', 'Unicode - utf-16'),
                                  ], 'Encodage Caractères ', default='latin_1')
+    nbr_char = fields.Integer('Codification', default=10)
+
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('validate_journal', 'Validation Journaux'),
+        ('validate_account', 'Validation Comptes'),
+        ('validate_partners', 'Validation Partenaires'),
+        ('configure_partners', 'Configuration Partenaires'),
+        ('imported', 'Importé'),
+    ], 'Status', default='draft',
+        copy=False, readonly=True, required=True)
+
     reader_info = []
 
     @api.multi
-    def get_file_csv_data(self):
+    def get_file_csv_data(self, file):
         self.ensure_one()
-        csv_data = base64.b64decode(self.fec_file)
+        csv_data = base64.b64decode(file)
         csv_data = BytesIO(csv_data.decode(self.encoding).encode('utf-8'))
         csv_iterator = pycompat.csv_reader(csv_data, quotechar="'", delimiter=self.delimiter)
         file_reader = []
@@ -87,95 +145,312 @@ class AccountImportFEC(models.TransientModel):
         return file_reader
 
     @api.multi
-    @api.onchange('fec_file')
-    @api.depends('line_ids', 'account_ids')
-    def onchange_fec_file(self):
-        for obj in self:
-            import_line_obj = obj.env['ci.account.import.fec.line']
-            journal_obj = obj.env['account.journal']
-            import_compte_obj = obj.env['ci.account.import.fec.compte']
-            account_obj = obj.env['account.account']
-            import_partner_obj = obj.env['ci.account.import.fec.partner']
-            partner_obj = obj.env['res.partner']
-
-            if obj.fec_file:
-                file_reader = obj.get_file_csv_data()
-                journal_codes = set(list(map(lambda row: row['JournalCode'], file_reader)))
-                account_codes = set(list(map(lambda row: row['CompteNum'], file_reader)))
-                partner_codes = set(list(map(lambda row: row['CompAuxNum'], file_reader)))
-                line_ids = []
-                for y in journal_codes:
-                    line_id = import_line_obj.search([('journal_code_src', '=', y)])
-                    odoo_journal_id = journal_obj.search([('code', '=', y)])
-                    if line_id:
-                        if odoo_journal_id and odoo_journal_id.code != line_id.journal_code_dst:
-                            line_id.write({'journal_code_dst': odoo_journal_id.code})
-                        line_ids.append(line_id.id)
-                    else:
-                        if odoo_journal_id:
-                            line_ids.append(import_journal_obj.create(
-                                {'name': x, 'journal_code_src': x, 'journal_code_dst': odoo_journal_id.id}).id)
-                        else:
-                            line_ids.append(import_line_obj.create({'name': y, 'journal_code_src': y}).id)
-
-                account_ids = []
-                for x in account_codes:
-                    account_id = import_compte_obj.search([('compte_src', '=', x)])
-                    odoo_account_id = account_obj.search([('code', '=', x)])
-                    if account_id:
-                        if odoo_account_id and odoo_account_id.code != account_id.compte_dst:
-                            line_id.write({'compte_dst': odoo_account_id.code})
-                        account_ids.append(account_id.id)
-                    else:
-                        if odoo_account_id:
-                            account_ids.append(import_compte_obj.create(
-                                {'name': x, 'compte_src': x, 'compte_dst': odoo_account_id.id}).id)
-                        else:
-                            account_ids.append(import_compte_obj.create({'name': x, 'compte_src': x}).id)
-
-                partner_ids = []
-                for z in partner_codes:
-                    if z:
-                        partner_id = import_partner_obj.search([('partner_src', '=', z)])
-                        odoo_partner_id = partner_obj.search([('ref', '=', z)])
-                        if partner_id:
-                            if odoo_partner_id and odoo_partner_id.ref != partner_id.partner_dst:
-                                line_id.write({'partner_dst': odoo_partner_id.ref})
-                            partner_ids.append(partner_id.id)
-                        else:
-                            if odoo_partner_id:
-                                partner_ids.append(import_partner_obj.create(
-                                    {'name': z, 'partner_src': z, 'partner_dst': odoo_partner_id.id}).id)
-                            else:
-                                partner_ids.append(import_partner_obj.create({'name': z, 'partner_src': z}).id)
-                obj.line_ids = line_ids
-                obj.account_ids = account_ids
-                obj.partner_ids = partner_ids
+    def verification_step(self):
+        self.ensure_one()
+        file_reader = self.get_file_csv_data(self.fec_file)
+        if self.state == 'validate_journal':
+            self.verify_journal(file_reader)
+            self.state = 'validate_account'
+        elif self.state == 'validate_account':
+            self.verify_account(file_reader)
+            self.state = 'validate_partners'
+        ACTION['res_id'] = self.id
+        return ACTION
 
     @api.multi
-    def import_fec(self):
+    def preview_step(self):
+        self.ensure_one()
+        if self.state == 'validate_journal':
+            self.state = 'draft'
+        elif self.state == 'validate_account':
+            self.state = 'validate_journal'
+        elif self.state == 'validate_partners':
+            self.state = 'validate_account'
+        elif self.state == 'configure_partners':
+            self.state = 'validate_partners'
+        ACTION['res_id'] = self.id
+        return ACTION
+
+    @api.multi
+    def load_file_step(self):
         self.ensure_one()
         if not self.fec_file:
             raise exceptions.Warning(_("You need to select a FEC file!"))
-        file_reader = self.get_file_csv_data()
+        if self.state == 'draft':
+            self._load_fec_file()
+            self.state = 'validate_journal'
+        ACTION['res_id'] = self.id
+        return ACTION
 
-        self._filter_data(file_reader)
-        return self._import_data(file_reader)
+    @api.multi
+    def config_partners_step(self):
+        self.state = 'configure_partners'
+        ACTION['res_id'] = self.id
+        return ACTION
+
+    @api.multi
+    def import_fec_step(self):
+        self.ensure_one()
+        if self.fec_file:
+            file_reader = self.get_file_csv_data(self.fec_file)
+            self._filter_data(file_reader)
+            logging.info('--------------------------------- %s', file_reader)
+            return self._import_data(file_reader)
+
+    @api.multi
+    def _load_fec_file(self):
+        for obj in self:
+            logging.info("**************** DEBUT Chargement Fichier ****************")
+            if obj.fec_file:
+                file_reader = obj.get_file_csv_data(self.fec_file)
+                obj.line_ids = obj.get_journal_lines(file_reader)
+                obj.account_ids = obj.get_account_lines(file_reader)
+                obj.partner_ids = obj.get_partner_lines(file_reader)
+            logging.info("**************** FIN Chargement Fichier ****************")
+        return True
+
+    @api.multi
+    def get_journal_lines(self, data):
+        for obj in self:
+            import_line_obj = obj.env['ci.account.import.fec.line']
+            journal_obj = obj.env['account.journal']
+            journal_codes = set(list(map(lambda row: row['JournalCode'], data)))
+            line_ids = []
+            for y in journal_codes:
+                line_id = import_line_obj.search([('journal_code_src', '=', y)])
+                odoo_journal_id = journal_obj.search([('code', '=', y)])
+                if line_id:
+                    if line_id.journal_code_dst and line_id.state != 'valid':
+                        line_id.write({'state': 'valid'})
+                    if odoo_journal_id:
+                        line_id.write({'journal_code_dst': odoo_journal_id.code, 'state': 'valid'})
+                    line_ids.append(line_id.id)
+                else:
+                    if odoo_journal_id:
+                        line_ids.append(import_journal_obj.create(
+                            {'name': y, 'journal_code_src': y, 'journal_code_dst': odoo_journal_id.id, 'state': 'valid',
+                             'type': 'general'}).id)
+                    else:
+                        line_ids.append(import_line_obj.create(
+                            {'name': y, 'journal_code_src': y, 'state': 'not_valid', 'type': 'general'}).id)
+            return line_ids
+
+    @api.multi
+    def get_account_lines(self, data):
+        for obj in self:
+            import_compte_obj = obj.env['ci.account.import.fec.compte']
+            account_obj = obj.env['account.account']
+            account_codes = set(list(map(lambda row: row['CompteNum'], data)))
+            account_ids = []
+
+            for x in account_codes:
+                account_id = import_compte_obj.search([('compte_src', '=', x)])
+                odoo_account_id = account_obj.search([('code', '=', x)])
+                if account_id:
+                    if account_id.compte_dst and account_id.state != 'valid':
+                        account_id.write({'state': 'valid'})
+                    if odoo_account_id:
+                        account_id.write({'compte_dst': odoo_account_id.id, 'state': 'valid'})
+                    account_ids.append(account_id.id)
+                else:
+                    if odoo_account_id:
+                        account_ids.append(import_compte_obj.create(
+                            {'name': x, 'compte_src': x, 'compte_dst': odoo_account_id.id, 'state': 'valid'}).id)
+                    else:
+                        account_ids.append(
+                            import_compte_obj.create({'name': x, 'compte_src': x, 'state': 'not_valid'}).id)
+            return account_ids
+
+    @api.multi
+    def get_partner_lines(self, data, matrix_data=False):
+        for obj in self:
+            import_partner_obj = obj.env['ci.account.import.fec.partner']
+            partner_obj = obj.env['res.partner']
+            partner_codes = set(list(map(lambda row: row['CompAuxNum'], data)))
+            partner_ids = []
+            logging.info("**************** DEBUT Configuration comptes tiers ****************")
+            for z in partner_codes:
+                if z:
+                    if matrix_data:
+                        matrix_mapped_line = self.get_value_from_data(matrix_data, 'RefSourceComptable', z)
+                    partner_id = import_partner_obj.search([('partner_src', '=', z)])
+                    ref = z
+                    type = ""
+                    if matrix_data and matrix_mapped_line:
+                        ref = matrix_mapped_line['CodeRespartner']
+                        code_partner = matrix_mapped_line['NouveauCompte']
+                        type = matrix_mapped_line['Type']
+
+                    odoo_partner_id = partner_obj.search([('ref', '=', ref)])
+                    if odoo_partner_id and matrix_data:
+                        obj.config_compte_tiers(z, code_partner, type, odoo_partner_id)
+
+                    if partner_id:
+                        # if odoo_partner_id and odoo_partner_id.ref != partner_id.partner_dst.ref:
+                        if odoo_partner_id:
+                            partner_id.write({'partner_dst': odoo_partner_id.ref, 'type': type,
+                                              'compte_dst': odoo_partner_id.property_account_receivable_id.id})
+                        partner_ids.append(partner_id.id)
+                    else:
+                        if odoo_partner_id:
+                            partner_ids.append(import_partner_obj.create({'name': z, 'partner_src': z,
+                                                                          'partner_dst': odoo_partner_id.id,
+                                                                          'type': type,
+                                                                          'compte_dst': odoo_partner_id.property_account_receivable_id.id}).id)
+                        else:
+                            partner_ids.append(
+                                import_partner_obj.create({'name': z, 'partner_src': z, 'type': type}).id)
+            logging.info("**************** FIN Configuration comptes tiers ****************")
+            return partner_ids
+
+    @api.multi
+    def config_compte_tiers(self, code_src, code, type, partner):
+        account_obj = self.env['account.account']
+        account_tiers_id = account_obj.search([('code', '=', code)])
+
+        if not account_tiers_id:
+            config_id = self.get_config_from_code(code)
+            values = {'name': code_src, 'code': code,
+                      'reconcile': config_id.reconcile}
+            if config_id:
+                values['user_type_id'] = config_id.user_type_id.id
+            account_id = account_obj.create(values)
+
+            if type == 'C':
+                logging.info("------------------- Creation compte tiers Client: %s", account_id.name)
+                partner.write({'property_account_receivable_id': account_id.id})
+            elif type == 'F':
+                logging.info("------------------- Creation compte tiers Fournisseur: %s", account_id.name)
+                partner.write({'property_account_payable_id': account_id.id})
+        else:
+            if type == 'C':
+                if account_tiers_id.id is not partner.property_account_receivable_id.id:
+                    partner.write({'property_account_receivable_id': account_tiers_id.id})
+                    logging.info("------------------- MAJ compte tiers Client: %s - %s",
+                                 partner.property_account_receivable_id.name, account_tiers_id.name)
+            elif type == 'F':
+                if account_tiers_id.id is not partner.property_account_payable_id.id:
+                    partner.write({'property_account_payable_id': account_tiers_id.id})
+                    logging.info("------------------- MAJ compte tiers Fournisseur: %s",
+                                 partner.property_account_payable_id.name)
+        # return True
+
+    @api.multi
+    def load_matrix_file(self):
+        self.ensure_one()
+        file_reader = self.get_file_csv_data(self.fec_file)
+        matrix_file_reader = self.get_file_csv_data(self.matrix_tiers_file)
+        self.partner_ids = self.get_partner_lines(file_reader, matrix_file_reader)
+        self.state = 'validate_partners'
+        ACTION['res_id'] = self.id
+        return ACTION
+
+    def get_value_from_data(self, data, key, value):
+        for line in data:
+            if line[key] == value:
+                return line
+        return False
+
+    def get_config_from_code(self, value):
+        config_ids = self.env['ci.account.import.fec.config'].search([])
+        value = self._get_encoded_sc(value)
+        for config in config_ids:
+            start_code = self._get_encoded_sc(config.start_code)
+            end_code = self._get_encoded_ec(config.end_code)
+            if start_code <= value and end_code >= value:
+                return config
+        return False
+
+    def _get_encoded_sc(self, code, limit=10):
+        if len(str(code)) < limit:
+            # len_code = 10 - len(str(code))
+            # chaine = ""
+            # for x in xrange(len_code):
+            chaine = chaine + "0" * len_code
+            return int(str(code) + chaine)
+
+    def _get_encoded_ec(self, code, limit=10):
+        if len(str(code)) < limit:
+            len_code = 10 - len(str(code))
+            # chaine = ""
+            # for x in xrange(len_code):
+            chaine = chaine + "9" * len_code
+            return int(str(code) + chaine)
 
     @api.multi
     def _filter_data(self, data):
         self.ensure_one()
         journal_codes = set(list(map(lambda row: row['JournalCode'], data)))
-        account_codes = set(list(map(lambda row: row['CompteNum'], data)))
-
-        logging.info("**************** Debut Verification ****************")
-        self._verify_data(journal_codes, account_codes)
+        logging.info("**************** Debut Verification Avant Import ****************")
+        self.verify_journal(data)
+        self.verify_account(data)
         self._verif_assert_balanced(data)
-        logging.info("**************** Fin Verification ****************")
+        logging.info("**************** Fin Verification Avant Import ****************")
         if journal_codes:
             for index, row in enumerate(data):
                 if row['JournalCode'] not in journal_codes:
                     del data[index]
+        return True
+
+    @api.multi
+    def verify_journal(self, data):
+        self.ensure_one()
+        journal_codes = set(list(map(lambda row: row['JournalCode'], data)))
+        return self._verify_data(journal_code=journal_codes)
+
+    @api.multi
+    def verify_account(self, data):
+        self.ensure_one()
+        account_codes = set(list(map(lambda row: row['CompteNum'], data)))
+        return self._verify_data(account_code=account_codes)
+
+    @api.model
+    def _verify_data(self, journal_code=False, account_code=False):
+        message = ""
+        journal_codes = []
+        account_codes = []
+        if journal_code:
+            logging.info("**************** DEBUT Verification Journaux ****************")
+            for x in journal_code:
+                line_id = self.env['ci.account.import.fec.line'].search([('journal_code_src', '=', x)])
+                if not line_id or not line_id.journal_code_dst.code:
+                    journal_codes.append(line_id.journal_code_src)
+            logging.info("**************** FIN Verification Journaux ****************")
+        if account_code:
+            logging.info("**************** DEBUT Verification Comptes ****************")
+            for y in account_code:
+                account_line_id = self.env['ci.account.import.fec.compte'].search([('compte_src', '=', y)])
+                if not account_line_id or not account_line_id.compte_dst.code:
+                    account_codes.append(account_line_id.compte_src)
+            logging.info("**************** FIN Verification Comptes ****************")
+
+        if journal_codes:
+            message = message + _("Journal lines %s are not mapped with a journal code!") % journal_codes
+        if account_codes:
+            message = message + _("\nAccount lines %s are not mapped with an Account code!") % account_codes
+        if message:
+            raise exceptions.Warning(message)
+
+        return True
+
+    @api.multi
+    def _verif_assert_balanced(self, data):
+        prec = self.env['decimal.precision'].precision_get('Account')
+
+        message = _("Cannot create unbalanced journal entry for following EcritureNum : ")
+        error = False
+
+        for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
+            lines = list(lines)
+            debit = sum(map(lambda row: self._get_amount(row['Debit']), lines))
+            credit = sum(map(lambda row: self._get_amount(row['Credit']), lines))
+
+            if abs(debit - credit) > 10 ** (-max(5, prec)):
+                error = True
+                message = message + "\nName = " + ecritureNum + "; Debit = " + str(debit) + "; Credit : " + str(credit)
+
+        if error:
+            raise exceptions.Warning(message)
         return True
 
     @api.model
@@ -186,7 +461,8 @@ class AccountImportFEC(models.TransientModel):
         logging.info("**************** Debut Import ****************")
         for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
             lines = list(lines)
-            move = move_obj.create(self.get_move_account(lines))
+            vals = self.get_move_account(lines)
+            move = move_obj.create(vals)
             logging.info("---------- Import : %s Success", move)
             moves.append(move)
         logging.info("**************** Fin import ****************")
@@ -251,7 +527,7 @@ class AccountImportFEC(models.TransientModel):
                 move_line_vals['fec_reconcile_mapping'] = line['EcritureLet']
                 move_line_vals['is_reconcile_mapping'] = True
             if line['CompteNum']:
-                account_id = self._get_account_from_line(line['CompteNum'])
+                account_id = self._get_account_from_line(line['CompteNum'], line['CompAuxNum'])
                 move_line_vals['account_id'] = self._get_record_id(account_id, 'account.account')
             if line['CompAuxNum']:
                 partner_id = self._get_partner_from_line(line['CompAuxNum'])
@@ -276,7 +552,6 @@ class AccountImportFEC(models.TransientModel):
     @api.multi
     def get_move_account(self, lines):
         list = []
-
         # for line in lines:
         line = lines[0]
         move_vals = {}
@@ -292,7 +567,6 @@ class AccountImportFEC(models.TransientModel):
 
         move_vals['line_ids'] = self.get_move_lines_account(lines)
         list.append((0, 0, move_vals))
-
         return move_vals
 
     @api.model
@@ -304,51 +578,6 @@ class AccountImportFEC(models.TransientModel):
         return self._fec_cache[company_id][model]
 
     @api.model
-    def _verify_data(self, journal_code, account_code):
-        message = ""
-        journal_codes = []
-        account_codes = []
-
-        for x in journal_code:
-            line_id = self.env['ci.account.import.fec.line'].search([('journal_code_src', '=', x)])
-            if not line_id or not line_id.journal_code_dst.code:
-                journal_codes.append(line_id.journal_code_src)
-
-        for y in account_code:
-            account_line_id = self.env['ci.account.import.fec.compte'].search([('compte_src', '=', y)])
-            if not account_line_id or not account_line_id.compte_dst.code:
-                account_codes.append(account_line_id.compte_src)
-
-        if journal_codes:
-            message = message + _("Journal lines %s are not mapped with a journal code!") % journal_codes
-        if account_codes:
-            message = message + _("\nAccount lines %s are not mapped with an Account code!") % account_codes
-        if message:
-            raise exceptions.Warning(message)
-
-        return True
-
-    @api.multi
-    def _verif_assert_balanced(self, data):
-        prec = self.env['decimal.precision'].precision_get('Account')
-
-        message = _("Cannot create unbalanced journal entry for following EcritureNum : ")
-        error = False
-
-        for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
-            lines = list(lines)
-            debit = sum(map(lambda row: self._get_amount(row['Debit']), lines))
-            credit = sum(map(lambda row: self._get_amount(row['Credit']), lines))
-
-            if abs(debit - credit) > 10 ** (-max(5, prec)):
-                error = True
-                message = message + "\nName = " + ecritureNum + "; Debit = " + str(debit) + "; Credit : " + str(credit)
-
-        if error:
-            raise exceptions.Warning(message)
-        return True
-
-    @api.model
     def _get_journal_from_line(self, code):
         line_id = self.env['ci.account.import.fec.line'].search([('journal_code_src', '=', code)])
         if line_id and line_id.journal_code_dst.code:
@@ -356,10 +585,19 @@ class AccountImportFEC(models.TransientModel):
         raise exceptions.Warning(_("The line %s is not mapped with a journal code!") % code)
 
     @api.model
-    def _get_account_from_line(self, code):
+    def _get_account_from_line(self, code, partner=False):
         line_id = self.env['ci.account.import.fec.compte'].search([('compte_src', '=', code)])
-        if line_id and line_id.compte_dst.code:
-            return line_id.compte_dst.code
+        if line_id:
+            if partner:
+                partner_id = self.env['ci.account.import.fec.partner'].search([('partner_src', '=', partner)])
+                if partner_id.partner_dst:
+                    if partner_id.type == 'C':
+                        return partner_id.partner_dst.property_account_receivable_id.code
+                    elif partner_id.type == 'F':
+                        return partner_id.partner_dst.property_account_payable_id.code
+
+            if line_id.compte_dst.code:
+                return line_id.compte_dst.code
         raise exceptions.Warning(_("The line %s is not mapped with an Account code!") % code)
 
     @api.model
@@ -373,7 +611,8 @@ class AccountImportFEC(models.TransientModel):
     def _get_record_id(self, code, model, field='code'):
         records = self._get_cache(model, field)
         if code not in records:
-            raise exceptions.Warning(_("The %s %%s doesn't exist" % self.env[model]._description) % code)
+            # raise exceptions.Warning(_("The %s %%s doesn't exist" % self.env[model]._description) % code)
+            return False
         return records[code]
 
     @api.model

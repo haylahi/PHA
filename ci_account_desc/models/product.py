@@ -11,4 +11,5 @@ from odoo import api, fields, models, tools, _
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    is_title = fields.Boolean("Is title", default=False)
+    is_title = fields.Boolean("Title", default=False)
+    description_title = fields.Text(string="Tiltle Description")

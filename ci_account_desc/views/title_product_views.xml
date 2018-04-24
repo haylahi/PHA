@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="title_product_search_form_view">
+        <field name="name">title.product.search.form</field>
+        <field name="model">product.template</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <search string="Title Products">
+                <field name="name" string="Title Product"/>
+                <field name="description_title" string="Title Description"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="title_products_tree">
+        <field name="name">Title products</field>
+        <field name="model">product.template</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <tree string="Title products">
+                <field name="name"/>
+                <field name="description_title"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="title_products_form">
+        <field name="name">Title Products</field>
+        <field name="model">product.template</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <form string="Title products">
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <notebook>
+                        <page string="Product Description" name="description_title_page">
+                            <field name="description_title"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_title_products">
+        <field name="name">Title Products</field>
+        <field name="res_model">product.template</field>
+        <field name="domain">[('is_title','=',True), ('type', '=', 'service')]</field>
+        <field name="context">{'is_title':True, 'type':'service', 'default_is_title': True, 'default_sale_ok': True,
+            'default_purchase_ok': True, 'default_type': 'service'}
+        </field>
+        <field name="search_view_id" ref="title_product_search_form_view"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_title_product_view_tree">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="title_products_tree"/>
+        <field name="act_window_id" ref="action_title_products"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_title_product_view_form">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="title_products_form"/>
+        <field name="act_window_id" ref="action_title_products"/>
+    </record>
+
+    <menuitem name="Titre Quotation/Invoice" id="menu_title_product_parent"
+              groups="stock.group_stock_user"
+              parent="sale.menu_sale_config" sequence="2"/>
+
+    <menuitem name="Titles configuration" id="menu_title_product_conf"
+              groups="stock.group_stock_user"
+              parent="menu_title_product_parent" sequence="1" action="action_title_products"/>
+
+</odoo>
