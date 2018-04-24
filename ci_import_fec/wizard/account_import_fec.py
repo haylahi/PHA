@@ -364,7 +364,7 @@ class ImportFEC(models.TransientModel):
     def _get_encoded_sc(self, code, limit=10):
         if len(str(code)) < limit:
             # len_code = 10 - len(str(code))
-            # chaine = ""
+            chaine = ""
             # for x in xrange(len_code):
             chaine = chaine + "0" * len_code
             return int(str(code) + chaine)
@@ -372,7 +372,7 @@ class ImportFEC(models.TransientModel):
     def _get_encoded_ec(self, code, limit=10):
         if len(str(code)) < limit:
             len_code = 10 - len(str(code))
-            # chaine = ""
+            chaine = ""
             # for x in xrange(len_code):
             chaine = chaine + "9" * len_code
             return int(str(code) + chaine)
