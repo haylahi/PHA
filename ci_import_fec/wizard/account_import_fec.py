@@ -223,7 +223,7 @@ class ImportFEC(models.TransientModel):
                     if line_id.journal_code_dst and line_id.state != 'valid':
                         line_id.write({'state': 'valid'})
                     if odoo_journal_id:
-                        line_id.write({'journal_code_dst': odoo_journal_id.code, 'state': 'valid'})
+                        line_id.write({'journal_code_dst': odoo_journal_id.id, 'state': 'valid'})
                     line_ids.append(line_id.id)
                 else:
                     if odoo_journal_id:
