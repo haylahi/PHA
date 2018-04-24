@@ -227,7 +227,7 @@ class ImportFEC(models.TransientModel):
                     line_ids.append(line_id.id)
                 else:
                     if odoo_journal_id:
-                        line_ids.append(import_journal_obj.create(
+                        line_ids.append(import_line_obj.create(
                             {'name': y, 'journal_code_src': y, 'journal_code_dst': odoo_journal_id.id, 'state': 'valid',
                              'type': 'general'}).id)
                     else:
