@@ -223,11 +223,11 @@ class ImportFEC(models.TransientModel):
                     if line_id.journal_code_dst and line_id.state != 'valid':
                         line_id.write({'state': 'valid'})
                     if odoo_journal_id:
-                        line_id.write({'journal_code_dst': odoo_journal_id.code, 'state': 'valid'})
+                        line_id.write({'journal_code_dst': odoo_journal_id.id, 'state': 'valid'})
                     line_ids.append(line_id.id)
                 else:
                     if odoo_journal_id:
-                        line_ids.append(import_journal_obj.create(
+                        line_ids.append(import_line_obj.create(
                             {'name': y, 'journal_code_src': y, 'journal_code_dst': odoo_journal_id.id, 'state': 'valid',
                              'type': 'general'}).id)
                     else:
@@ -363,8 +363,8 @@ class ImportFEC(models.TransientModel):
 
     def _get_encoded_sc(self, code, limit=10):
         if len(str(code)) < limit:
-            # len_code = 10 - len(str(code))
-            # chaine = ""
+            len_code = 10 - len(str(code))
+            chaine = ""
             # for x in xrange(len_code):
             chaine = chaine + "0" * len_code
             return int(str(code) + chaine)
@@ -372,7 +372,7 @@ class ImportFEC(models.TransientModel):
     def _get_encoded_ec(self, code, limit=10):
         if len(str(code)) < limit:
             len_code = 10 - len(str(code))
-            # chaine = ""
+            chaine = ""
             # for x in xrange(len_code):
             chaine = chaine + "9" * len_code
             return int(str(code) + chaine)
