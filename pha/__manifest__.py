@@ -18,5 +18,5 @@
         # 'reports/invoice.xml',
     ],
 
-    'installable': False,
+    'installable': True,
 }

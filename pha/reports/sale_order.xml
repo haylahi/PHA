@@ -46,11 +46,11 @@
             <div class="row mt32 mb32" id="informations">
                 <div t-if="doc.confirmation_date and doc.state not in ['draft','sent']" class="col-xs-3">
                     <strong>Date:</strong>
-                    <p t-esc="datetime.datetime.strftime(doc.confirmation_date, '%Y-%m-%d').date()"/>
+                    <p t-field="doc.confirmation_date" t-options='{"widget": "date"}'/>
                 </div>
                 <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-xs-3">
                     <strong>Date:</strong>
-                    <p t-esc="datetime.datetime.strptime(doc.date_order, '%Y-%m-%d %H:%M:%S').date()"/>
+                    <p t-field="doc.date_order" t-options='{"widget": "date"}'/>
                 </div>
                 <div t-if="doc.partner_id" class="col-xs-3">
                     <strong>Customer:</strong>
@@ -95,14 +95,15 @@
 
                             <!-- Lines associated -->
                             <t t-foreach="layout_category['lines']" t-as="l">
-                                <t t-if="l_index == doc.max_line(l_index,10)">
+                                <t t-set="max"><t t-esc="doc.max_line(l_index,10)"/> </t>
+                                <t t-if="l_index == max">
 
                                     <tr><td><div style="page-break-after: always;"/></td></tr>
 
                                 </t>
                                 <tr>
                                     <td><span t-field="l.product_id.default_code"/></td>
-                                    <td><span t-field="l.name"/><t t-esc="doc.max_line(l_index,10)"/></td>
+                                    <td><span t-field="l.name"/><t t-esc="max"/></td>
                                     <td class="text-right">
                                         <span t-field="l.product_uom_qty"/>
                                     </td>
