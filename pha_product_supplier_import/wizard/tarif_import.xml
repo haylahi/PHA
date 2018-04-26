@@ -5,26 +5,15 @@
         <record id="tarif_import_form" model="ir.ui.view">
             <field name="name">tarif Form</field>
             <field name="model">tarif.import</field>
+            <field name="inherit_id" ref="base_csv_importer.bci_importer_form"/>
             <field name="arch" type="xml">
-                <form>
-                    <header>
-                        <field name="state" widget="statusbar"/>
+                <group name="input_file" position="inside">
+                    <group >
                         <field name="supplier_id" invisible="1"/>
-                    </header>
-                    <group attrs="{'invisible':[('state', '!=', 'draft')]}">
-                        <group span="2">
-                            <field name="data" string="Fichier csv"/>
-                        </group>
-                        <group>
-                            <field name="show_valid"/>
-                        </group>
-                        <group span="1" attrs="{'invisible':[('data', '=', False)]}">
-                            <field name="encoding" string="Encodage Caractères"/>
-                            <field name="delimeter" widget="radio" string="Separateur"/>
-                        </group>
-                        <!--<field name="lineterminator"/>-->
+                        <field name="show_valid"/>
                     </group>
-
+                </group>
+                <group name="input_file" position="after">
                     <field name="tarif_ids" attrs="{'invisible':[('state', 'in', ['draft',])]}">
                         <tree create="false">
                             <field name="product_tmpl_id"/>
@@ -37,19 +26,8 @@
                             <field name="state"/>
                         </tree>
                     </field>
+                </group>
 
-                    <footer>
-                        <button name="validate" type="object" string="Validate"
-                                class="oe_button oe_form_button oe_highlight"
-                                attrs="{'invisible':[('state', 'in', ['validated','imported'])]}"/>
-                        <button name="import_tarifs" type="object"
-                                string="Import"
-                                attrs="{'invisible':[('state', 'in', ['draft','imported'])]}"
-                                class="oe_button oe_form_button oe_highlight"/>
-                        <button special="cancel" string="Fermer"/>
-                    </footer>
-
-                </form>
             </field>
         </record>
 
@@ -60,12 +38,7 @@
             <field name="view_id" ref="tarif_import_form"/>
             <field name="view_mode">tree,form</field>
             <field name="target">new</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Import
-                </p>
-            </field>
         </record>
-
 
     </data>
 </odoo>

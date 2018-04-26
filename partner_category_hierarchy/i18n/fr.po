@@ -1,0 +1,114 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_category_hierarchy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180122\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-17 14:48+0000\n"
+"PO-Revision-Date: 2018-04-17 16:29+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: partner_category_hierarchy
+#: model:ir.actions.act_window,name:partner_category_hierarchy.action_partner_category
+#: model:ir.ui.menu,name:partner_category_hierarchy.menu_partner_category
+msgid "Categories"
+msgstr "Categories"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_id_6390
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_users_hcategory_id
+#: model:ir.ui.view,arch_db:partner_category_hierarchy.view_partner_form
+#: model:ir.ui.view,arch_db:partner_category_hierarchy.view_res_partner_filter
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_child_ids
+msgid "Child Categories"
+msgstr "Catégories enfants"
+
+#. module: partner_category_hierarchy
+#: model:ir.model,name:partner_category_hierarchy.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_id
+msgid "ID"
+msgstr "ID"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_parent_id
+msgid "Parent Category"
+msgstr "Catégorie mère"
+
+#. module: partner_category_hierarchy
+#: model:ir.ui.view,arch_db:partner_category_hierarchy.view_partner_form
+msgid "Partner category settings are managed on"
+msgstr "Les paramètres de catégorie de partenaire sont gérés sur"
+
+#. module: partner_category_hierarchy
+#: model:ir.ui.menu,name:partner_category_hierarchy.menu_action_res_partners
+#: model:ir.ui.menu,name:partner_category_hierarchy.menu_partners
+msgid "Partners"
+msgstr "Les partenaires"
+
+#. module: partner_category_hierarchy
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_partner_ids
+#: model:ir.ui.view,arch_db:partner_category_hierarchy.view_partner_hcategory_form
+msgid "Related Partners"
+msgstr "Partenaires associés"
+
+#. module: partner_category_hierarchy
+#: model:ir.model,name:partner_category_hierarchy.model_res_partner_hcategory
+msgid "res.partner.hcategory"
+msgstr "res.partner.hcategory"
+
+#. module: partner_category_hierarchy
+#: model:ir.ui.view,arch_db:partner_category_hierarchy.view_partner_form
+msgid "the parent company"
+msgstr "la société parente"

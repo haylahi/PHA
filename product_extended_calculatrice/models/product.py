@@ -33,27 +33,27 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    prix_achat_ht = fields.Float('Prix achat HT', digits_compute=dp.get_precision('Product Price'))
-    frais_transport = fields.Float('Frais transport HT', digits_compute=dp.get_precision('Product Price'))
-    prix_achat_ttc_hide = fields.Float('Cout revient  TTC', digits_compute=dp.get_precision('Product Price'),
+    prix_achat_ht = fields.Float('Prix achat HT', digits=dp.get_precision('Product Price'))
+    frais_transport = fields.Float('Frais transport HT', digits=dp.get_precision('Product Price'))
+    prix_achat_ttc_hide = fields.Float('Cout revient  TTC', digits=dp.get_precision('Product Price'),
                                        store=True)
     prix_achat_ttc = fields.Float(related='prix_achat_ttc_hide', string="Cout revient  TTC",
                                   help="(PA HT + frais transport) + TVA")
-    taux_tva = fields.Float('Taux tva', digits_compute=dp.get_precision('Product Price'))
-    cout_manutention = fields.Float('Manutention Price', digits_compute=dp.get_precision('Manutention Price'))
-    prix_vente_ht = fields.Float('Prix vente HT', digits_compute=dp.get_precision('Product Price'))
-    prix_vente_ttc = fields.Float('Prix vente TTC', digits_compute=dp.get_precision('Product Price'))
-    taux_marge = fields.Float('Taux de marge', digits_compute=dp.get_precision('Product Price'),
+    taux_tva = fields.Float('Taux tva', digits=dp.get_precision('Product Price'))
+    cout_manutention = fields.Float('Manutention Price', digits=dp.get_precision('Manutention Price'))
+    prix_vente_ht = fields.Float('Prix vente HT', digits=dp.get_precision('Product Price'))
+    prix_vente_ttc = fields.Float('Prix vente TTC', digits=dp.get_precision('Product Price'))
+    taux_marge = fields.Float('Taux de marge', digits=dp.get_precision('Product Price'),
                               help="Taux de marge = (( PV HT - PA HT)) / PA HT ) * 100")
 
-    montant_marge_hide = fields.Float('Marge brute', digits_compute=dp.get_precision('Product Price'), )
-    montant_audit = fields.Float('Cout Audit', digits_compute=dp.get_precision('Audit Price'), )
+    montant_marge_hide = fields.Float('Marge brute', digits=dp.get_precision('Product Price'), )
+    montant_audit = fields.Float('Cout Audit', digits=dp.get_precision('Audit Price'), )
     montant_marge = fields.Float(related='montant_marge_hide', string="Marge brute sur PV",
                                  help="Marge brute = PV HT - PA HT")
-    coef_multi_hide = fields.Float(string='Coef. multiplicateur', digits_compute=dp.get_precision('Product Price'))
+    coef_multi_hide = fields.Float(string='Coef. multiplicateur', digits=dp.get_precision('Product Price'))
     coef_multi = fields.Float(related='coef_multi_hide', string="Coefficient multiplicateur",
                               help="PV TTC / COUT REVIENT HT")
-    taux_marque_hide = fields.Float('Taux de marque', digits_compute=dp.get_precision('Product Price'))
+    taux_marque_hide = fields.Float('Taux de marque', digits=dp.get_precision('Product Price'))
     taux_marque = fields.Float(related="taux_marque_hide", string="Taux de marque",
                                help="Taux de marque = (( PV HT - PA HT)) / PV HT ) * 100")
     type_tva2 = fields.Selection((('n', 'TVA Classique'), ('c', 'TVA sur marge')), 'Type de TVA', default='n')

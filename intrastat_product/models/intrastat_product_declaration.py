@@ -41,10 +41,13 @@ class IntrastatProductDeclaration(models.Model):
     @api.onchange('type')
     def _onchange_type(self):
         if self.type == 'arrivals':
+            # self.product_origin_country_id = self.inv_line.invoice_id.partner_id.country
             self.reporting_level = \
                 self.company_id.intrastat_arrivals == 'extended' \
                 and 'extended' or 'standard'
         if self.type == 'dispatches':
+            # self.product_origin_country_id = self.company_id.country
+            # self.product_origin_country_id = self.env.user.company_id.country
             self.reporting_level = \
                 self.company_id.intrastat_dispatches == 'extended' \
                 and 'extended' or 'standard'
@@ -455,6 +458,23 @@ class IntrastatProductDeclaration(models.Model):
         """ placeholder for localization modules """
         pass
 
+    def _gather_origin_country (self, inv_line):
+         if self.type == 'arrivals':
+             inv_line.product_origin_country_id = self._get_partner_country(inv_line)
+         if self.type == 'dispatches':
+             inv_line.product_origin_country_id = self.env.user.company_id.country_id
+
+         return inv_line.product_origin_country_id
+
+    # def _get_partner_country(self, inv_line):
+    #     country = inv_line.invoice_id.src_dest_country_id \
+    #               or inv_line.invoice_id.partner_id.country_id
+    #     if not country.intrastat:
+    #         country = False
+    #     elif country == self.company_id.country_id:
+    #         country = False
+    #     return country
+
     def _gather_invoices(self):
 
         lines = []
@@ -490,7 +510,6 @@ class IntrastatProductDeclaration(models.Model):
                         'of invoice %s. Reason: qty = 0'
                         % (inv_line.name, inv_line.quantity, invoice.number))
                     continue
-
                 partner_country = self._get_partner_country(inv_line)
                 if not partner_country:
                     _logger.info(
@@ -539,7 +558,7 @@ class IntrastatProductDeclaration(models.Model):
                 amount_company_currency = self._get_amount(inv_line)
                 total_inv_product_cc += amount_company_currency
 
-                product_origin_country = self._get_product_origin_country(
+                product_origin_country = self._gather_origin_country(
                     inv_line)
 
                 region = self._get_region(inv_line)
@@ -666,7 +685,7 @@ class IntrastatProductDeclaration(models.Model):
 
     def group_line_hashcode(self, computation_line):
         hc_fields = self._group_line_hashcode_fields(computation_line)
-        hashcode = '-'.join([unicode(f) for f in hc_fields.itervalues()])
+        hashcode = '-'.join([str(f) for f in hc_fields.values()])
         return hashcode
 
     @api.multi
@@ -794,9 +813,11 @@ class IntrastatProductComputationLine(models.Model):
     transport_id = fields.Many2one(
         'intrastat.transport_mode',
         string='Transport Mode')
+
     product_origin_country_id = fields.Many2one(
         'res.country', string='Country of Origin of the Product',
         help="Country of origin of the product i.e. product 'made in ____'")
+
 
     @api.multi
     @api.depends('transport_id')

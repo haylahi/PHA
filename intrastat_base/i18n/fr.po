@@ -1,0 +1,226 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* intrastat_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180122\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-13 13:28+0000\n"
+"PO-Revision-Date: 2018-04-17 17:57+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: intrastat_base
+#: model:ir.model.fields,help:intrastat_base.field_product_product_is_accessory_cost
+#: model:ir.model.fields,help:intrastat_base.field_product_template_is_accessory_cost
+msgid "Activate this option for shipping costs, packaging costs and all services related to the sale of products. This option is used for Intrastat reports."
+msgstr "Activez cette option pour les coûts d'expédition, les coûts d'emballage et tous les services liés à la vente de produits. Cette option est utilisée pour les rapports intrastat ."
+
+#. module: intrastat_base
+#: code:addons/intrastat_base/models/intrastat_common.py:159
+#, python-format
+msgid "Cannot delete the declaration %s because it is in Done state"
+msgstr "Impossible de supprimer la déclaration% s car elle est à l'état Terminé"
+
+#. module: intrastat_base
+#: model:ir.model,name:intrastat_base.model_intrastat_common
+msgid "Common functions for intrastat reports for products "
+msgstr "Fonctions communes pour les rapports intrastat pour les produits. "
+
+#. module: intrastat_base
+#: model:ir.model,name:intrastat_base.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: intrastat_base
+#: code:addons/intrastat_base/models/intrastat_common.py:34
+#, python-format
+msgid "Company not yet set on intrastat reports."
+msgstr "Société pas encore définie sur les rapports intrastat."
+
+#. module: intrastat_base
+#: model:ir.model,name:intrastat_base.model_res_country
+msgid "Country"
+msgstr "Pays"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_result_view_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_result_view_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_common_display_name
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_result_view_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_res_country_intrastat
+#: model:ir.ui.view,arch_db:intrastat_base.res_country_view_search
+msgid "EU Country"
+msgstr "Pays de l'UE"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_account_tax_exclude_from_intrastat_if_present
+msgid "Exclude invoice line from intrastat if this tax is present"
+msgstr "Exclure la ligne de facture d'intrastat si cette taxe est présente"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_common_id
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_result_view_id
+msgid "ID"
+msgstr "ID"
+
+#. module: intrastat_base
+#: model:ir.model.fields,help:intrastat_base.field_account_tax_exclude_from_intrastat_if_present
+msgid "If this tax is present on an invoice line, this invoice line will be skipped when generating Intrastat Product or Service lines from invoices."
+msgstr "Si cette taxe est présente sur une ligne de facture, cette ligne de facture sera ignorée lors de la génération de lignes de produits ou de services Intrastat à partir de factures."
+
+#. module: intrastat_base
+#: model:ir.ui.menu,name:intrastat_base.menu_intrastat_base_root
+#: model:ir.ui.menu,name:intrastat_base.menu_intrastat_config_root
+#: model:ir.ui.view,arch_db:intrastat_base.view_account_config_settings
+msgid "Intrastat"
+msgstr "Intrastat"
+
+#. module: intrastat_base
+#: model:ir.ui.view,arch_db:intrastat_base.product_template_form_view
+msgid "Intrastat Properties"
+msgstr "Propriétés Intrastat"
+
+#. module: intrastat_base
+#: model:ir.ui.view,arch_db:intrastat_base.intrastat_result_view_form
+msgid "Intrastat Result View"
+msgstr "Intrastat Affichage des résultats"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_product_product_is_accessory_cost
+#: model:ir.model.fields,field_description:intrastat_base.field_product_template_is_accessory_cost
+msgid "Is accessory cost"
+msgstr "Le coût accessoire"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_common___last_update
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_result_view___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_result_view_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_result_view_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: intrastat_base
+#: model:ir.model.fields,help:intrastat_base.field_res_company_intrastat_remind_user_ids
+#: model:ir.model.fields,help:intrastat_base.field_res_config_settings_intrastat_remind_user_ids
+msgid "List of Odoo users who will receive a notification to remind them about the Intrastat declaration."
+msgstr "Liste des utilisateurs Odoo qui recevront une notification pour leur rappeler la déclaration Intrastat."
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_res_company_intrastat_email_list
+msgid "List of emails of Users Receiving the Intrastat Reminder"
+msgstr "Liste des emails des utilisateurs recevant le rappel Intrastat"
+
+#. module: intrastat_base
+#: code:addons/intrastat_base/models/res_company.py:39
+#, python-format
+msgid "Missing e-mail address on user '%s'."
+msgstr "Adresse de messagerie manquante sur l'utilisateur '% s'."
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_intrastat_result_view_note
+msgid "Notes"
+msgstr "Notes"
+
+#. module: intrastat_base
+#: model:ir.ui.view,arch_db:intrastat_base.intrastat_result_view_form
+msgid "Ok"
+msgstr "Ok"
+
+#. module: intrastat_base
+#: model:ir.model,name:intrastat_base.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: intrastat_base
+#: model:ir.ui.view,arch_db:intrastat_base.res_country_view_search
+msgid "Search Countries"
+msgstr "Rechercher des pays"
+
+#. module: intrastat_base
+#: model:ir.model.fields,help:intrastat_base.field_res_country_intrastat
+msgid "Set to True for all European Union countries."
+msgstr "Définir sur Vrai pour tous les pays de l'Union européenne."
+
+#. module: intrastat_base
+#: model:product.product,name:intrastat_base.shipping_costs_exclude
+#: model:product.template,name:intrastat_base.shipping_costs_exclude_product_template
+msgid "Shipping costs"
+msgstr "Les frais de livraison"
+
+#. module: intrastat_base
+#: model:ir.model,name:intrastat_base.model_account_tax
+msgid "Tax"
+msgstr "Taxe"
+
+#. module: intrastat_base
+#: code:addons/intrastat_base/models/intrastat_common.py:52
+#, python-format
+msgid "The VAT number is not set for the partner '%s'."
+msgstr "Le numéro de TVA n'est pas défini pour le partenaire '% s'."
+
+#. module: intrastat_base
+#: code:addons/intrastat_base/models/intrastat_common.py:42
+#, python-format
+msgid "The company currency must be 'EUR', but is currently '%s'."
+msgstr "La devise de l'entreprise doit être 'EUR', mais est actuellement '% s'."
+
+#. module: intrastat_base
+#: code:addons/intrastat_base/models/intrastat_common.py:38
+#, python-format
+msgid "The country is not set on the company '%s'."
+msgstr "Le pays n'est pas défini sur la société '% s'."
+
+#. module: intrastat_base
+#: code:addons/intrastat_base/models/intrastat_common.py:79
+#, python-format
+msgid "The generated XML file is not valid against the official XML Schema Definition. The generated XML file and the full error have been written in the server logs. Here is the error, which may give you an idea on the cause of the problem : %s."
+msgstr "Le fichier XML généré n'est pas valide par rapport à la définition de schéma XML officielle. Le fichier XML généré et l'erreur complète ont été écrits dans les journaux du serveur. Voici l'erreur, qui peut vous donner une idée de la cause du problème:% s."
+
+#. module: intrastat_base
+#: code:addons/intrastat_base/models/product_template.py:24
+#, python-format
+msgid "The option 'Is accessory cost?' should only be activated on 'Service' products. You have activated this option for the product '%s' which is of type '%s'"
+msgstr "L'option 'Coût accessoire' doit uniquement être activé sur les produits 'Service'. Vous avez activé cette option pour le produit '% s' qui est de type '% s'"
+
+#. module: intrastat_base
+#: model:ir.model.fields,field_description:intrastat_base.field_res_company_intrastat_remind_user_ids
+#: model:ir.model.fields,field_description:intrastat_base.field_res_config_settings_intrastat_remind_user_ids
+msgid "Users Receiving the Intrastat Reminder"
+msgstr "Les Utilisateurs recevant le rappel Intrastat"
+
+#. module: intrastat_base
+#: model:ir.model,name:intrastat_base.model_intrastat_result_view
+msgid "intrastat.result.view"
+msgstr "intrastat.result.view"
+
+#. module: intrastat_base
+#: model:ir.model,name:intrastat_base.model_res_config_settings
+msgid "res.config.settings"
+msgstr "res.config.settings"

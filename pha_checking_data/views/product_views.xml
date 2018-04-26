@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2017-2018 CADR'IN SITU (http://www.cadrinsitu.com/)
+  @author: Tarik ARAB <tarik.arab@gmail.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="verified_product_search_form_view">
+            <field name="name">verified.product.search.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <filter name="inactive" position="before">
+                    <filter string="Non Verifié" name="not_verified" domain="[('is_verified','=',False)]"/>
+                    <filter string="Verifié" name="verified" domain="[('is_verified','=',True)]"/>
+                    <separator/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="product_template_only_form_verified_data" model="ir.ui.view">
+            <field name="name">product.template.product.form.verified_data</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='website_publish_button']" position="before">
+                    <button name="check_object" type="object"
+                            class="oe_stat_button" icon="fa-check-square">
+                        <field name="is_verified" widget="boolean_button"
+                               options="{'terminology':{'string_true': 'Verifié',
+                                       'hover_true': 'Verifié',
+                                       'string_false': 'Non Verifié',
+                                       'hover_false': 'Non Verifié'}}"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

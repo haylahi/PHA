@@ -1,0 +1,338 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_3rd_party_generat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180328\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-12 16:06+0000\n"
+"PO-Revision-Date: 2018-04-12 16:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_3rd_party_generat
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_account_generator_type_form
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_account_generator_type_tree
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_res_company_account_generator_form_form
+msgid "Account generator"
+msgstr "Générateur de compte"
+
+#. module: account_3rd_party_generat
+#: model:ir.model,name:account_3rd_party_generat.model_account_generator_type
+msgid "Account generator customize per type"
+msgstr "Générateur de compte paramétrable par type"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_company_account_generator_type_ids
+msgid "Account generator type"
+msgstr "Account generator type"
+
+#. module: account_3rd_party_generat
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_wizard_third_part_account_form
+msgid "Account number"
+msgstr "Numéro de compte"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_payable_id
+msgid "Account payable"
+msgstr "Account payable"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_receivable_id
+msgid "Account receivable"
+msgstr "Account receivable"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_account_reference_id
+msgid "Account reference"
+msgstr "Account reference"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_account_template_id
+msgid "Account template"
+msgstr "Account template"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_account_template_id
+msgid "Account use to create the new one"
+msgstr "Compte utilisé comme modèle"
+
+#. module: account_3rd_party_generat
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_wizard_third_part_account_form
+msgid "Accounts Generate"
+msgstr "Génération des comptes de tiers"
+
+#. module: account_3rd_party_generat
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_wizard_third_part_account_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_code_pre
+msgid "Code Prefix"
+msgstr "Préfixe du code"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_code_suf
+msgid "Code Suffix"
+msgstr "Code Suffix"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_code
+msgid "Code use to store value in the database"
+msgstr "Code utilisé pour stocker la valeur dans la base de données"
+
+#. module: account_3rd_party_generat
+#: model:ir.model,name:account_3rd_party_generat.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_company_id
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_company_id
+msgid "Company where this configuration is apply"
+msgstr "Société pour laquelle la configuration est appliquée"
+
+#. module: account_3rd_party_generat
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_res_company_account_generator_form_form
+msgid "Configure the account generator, for each type of partner"
+msgstr "Configuration du générateur de compte, pour chaque type de partenaires"
+
+#. module: account_3rd_party_generat
+#: model:ir.actions.act_window,name:account_3rd_party_generat.action_third_part_account
+msgid "Configure third party account rules"
+msgstr "Configurer la règle de création des comptes de tiers"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_create_uid
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_create_date
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_3rd_party_generat
+#: selection:account.generator.type,partner_type:0
+msgid "Customer"
+msgstr "Client"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_res_partner_customer_type
+#: model:ir.model.fields,help:account_3rd_party_generat.field_res_users_customer_type
+msgid "Customer account type"
+msgstr "Type de compte client"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_partner_customer_type
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_users_customer_type
+msgid "Customer type"
+msgstr "Séquence client"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_default_value
+msgid "Default value"
+msgstr "Default value"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_default_value
+msgid "Default value for this type"
+msgstr "Valeur par défaut pour ce type"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_display_name
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: account_3rd_party_generat
+#: code:addons/account_3rd_party_generat/res_partner.py:48
+#: code:addons/account_3rd_party_generat/res_partner.py:265
+#: code:addons/account_3rd_party_generat/res_partner.py:275
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_partner_force_create_customer_account
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_partner_force_create_supplier_account
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_users_force_create_customer_account
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_users_force_create_supplier_account
+msgid "Force create account"
+msgstr "Forcer la création du compte"
+
+#. module: account_3rd_party_generat
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_account_generator_type_form
+msgid "Generate template (with treatment)"
+msgstr "Modèle de génération (avec des traitements)"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_id
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_account_reference_id
+msgid "If no sequence define, this account reference is choose all the time"
+msgstr "Si aucune séquence n'est définie, ce compte sera choisi à chaque fois"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_res_partner_force_create_customer_account
+#: model:ir.model.fields,help:account_3rd_party_generat.field_res_users_force_create_customer_account
+msgid "If set, OpenERP will generate a new acount for this customer"
+msgstr "Si coché, OpenERP regénérera un nouveau compte pour ce client"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_res_partner_force_create_supplier_account
+#: model:ir.model.fields,help:account_3rd_party_generat.field_res_users_force_create_supplier_account
+msgid "If set, OpenERP will generate a new acount for this supplier"
+msgstr "Si coché, OpenERP regénérera un nouveau compte pour ce fournisseur"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type___last_update
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_write_uid
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_write_date
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_wizard_install_third_part_accounts_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_lock_partner_name
+msgid "Lock partner name"
+msgstr "Lock partner name"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_name
+msgid "Name appear on the partner form"
+msgstr "Nom qui apparait dans le formulaire des partenaires"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_lock_partner_name
+msgid "Partner's name is locked when his account has at least one account move"
+msgstr "Le nom du partenaire est verrouillé si son compte a au moins une écriture"
+
+#. module: account_3rd_party_generat
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_account_generator_type_form
+msgid "Reference template (no treatment)"
+msgstr "Modèle de référence (aucun traitement)"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_field_select
+msgid "Select Field"
+msgstr "Select Field"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_field_select
+msgid "Select the field where the code be generate"
+msgstr "Sélectionnez le champ dans lequel le code sera généré"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_partner_type
+msgid "Select the type of partner"
+msgstr "Sélectionner le type de partenaire"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_code_seq_id
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_ir_sequence_id
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_account_generator_type_ir_sequence_id
+msgid "Sequence use to generate the code"
+msgstr "Séquence utilisée pour générer le code"
+
+#. module: account_3rd_party_generat
+#: selection:account.generator.type,partner_type:0
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,help:account_3rd_party_generat.field_res_partner_supplier_type
+#: model:ir.model.fields,help:account_3rd_party_generat.field_res_users_supplier_type
+msgid "Supplier account type"
+msgstr "Type de compte fournisseur"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_partner_supplier_type
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_res_users_supplier_type
+msgid "Supplier type"
+msgstr "Séquence fournisseur"
+
+#. module: account_3rd_party_generat
+#: code:addons/account_3rd_party_generat/res_partner.py:48
+#, python-format
+msgid "Too many default values defined for %s type"
+msgstr "Too many default values defined for %s type"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_partner_type
+msgid "Type"
+msgstr "Type"
+
+#. module: account_3rd_party_generat
+#: model:ir.ui.view,arch_db:account_3rd_party_generat.view_wizard_third_part_account_form
+msgid "Update"
+msgstr "Mise à jour"
+
+#. module: account_3rd_party_generat
+#: code:addons/account_3rd_party_generat/res_partner.py:265
+#: code:addons/account_3rd_party_generat/res_partner.py:275
+#, python-format
+msgid "You cannot change partner's name when his account has moves"
+msgstr "You cannot change partner's name when his account has moves"
+
+#. module: account_3rd_party_generat
+#: model:ir.model.fields,field_description:account_3rd_party_generat.field_account_generator_type_code
+msgid "code"
+msgstr "code"
+
+#. module: account_3rd_party_generat
+#: selection:account.generator.type,field_select:0
+msgid "name"
+msgstr "nom"
+
+#. module: account_3rd_party_generat
+#: selection:account.generator.type,field_select:0
+msgid "ref"
+msgstr "ref"
+
+#. module: account_3rd_party_generat
+#: model:ir.model,name:account_3rd_party_generat.model_res_partner
+msgid "res partner"
+msgstr "res partner"
+
+#. module: account_3rd_party_generat
+#: model:ir.model,name:account_3rd_party_generat.model_wizard_install_third_part_accounts
+msgid "wizard.install.third.part.accounts"
+msgstr "wizard.install.third.part.accounts"
+

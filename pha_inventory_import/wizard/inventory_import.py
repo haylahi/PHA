@@ -31,31 +31,11 @@ class InventoryImportLine(models.TransientModel):
 
 
 class InventoryImport(models.TransientModel):
+    _inherit = "bci.importer"
     _name = "pha.stock.inventory.import"
-
-    data = fields.Binary('Fichier',
-                         required=True,
-                         default=lambda self: self._context.get('data'))
-
-    name = fields.Char('Filename')
-    delimeter = fields.Char('Delimeter',
-                            default=';',
-                            help='Default delimeter is ";"')
-
-    lineterminator = fields.Char('Line terminator',
-                            default='\n',
-                            help='Default delimeter is "\n"')
 
     dest_categ = fields.Many2one("product.category",string="Destockage catégorie", required=True)
     new_prd_categ = fields.Many2one("product.category", string="Nouveau Produit", required=True)
-
-    state = fields.Selection(selection=[('draft', 'Brouillon'),
-                                        ('validated', 'Validation'),
-                                        ('imported', 'Importation')],
-                             default=lambda self: self._context.get('state','draft')
-                             )
-
-    reader_info = []
 
     stock_inventory_ids = fields.Many2many('pha.stock.inventory.import.line',
                                                 default=lambda self: self._context.get('stock_inventory_ids'))
@@ -111,46 +91,33 @@ class InventoryImport(models.TransientModel):
 
 
     @api.multi
-    def validate(self):
-
-        if not self.data:
-            raise exceptions.Warning(_("You need to select a file!"))
-
-        csv_data = base64.b64decode(self.data)
-        csv_data = BytesIO(csv_data.decode('utf-8').encode('utf-8'))
-        csv_iterator = pycompat.csv_reader(csv_data,delimiter=";")
-
-        logging.info("csv_iterator" + str(csv_iterator))
-
-        try:
-            self.reader_info=[]
-            self.reader_info.extend(csv_iterator)
-            csv_data.close()
-            # self.stock_production_lot_ids = self._get_stock_prd_lot_from_csv()
-            self.state= 'validated'
-        except Exception:
-            raise exceptions.Warning(_("Not a valid file!"))
-
-
-
-
-        return {
-            'name': ('Assignment Sub'),
+    def get_action(self,ctx=None):
+        view_id = self.env.ref("pha_inventory_import_.pha_stock_inventory_import_form")
+        action ={
+            'name': ('PHA import inventory'),
             'view_type': 'form',
             'view_mode': 'form',
+            'view_id': view_id.id,
             'res_model': 'pha.stock.inventory.import',
-            'view_id': False,
-            'context': {'data':self.data,
-                        'state': self.state,
-                        'default_dest_categ': self.dest_categ.id,
-                        'default_new_prd_categ': self.new_prd_categ.id,
-                        'stock_inventory_ids': self._get_stock_inventory_from_csv()},
             'type': 'ir.actions.act_window',
-            'target':'new'
+            'context': ctx,
+            'target': 'new'
         }
+        return action
 
     @api.multi
-    def import_inventory(self):
+    def validate(self):
+        self.get_data()
+        ctx = {'data':self.data,
+                'state': self.state,
+                'default_dest_categ': self.dest_categ.id,
+                'default_new_prd_categ': self.new_prd_categ.id,
+                'stock_inventory_ids': self._get_stock_inventory_from_csv()
+               }
+        return self.get_action(ctx)
+
+    @api.multi
+    def do_import(self):
 
         unvalid_items = []
         for line in self.stock_inventory_ids:
@@ -181,20 +148,13 @@ class InventoryImport(models.TransientModel):
                 inv_item['state'] = line.state
                 unvalid_items.append((0,0,inv_item))
 
-
         self.state = 'imported'
-        return {
-            'name': ('Assignment Sub'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'pha.stock.inventory.import',
-            'view_id': False,
-            'context': {'default_data': self.data,
-                        'default_stock_inventory_ids': unvalid_items,
-                        'default_state': self.state},
-            'type': 'ir.actions.act_window',
-            'target': 'new'
-        }
+
+        ctx = {'default_data': self.data,
+                'default_stock_inventory_ids': unvalid_items,
+                'default_state': self.state
+               }
+        return self.get_action(ctx)
 
     def _is_valid_line(self, line):
         for  key, value in line.items():

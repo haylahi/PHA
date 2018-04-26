@@ -18,6 +18,7 @@
         'views/product_views.xml',
         'views/rate_views.xml',
         'security/ir.model.access.csv',
+        'wizard/calcule_best_price.xml',
     ],
 
     'installable': True,

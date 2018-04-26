@@ -57,13 +57,17 @@ class IntrastatCommon(models.AbstractModel):
     def _check_xml_schema(self, xml_string, xsd_file):
         '''Validate the XML file against the XSD'''
         from lxml import etree
-        from StringIO import StringIO
+        from io import BytesIO, StringIO
         xsd_etree_obj = etree.parse(
             tools.file_open(xsd_file))
         official_schema = etree.XMLSchema(xsd_etree_obj)
         try:
-            t = etree.parse(StringIO(xml_string))
+            logging.info('222222')
+            logging.info('2 %s', type(BytesIO(xml_string)))
+            t = etree.parse(BytesIO(xml_string))
+            logging.info('1 %s', t)
             official_schema.assertValid(t)
+            logging.info('1')
         except Exception as e:
             # if the validation of the XSD fails, we arrive here
             logger = logging.getLogger(__name__)

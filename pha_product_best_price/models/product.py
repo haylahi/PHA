@@ -6,16 +6,16 @@ from io import BytesIO, StringIO
 import datetime
 import logging
 from odoo.tools import pycompat
+import odoo.addons.decimal_precision as dp
 
 class ProductSupplierinfor(models.Model):
     """ Product Supplier info to add net price. """
 
     _inherit = ['product.supplierinfo']
-
     state_lowest_price = fields.Boolean("Lowest ", default=False)
     state_highest_price = fields.Boolean("Highest ", default=False)
-    net_price= fields.Float(compute='_compute_net_price',string="Prix Net",store=True)
-    @api.one
+    net_price= fields.Float(compute='_compute_net_price',string="Prix Net",store=True, digits=dp.get_precision('Product Price'))
+    @api.multi
     @api.depends('price','discount')
     def _compute_net_price(self):
         for record in self:
@@ -59,53 +59,57 @@ class PriceScale(models.Model):
 
 
 class ProductTemplate(models.Model):
-
     _inherit = ['product.template']
 
-    highest_price = fields.Float(compute='_compute_highest_price', string="Highest Price")
-    lowest_price = fields.Float(compute='_compute_highest_price', string="Lowest Price")
+    highest_price = fields.Float(string="Highest Price")
+    lowest_price = fields.Float(string="Lowest Price")
 
     @api.multi
-    def _compute_highest_price(self):
-        supplier_info_ids =self.seller_ids
+    def compute_highest_price(self, date=None):
+        for rec in self :
+            supplier_info_ids = rec.seller_ids
+            default_currency = rec.env.user.company_id.currency_id
 
-        # '''set all states to false'''
-        supplier_info_ids.write({'state_lowest_price' : False,
-                                 'state_highest_price': False,})
-        net_prices = self.seller_ids.mapped('net_price')
-        highest_price = max(net_prices) if net_prices else 0.0
-        lowest_price = min(net_prices) if net_prices else 0.0
+            # '''set all states to false'''
+            supplier_info_ids.write({'state_lowest_price' : False,
+                                     'state_highest_price': False,})
+            net_prices = supplier_info_ids.mapped('net_price')
+            highest_price = max(net_prices) if net_prices else 0.0
+            lowest_price = min(net_prices) if net_prices else 0.0
 
-        default_currency = self.env.user.company_id.currency_id
-        if highest_price != 0 :
-            hp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',highest_price)])
-            if len(hp_line) != 0 and hp_line[0].currency_id.id != default_currency.id:
-                highest_price = highest_price / hp_line[0].currency_id.rate
-            hp_line.write({'state_highest_price': True})
 
-        if lowest_price != 0 :
-            lp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',lowest_price)])
-            if len(lp_line) != 0 and lp_line[0].currency_id.id != default_currency.id:
-                lowest_price = lowest_price / lp_line[0].currency_id.rate
-            lp_line.write({'state_lowest_price': True})
+            if highest_price != 0 :
+                hp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',highest_price)])
+                highest_price = self.process_supplier_line_rate(price=highest_price,line=hp_line[0],default_currency=default_currency,date=date)
+                hp_line.write({'state_highest_price': True})
 
-        self.highest_price = highest_price
-        self.lowest_price = lowest_price
+            if lowest_price != 0 :
+                lp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',lowest_price)])
+                lowest_price = self.process_supplier_line_rate(price=lowest_price,line=lp_line[0],default_currency=default_currency,date=date)
+                lp_line.write({'state_lowest_price': True})
 
-        return self.highest_price
+            rec.write({'highest_price': highest_price, 'lowest_price': lowest_price})
+
+    def process_supplier_line_rate(self, price, line, default_currency, date=None):
+        if len(line) != 0 and line.currency_id.id != default_currency.id:
+            if date:
+                rate = self.env['res.currency.rate'].search([('currency_id', '=', line.currency_id.id),('name', '=', date)])
+                rate = rate.rate if rate else line.currency_id.rate
+                return price / rate
+            else:
+                return price / line.currency_id.rate
 
     @api.multi
-    def update_sale_price(self):
+    def update_sale_price(self, context={}, date=None):
         price_scale = self.env['price.scale'].search([('state', '=', 'open')])
         for rec in self:
-            rec= rec[0]
+            rec = rec[0]
+            rec.compute_highest_price(date=date)
+
             #FIXME: valeur en hard ici, spécifique pour pha pour ignorer le calcule des produits déstockable
             if rec.categ_id.name != 'Déstockable':
-                coef = price_scale[0].get_coef(rec.highest_price)
-                rec.list_price = coef * rec.highest_price
-                rec.standard_price = rec.lowest_price
-
-    @api.multi
-    def update_all(self):
-        self.ensure_one()
-        self.update_sale_price()
+                highest_price = rec.highest_price
+                coef = price_scale[0].get_coef(highest_price)
+                list_price = coef * highest_price
+                standard_price = rec['lowest_price']
+                rec.write({'list_price':list_price,'standard_price':standard_price})
