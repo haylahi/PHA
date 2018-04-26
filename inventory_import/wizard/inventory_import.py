@@ -16,14 +16,14 @@ class InventoryImportLine(models.TransientModel):
     product_id = fields.Many2one("product.product")
     lot_id = fields.Many2one("stock.production.lot")
     lot_name = fields.Char(string="Lot name")
-    state = fields.Selection(selection=[('valid', 'valid'),
-                                        ('not_valid', 'Not valid'),
+    state = fields.Selection(selection=[('valid', 'valide'),
+                                        ('not_valid', 'Non valide'),
                                         ('field_not_valid', 'Certains champs sont pas valides'),
                                         ('product_not_exist', 'Produit non existant'),
-                                        ('product_exist', "à ajouter de l'inventaire"),
-                                        ('product_duplicate', 'Doubllons'),
+                                        ('product_exist', "à ajouter dans l'inventaire"),
+                                        ('product_duplicate', 'Doublon'),
                                         ('lot_to_create', 'Lot à créer'),
-                                        ('lot_exist', "à ajouter de l'inventaire"),
+                                        ('lot_exist', "à ajouter dans l'inventaire"),
                                        ],
                             default='valid'
                              )

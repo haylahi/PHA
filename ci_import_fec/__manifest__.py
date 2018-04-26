@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# © 2017-2018 CADR'IN SITU (http://www.cadrinsitu.com/)
+# @author: Tarik ARAB <tarik.arab@gmail.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     'name': 'CI Account Import FEC',
@@ -13,6 +16,9 @@
     'version': '0.1',
     'depends': ['account', 'l10n_fr'],
     'data': [
+        'security/ir.model.access.csv',
+        'views/fec_config_views.xml',
+        'data/fec_config_data.xml',
         'wizard/account_import_fec_view.xml',
     ],
     'installable': True,
