@@ -51,7 +51,7 @@
         <field name="res_model">product.template</field>
         <field name="domain">[('is_title','=',True), ('type', '=', 'service')]</field>
         <field name="context">{'is_title':True, 'type':'service', 'default_is_title': True, 'default_sale_ok': True,
-            'default_purchase_ok': True, 'default_type': 'service'}
+            'default_purchase_ok': True, 'default_type': 'service', 'default_invoice_policy': 'order'}
         </field>
         <field name="search_view_id" ref="title_product_search_form_view"/>
     </record>
