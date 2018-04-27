@@ -288,7 +288,7 @@ class ImportFEC(models.TransientModel):
                     if partner_id:
                         # if odoo_partner_id and odoo_partner_id.ref != partner_id.partner_dst.ref:
                         if odoo_partner_id:
-                            partner_id.write({'partner_dst': odoo_partner_id.ref, 'type': type,
+                            partner_id.write({'partner_dst': odoo_partner_id.id, 'type': type,
                                               'compte_dst': odoo_partner_id.property_account_receivable_id.id})
                         partner_ids.append(partner_id.id)
                     else:
