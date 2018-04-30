@@ -6,6 +6,7 @@ import time
 from odoo import api, fields, models, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
+import logging
 
 
 class SaleAdvancePaymentInv(models.TransientModel):
@@ -14,8 +15,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
     @staticmethod
     def change_product_line_price(line_ids, value):
         for line in line_ids:
-            line.write({'price_unit': value})
-            line.write({'product_uom_qty': value})
+            line.write({'price_unit': value, 'product_uom_qty': value})
 
     @api.multi
     def create_invoices(self):
@@ -26,5 +26,4 @@ class SaleAdvancePaymentInv(models.TransientModel):
         self.change_product_line_price(line_ids, 1)
         res = super(SaleAdvancePaymentInv, self).create_invoices()
         self.change_product_line_price(line_ids, 0)
-
         return res

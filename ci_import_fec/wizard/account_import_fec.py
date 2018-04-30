@@ -310,7 +310,7 @@ class ImportFEC(models.TransientModel):
 
         if not account_tiers_id:
             config_id = self.get_config_from_code(code)
-            values = {'name': code_src, 'code': code,
+            values = {'name': partner.name, 'code': code,
                       'reconcile': config_id.reconcile}
             if config_id:
                 values['user_type_id'] = config_id.user_type_id.id
