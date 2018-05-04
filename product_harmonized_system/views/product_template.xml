@@ -15,7 +15,7 @@
       <field name="arch" type="xml">
         <field name="list_price" position="after">
           <field name="hs_code_id" attrs="{'invisible': [('type', '=', 'service')]}"/>
-          <!--<field name="origin_country_id" attrs="{'invisible': [('type', '=', 'service')]}"/>-->
+          <field name="origin_country_id" attrs="{'invisible': [('type', '=', 'service')]}"/>
         </field>
       </field>
     </record>

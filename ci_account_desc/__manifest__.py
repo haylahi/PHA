@@ -11,7 +11,7 @@
     'website': "http://www.cadrinsitu.com",
     'category': 'Sale',
     'version': '0.1',
-    'depends': ['sale', 'account', 'product', 'website_quote'],
+    'depends': ['sale', 'product', 'website_quote'],
     'data': [
         'views/product_views.xml',
         'views/title_product_views.xml',

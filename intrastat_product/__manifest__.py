@@ -33,7 +33,6 @@
         'security/ir.model.access.csv',
         'data/intrastat_transport_mode.xml',
         'data/intrastat_unit.xml',
-        # 'views/product_template.xml',
     ],
     'demo': ['demo/intrastat_demo.xml'],
     'installable': True,

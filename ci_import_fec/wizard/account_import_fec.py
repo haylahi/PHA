@@ -288,7 +288,7 @@ class ImportFEC(models.TransientModel):
                     if partner_id:
                         # if odoo_partner_id and odoo_partner_id.ref != partner_id.partner_dst.ref:
                         if odoo_partner_id:
-                            partner_id.write({'partner_dst': odoo_partner_id.id, 'type': type,
+                            partner_id.write({'partner_dst': odoo_partner_id.ref, 'type': type,
                                               'compte_dst': odoo_partner_id.property_account_receivable_id.id})
                         partner_ids.append(partner_id.id)
                     else:
@@ -310,7 +310,7 @@ class ImportFEC(models.TransientModel):
 
         if not account_tiers_id:
             config_id = self.get_config_from_code(code)
-            values = {'name': partner.name, 'code': code,
+            values = {'name': code_src, 'code': code,
                       'reconcile': config_id.reconcile}
             if config_id:
                 values['user_type_id'] = config_id.user_type_id.id
