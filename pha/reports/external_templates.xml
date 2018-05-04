@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="external_layout_pha">
+    <template id="pha.external_layout_pha">
         <div class="header o_pha_header">
             <div class="w-50 p-3">
                 <div class="col-xs-7 col-xs-offset-1">
