@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
 {
     'name': 'PHA',
     'version': '0.1',
@@ -14,9 +12,11 @@
 
     'depends': ['base','sale','account'],
     'data': [
+        'views/report_templates.xml',
+        'reports/external_templates.xml',
         'reports/sale_order.xml',
-        # 'reports/invoice.xml',
+        'reports/invoice.xml',
     ],
 
-    'installable': False,
+    'installable': True,
 }
