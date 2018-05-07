@@ -96,8 +96,7 @@ class ProductTemplate(models.Model):
                 rate = self.env['res.currency.rate'].search([('currency_id', '=', line.currency_id.id),('name', '=', date)])
                 rate = rate.rate if rate else line.currency_id.rate
                 return price / rate
-            else:
-                return price / line.currency_id.rate
+        return price / line.currency_id.rate
 
     @api.multi
     def update_sale_price(self, context={}, date=None):
