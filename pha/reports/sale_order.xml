@@ -99,9 +99,13 @@
 
                                 <tr>
                                     <t t-if="l.product_id.is_title">
-                                        <td colspan="7">
+                                        <td />
+                                        <td >
                                             <span t-field="l.name"/>
                                         </td>
+                                        <td />
+                                        <td />
+                                        <td />
                                     </t>
 
                                     <t t-if="not l.product_id.is_title">
