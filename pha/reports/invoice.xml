@@ -19,7 +19,12 @@
                 </div>
                 <div class="col-xs-2">
                     <strong>N° Client:</strong>
-                    <p t-field="o.partner_id.ref"/>
+                    <t t-if="o.partner_id.parent_id">
+                        <p t-field="o.partner_id.parent_id.ref"/>
+                    </t>
+                    <t t-if=" not o.partner_id.parent_id">
+                        <p t-field="o.partner_id.ref"/>
+                    </t>
                 </div>
                 <div name='reference' class="col-xs-2">
                     <strong>N/Ref:</strong>
