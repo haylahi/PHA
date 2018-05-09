@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="pha_report_invoice_inherit" inherit_id="sale.report_invoice_layouted">
-        <xpath expr="//h2[1]" position="replace"></xpath>
+        <!--<xpath expr="//h2[1]" position="replace"></xpath>-->
         <xpath expr="//div[@class='row'][1]" position="after">
             <div class="row">
                 <div class="col-xs-6" style="margin-top:20px;">
