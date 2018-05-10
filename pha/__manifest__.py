@@ -10,7 +10,7 @@
     'website': "http://www.cadrinsitu.com",
 
 
-    'depends': ['base','sale','account','purchase'],
+    'depends': ['base','sale','account','purchase','ci_account_desc'],
     'data': [
         'views/report_templates.xml',
         'reports/external_templates.xml',
