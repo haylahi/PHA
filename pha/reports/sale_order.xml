@@ -17,7 +17,7 @@
                 <!--</h2>-->
             <!--</div>-->
             <div class="row">
-                <div class="col-xs-6 border" style="margin-top:20px;">
+                <div class="col-xs-6 border" style="margin-top:20px; border: 1px solid gray;">
                     <strong >Customer reference:</strong>
                     <div t-field="doc.client_order_ref"/>
                 </div>
@@ -96,21 +96,37 @@
                             <!-- Lines associated -->
                             <t t-foreach="layout_category['lines']" t-as="l">
                                 <!--<t t-set="maximum"><t t-raw="doc.max_line(l_index,15)"/></t>-->
+
                                 <tr>
-                                    <td><span t-field="l.sale_product_ref.ref"/></td>
-                                    <td><span t-field="l.name"/></td>
-                                    <td class="text-right">
-                                        <span t-field="l.product_uom_qty"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="l.price_unit"/>
-                                    </td>
-                                    <td class="text-right" groups="sale.group_show_price_subtotal">
-                                        <span t-field="l.price_subtotal"/>
-                                    </td>
-                                    <td class="text-right" groups="sale.group_show_price_total">
-                                        <span t-field="l.price_total"/>
-                                    </td>
+                                    <t t-if="l.product_id.is_title">
+                                        <td />
+                                        <td >
+                                            <span t-field="l.name"/>
+                                        </td>
+                                        <td />
+                                        <td />
+                                        <td />
+                                    </t>
+
+                                    <t t-if="not l.product_id.is_title">
+                                        <td>
+                                            <t t-if="not l.sale_product_ref.ref"><span t-field="l.product_id.default_code"/></t>
+                                            <t t-if="l.sale_product_ref.ref"><span t-field="l.sale_product_ref.ref"/></t>
+                                        </td>
+                                        <td><span t-field="l.product_id.name"/></td>
+                                        <td class="text-right">
+                                            <span t-field="l.product_uom_qty"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="l.price_unit"/>
+                                        </td>
+                                        <td class="text-right" groups="sale.group_show_price_subtotal">
+                                            <span t-field="l.price_subtotal"/>
+                                        </td>
+                                        <td class="text-right" groups="sale.group_show_price_total">
+                                            <span t-field="l.price_total"/>
+                                        </td>
+                                    </t>
 
                                 </tr>
                                 <t t-if="int(l_index) == maximum">
@@ -131,6 +147,16 @@
                         </t>
                     </tbody>
                 </table>
+        </xpath>
+        <xpath expr="//p[@t-field='doc.note']" position="replace"/>
+        <xpath expr="//div[@name='total']" position="inside">
+            <p t-field="doc.note" />
+            <div t-if="doc.state in ('draft','sent')" class="col-xs-4 " id="informations" style="min-width: 60%;min-height: 80px;">
+                <strong>Accord Client :</strong>
+                <!--<table class="table table-condensed" style="min-width: 200px;max-width: 350px;">-->
+
+                <!--</table>-->
+            </div>
         </xpath>
 
     </template>

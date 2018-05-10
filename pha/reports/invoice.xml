@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-xs-6" style="margin-top:20px;">
                     <strong>Vos References:</strong>
-                    <address t-field="o.reference" />
+                    <address t-field="o.name" />
                 </div>
             </div>
         </xpath>
@@ -19,7 +19,12 @@
                 </div>
                 <div class="col-xs-2">
                     <strong>N° Client:</strong>
-                    <p t-field="o.partner_id.ref"/>
+                    <t t-if="o.partner_id.parent_id">
+                        <p t-field="o.partner_id.parent_id.ref"/>
+                    </t>
+                    <t t-if=" not o.partner_id.parent_id">
+                        <p t-field="o.partner_id.ref"/>
+                    </t>
                 </div>
                 <div name='reference' class="col-xs-2">
                     <strong>N/Ref:</strong>
@@ -63,10 +68,11 @@
                             <t t-foreach="layout_category['lines']" t-as="l">
                                 <tr>
                                     <td>
-                                        <span t-field="l.sale_line_ids.sale_product_ref"/>
+                                        <t t-if="not l.sale_line_ids.sale_product_ref"><span t-field="l.product_id.default_code"/></t>
+                                        <t t-if="l.sale_line_ids.sale_product_ref"><span t-field="l.sale_line_ids.sale_product_ref"/></t>
                                     </td>
                                     <td>
-                                        <span t-field="l.name"/>
+                                        <span t-field="l.product_id.name"/>
                                     </td>
                                     <td class="text-right">
                                         <span t-field="l.quantity"/>
