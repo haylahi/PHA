@@ -54,10 +54,10 @@
                     <strong>Customer:</strong>
                     <p t-field="doc.partner_id.ref"/>
                 </div>
-                <!--<div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-xs-3">-->
-                    <!--<strong>Expiration Date:</strong>-->
-                    <!--<p t-field="doc.validity_date"/>-->
-                <!--</div>-->
+                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-xs-3">
+                    <strong>Expiration Date:</strong>
+                    <p t-field="doc.validity_date"/>
+                </div>
                 <div t-if="doc.commitment_date" class="col-xs-3">
                     <strong>Delais:</strong>
                     <p t-field="doc.commitment_date" t-options='{"widget": "date"}'/>
@@ -149,8 +149,12 @@
                 </table>
         </xpath>
         <xpath expr="//p[@t-field='doc.note']" position="replace"/>
+        <xpath expr="//p[@t-if='doc.payment_term_id.note']" position="replace"/>
         <xpath expr="//div[@name='total']" position="inside">
             <p t-field="doc.note" />
+            <p t-if="doc.payment_term_id.note">
+                <span t-field="doc.payment_term_id.note"/>
+            </p>
             <div t-if="doc.state in ('draft','sent')" class="col-xs-4 " id="informations" style="min-width: 60%;min-height: 80px;">
                 <strong>Accord Client :</strong>
                 <!--<table class="table table-condensed" style="min-width: 200px;max-width: 350px;">-->

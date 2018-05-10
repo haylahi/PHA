@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="pha_report_invoice_inherit" inherit_id="sale.report_invoice_layouted">
-        <xpath expr="//h2[1]" position="replace"></xpath>
+        <!--<xpath expr="//h2[1]" position="replace"></xpath>-->
         <xpath expr="//div[@class='row'][1]" position="after">
             <div class="row">
                 <div class="col-xs-6" style="margin-top:20px;">
@@ -13,11 +13,11 @@
         </xpath>
         <xpath expr="//div[@class='row mt32 mb32']" position="replace">
             <div class="row mt32 mb32" id="informations">
-                <div class="col-xs-2">
+                <div t-if="o.date_invoice" class="col-xs-2">
                     <strong>Date:</strong>
                     <p t-field="o.date_invoice"/>
                 </div>
-                <div class="col-xs-2">
+                <div t-if="o.partner_id" class="col-xs-2">
                     <strong>N° Client:</strong>
                     <t t-if="o.partner_id.parent_id">
                         <p t-field="o.partner_id.parent_id.ref"/>
@@ -26,15 +26,15 @@
                         <p t-field="o.partner_id.ref"/>
                     </t>
                 </div>
-                <div name='reference' class="col-xs-2">
+                <div t-if="o.reference" name='reference' class="col-xs-2">
                     <strong>N/Ref:</strong>
                     <p t-field="o.reference"/>
                 </div>
                 <div class="col-xs-2">
                     <strong>N/BL:</strong>
-                    <p t-field="o.name"/>
+                    <!--<p t-field="o.name"/>-->
                 </div>
-                <div class="col-xs-2">
+                <div t-if="o.partner_id.vat" class="col-xs-2">
                     <strong>V/N°TVA:</strong>
                     <p t-field="o.partner_id.vat"/>
                 </div>
