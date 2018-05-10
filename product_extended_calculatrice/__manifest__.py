@@ -24,7 +24,9 @@
     'name': 'ES Product Calculatrice',
     'version': '11.0',
     'depends': ['base', 'product', 'sale', 'crm', ],
-    'author': 'GFI',
+    'sequence': 1,
+    'author': "Cadrinsitu",
+    'website': "http://www.cadrinsitu.com",
     'category': '',
     'description': """
    Modification de la fiche article :
