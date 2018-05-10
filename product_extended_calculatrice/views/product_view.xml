@@ -12,30 +12,52 @@
                         <field name="taux_marque_hide" attrs="{'invisible':True}"/>
                         <field name="montant_marge_hide" attrs="{'invisible':True}"/>
                         <field name="coef_multi_hide" attrs="{'invisible':True}"/>
-                        <group col="4">
-                            <field name="prix_achat_ht" />
-                            <field name="prix_vente_ht" />
+                        <group col="8">
+                            <field name="prix_achat_ht"/>
+                            <field name="prix_achat_ttc_hide" string="TTC :"/>
+                            <field name="taux_tva"/>
                         </group>
-                        <group col="2">
-                            <field name="frais_transport" />
+                          <group col="8">
+                            <field name="interaction_devise_ht"/>
+                            <field name="interaction_devise_ttc" string="TTC :"/>
+                            <field name="taux_marge"/>
+                        </group>
+
+                           <group col="8">
+                            <field name="remise_comerciale_ht"/>
+                            <field name="remise_comerciale_ttc" string="TTC :"/>
+                            <field name="taux_marque"/>
+                        </group>
+
+                        <group col="8">
+                            <field name="frais_transport_ht"/>
+                            <field name="frais_transport" string="TTC :"/>
+                            <field name="coef_multi"/>
+                        </group>
+
+
+                        <group col="8">
+                            <field name="cout_packaging_ht" />
+                             <field name="cout_packaging_ttc" />
+                               <field name="montant_marge" />
+                        </group>
+
+                         <group col="8">
+                            <field name="cout_main_oeuvre_ht" />
+                             <field name="cout_main_oeuvre_ttc" />
+                               <field name="montant_marge_net" />
+                        </group>
+                         <group col="4">
+                            <field name="autre_cout_ht" />
+                             <field name="autre_cout_ttc" />
+                        </group>
+                          <group col="4">
+                            <field name="prix_achat_ttc" string="Cout de revient HT"/>
+                                  <field name="prix_achat_ht" string="TTC :"/>
                         </group>
                         <group col="4">
-                            <field name="prix_achat_ttc" readonly="1"/>
+                            <field name="prix_vente_ht" readonly="1"/>
                             <field name="prix_vente_ttc" />
-                        </group>
-                        <group col="4">
-                            <field name="montant_marge" readonly="1"/>
-                            <field name="taux_tva" />
-                        </group>
-                        <group col="2">
-                            <field name="taux_marge" />
-                        </group>
-                        <group col="4">
-                            <field name="taux_marque" readonly="1"/>
-                            <field name="coef_multi" readonly="1"/>
-                            <field name="type_tva2" required="1" />
-                            <field name="cout_manutention" />
-                            <field name="montant_audit" />
                         </group>
                     </page>
                 </xpath>

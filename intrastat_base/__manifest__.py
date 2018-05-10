@@ -10,7 +10,7 @@
     'summary': 'Base module for Intrastat reporting',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
-    'depends': ['base_vat'],
+    'depends': ['base_vat','account'],
     'conflicts': ['report_intrastat'],
     'data': [
         'data/country_data.xml',

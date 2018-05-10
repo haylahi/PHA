@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="calcule_best_price_form" model="ir.ui.view">
+            <field name="name">Calcule Best Price</field>
+            <field name="model">pha.wizard.calcule.best.price</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="filter" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="date_currency_rate"/>
+                            <field name="category_id" attrs="{'invisible': [('filter','!=','category')],
+                                                             'required': [('filter','=','category')]
+                                                             }"/>
+                            <field name="product_id" attrs="{'invisible': [('filter','!=','product')],
+                                                             'required': [('filter','=','product')]
+                                                             }"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="product_ids" attrs="{'invisible': [('filter','!=','list')],
+                                                             'required': [('filter','=','list')]
+                                                             }"/>
+                    </group>
+                    <footer>
+                        <button name="calculate" type="object" string="Calculer"
+                                class="oe_button oe_form_button oe_highlight"/>
+                        <button special="cancel" string="Fermer"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="calcule_best_price_action">
+            <field name="name">Assistant de calcule des prix de ventes</field>
+            <field name="res_model">pha.wizard.calcule.best.price</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="calcule_best_price_form"/>
+            <field name="view_mode">tree,form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="pha_wizard_calcule_best_price_menu " name="Mise a jour des prix de ventes"
+                  parent="sale.product_menu_catalog"
+                  action="calcule_best_price_action"
+                  sequence="102"/>
+    </data>
+</odoo>

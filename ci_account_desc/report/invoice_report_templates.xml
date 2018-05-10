@@ -1,59 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<template  id="report_invoice_layouted_inh" inherit_id="sale.report_invoice_layouted" >
-        <xpath expr="//table/following::*/tbody[@class='invoice_tbody']" position="replace">
-			<tbody class="invoice_tbody">
-				<t t-foreach="page" t-as="layout_category">
+    <!--mis en commentaire parceque ca cree un conflit avec la nouvelle definition de la template dans le modules pha-->
 
-					<t t-if="layout_category_size > 1 or page_size > 1" groups="sale.group_sale_layout">
-						<tr class="active">
-							<td colspan="7" style="font-weight: bold; border-bottom: 1px solid black;">&amp;bull;
-								<t t-esc="layout_category['name']"/>
-							</td>
-						</tr>
-					</t>
+    <!--<template id="report_invoice_layouted_inh" inherit_id="sale.report_invoice_layouted">-->
+        <!--<xpath expr="//table/following::*" position="replace">-->
+            <!--<t groups="sale.group_sale_layout" t-foreach="o.order_lines_layouted()" t-as="page" name="lines_layouted">-->
+                <!--<table class="table table-condensed">-->
+                    <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th>Description</th>-->
+                            <!--<th class="text-right">Quantity</th>-->
+                            <!--<th class="text-right">Unit Price</th>-->
+                            <!--<th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">-->
+                                <!--Disc.(%)-->
+                            <!--</th>-->
+                            <!--<th class="text-right">Taxes</th>-->
+                            <!--<th class="text-right">Price</th>-->
+                        <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody class="invoice_tbody">-->
+                        <!--<t t-foreach="page" t-as="layout_category">-->
 
-					<!-- Lines associated -->
-					<t t-foreach="layout_category['lines']" t-as="l">
-						<tr>
-							<td><span t-field="l.name"/></td>
-							<t t-if="l.product_id.is_title == False">
-								<td class="text-right">
-									<span t-field="l.quantity"/>
-									<span t-field="l.uom_id"  groups="product.group_uom"/>
-								</td>
-								<td class="text-right">
-									<span t-field="l.price_unit"/>
-								</td>
-								<td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
-									<span t-field="l.discount"/>
-								</td>
-								<td class="text-right">
-									<span t-esc="', '.join(map(lambda x: x.description or x.name, l.invoice_line_tax_ids))"/>
-								</td>
-								<td class="text-right" groups="sale.group_show_price_subtotal">
-									<span t-field="l.price_subtotal"
-										t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-								</td>
-								<td class="text-right" groups="sale.group_show_price_total">
-									<span t-field="l.price_total"
-										t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-								</td>
-							</t>
-						</tr>
-					</t>
+                            <!--<t t-if="layout_category_size > 1 or page_size > 1" groups="sale.group_sale_layout">-->
+                                <!--<tr class="active">-->
+                                    <!--<td colspan="7" style="font-weight: bold; border-bottom: 1px solid black;">&amp;bull;-->
+                                        <!--<t t-esc="layout_category['name']"/>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</t>-->
 
-					<t t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']" groups="sale.group_sale_layout">
-						<tr class="text-right">
-							<td colspan="6">
-								<strong>Subtotal: </strong>
-								<t t-set="subtotal" t-value="sum(line.price_subtotal for line in layout_category['lines'])"/>
-								<span t-esc="subtotal" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
-							</td>
-						</tr>
-					</t>
-				</t>
-			</tbody>
-        </xpath>
-    </template>
+                            <!--&lt;!&ndash; Lines associated &ndash;&gt;-->
+                            <!--<t t-foreach="layout_category['lines']" t-as="l">-->
+                                <!--<tr>-->
+                                    <!--<t t-if="l.product_id.is_title == True">-->
+                                        <!--<td colspan="7">-->
+                                            <!--<span t-field="l.product_id.description_title"/>-->
+                                        <!--</td>-->
+                                    <!--</t>-->
+
+                                    <!--<t t-if="l.product_id.is_title == False">-->
+                                        <!--<td>-->
+                                            <!--<span t-field="l.name"/>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-right">-->
+                                            <!--<span t-field="l.quantity"/>-->
+                                            <!--<span t-field="l.uom_id" groups="product.group_uom"/>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-right">-->
+                                            <!--<span t-field="l.price_unit"/>-->
+                                        <!--</td>-->
+                                        <!--<td t-if="display_discount" class="text-right"-->
+                                            <!--groups="sale.group_discount_per_so_line">-->
+                                            <!--<span t-field="l.discount"/>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-right">-->
+                                            <!--<span t-esc="', '.join(map(lambda x: x.description or x.name, l.invoice_line_tax_ids))"/>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-right" groups="sale.group_show_price_subtotal">-->
+                                            <!--<span t-field="l.price_subtotal"-->
+                                                  <!--t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-right" groups="sale.group_show_price_total">-->
+                                            <!--<span t-field="l.price_total"-->
+                                                  <!--t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>-->
+                                        <!--</td>-->
+                                    <!--</t>-->
+                                <!--</tr>-->
+                            <!--</t>-->
+
+                            <!--<t t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']"-->
+                               <!--groups="sale.group_sale_layout">-->
+                                <!--<tr class="text-right">-->
+                                    <!--<td colspan="6">-->
+                                        <!--<strong>Subtotal:</strong>-->
+                                        <!--<t t-set="subtotal"-->
+                                           <!--t-value="sum(line.price_subtotal for line in layout_category['lines'])"/>-->
+                                        <!--<span t-esc="subtotal"-->
+                                              <!--t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</t>-->
+                        <!--</t>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+
+                <!--<t t-if="page_index &lt; page_size - 1" groups="sale.group_sale_layout">-->
+                    <!--<p style="page-break-before:always;"></p>-->
+                <!--</t>-->
+            <!--</t>-->
+        <!--</xpath>-->
+    <!--</template>-->
 </odoo>

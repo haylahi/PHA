@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+  	<record id="account_move_line_search_cis" model="ir.ui.view">
+		<field name="name">account.move.line.search.cis</field>
+		<field name="model">account.move.line</field>
+		<field name="inherit_id" ref="account.view_account_move_line_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='date']" position="after">
+				<field name="date_month"/>
+				<field name="date_year"/>
+			</xpath>
+		</field>
+	</record>
+	
+  </data>
+</odoo>

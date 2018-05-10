@@ -16,10 +16,17 @@
                     <!-- Lines associated -->
                     <t t-foreach="layout_category['lines']" t-as="line">
                         <tr>
-                            <td>
-                                <span t-field="line.name"/>
-                            </td>
+
+                            <t t-if="line.product_id.is_title == True">
+                                <td colspan="7">
+                                    <span t-field="line.product_id.description_title"/>
+                                </td>
+                            </t>
+
                             <t t-if="line.product_id.is_title == False">
+                                <td>
+                                    <span t-field="line.name"/>
+                                </td>
                                 <td>
                                     <div id="quote_qty">
                                         <span t-field="line.product_uom_qty"/>

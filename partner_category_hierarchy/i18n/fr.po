@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e-20180122\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-12 11:31+0000\n"
-"PO-Revision-Date: 2018-04-12 12:35+0100\n"
+"POT-Creation-Date: 2018-04-17 14:48+0000\n"
+"PO-Revision-Date: 2018-04-17 16:29+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "Categories"
 msgstr "Categories"
 
 #. module: partner_category_hierarchy
-#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_id_6863
+#: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_partner_hcategory_id_6390
 #: model:ir.model.fields,field_description:partner_category_hierarchy.field_res_users_hcategory_id
 #: model:ir.ui.view,arch_db:partner_category_hierarchy.view_partner_form
 #: model:ir.ui.view,arch_db:partner_category_hierarchy.view_res_partner_filter
