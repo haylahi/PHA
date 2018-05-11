@@ -26,7 +26,7 @@
                         </td>
                         <td class="text-right">
                             <span t-field="line.product_qty"/>
-                            <span t-field="line.product_uom.name" groups="product.group_uom"/>
+                            <!--<span t-field="line.product_uom.name" groups="product.group_uom"/>-->
                         </td>
                         <td class="text-right">
                             <span t-field="line.price_unit"/>
@@ -38,8 +38,24 @@
                     </tr>
                 </tbody>
             </table>
+
         </xpath>
 
-
+        <xpath expr="//div[@class='page']/div[3]" position="replace">
+             <div class="row mt32 mb32">
+                <div t-if="o.name" class="col-xs-3">
+                    <strong>Our Order Reference:</strong>
+                    <p t-field="o.name"/>
+                </div>
+                <div t-if="o.partner_ref" class="col-xs-3">
+                    <strong>Your Order Reference:</strong>
+                    <p t-field="o.partner_ref"/>
+                </div>
+                <div t-if="o.date_order" class="col-xs-3">
+                    <strong>Order Date:</strong>
+                    <p t-field="o.date_order" t-options='{"widget": "date"}'/>
+                </div>
+            </div>
+        </xpath>
     </template>
 </odoo>
