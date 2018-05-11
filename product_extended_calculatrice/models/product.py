@@ -35,13 +35,13 @@ class ProductTemplate(models.Model):
 
     prix_achat_ht = fields.Float('Prix achat HT', digits=dp.get_precision('Product Price'))
     frais_transport = fields.Float('TTC :', digits=dp.get_precision('Product Price'))
-    frais_transport_ht = fields.Float('Frais transport HT', digits=dp.get_precision('Product Price'))
+    frais_transport_ht = fields.Float('Coût de Transport', digits=dp.get_precision('Product Price'))
     prix_achat_ttc_hide = fields.Float('Cout revient  TTC', digits=dp.get_precision('Product Price'),
                                        store=True)
     prix_achat_ttc_hide_remise = fields.Float(digits=dp.get_precision('Product Price'),store=True)
 
     prix_achat_ttc = fields.Float(related='prix_achat_ttc_hide', string="Cout revient  TTC",
-                                  help="(PA HT + frais transport) + TVA")
+                                  help="(PA HT + Coût de transport+Coût de packaging+Coût de main d'œuvre+Autre coût) ")
     taux_tva = fields.Float('Taux tva', digits=dp.get_precision('Product Price'))
     cout_manutention = fields.Float('Manutention Price', digits=dp.get_precision('Manutention Price'))
     prix_vente_ht = fields.Float('Prix vente HT', digits=dp.get_precision('Product Price'))
@@ -65,7 +65,7 @@ class ProductTemplate(models.Model):
     type_tva2 = fields.Selection((('n', 'TVA Classique'), ('c', 'TVA sur marge')), 'Type de TVA', default='n')
     interaction_devise_ht = fields.Float('Interaction Devise HT ')
     interaction_devise_ttc = fields.Float('TTC :')
-    remise_comerciale_ht = fields.Float('Remise Comerciale (%) ')
+    remise_comerciale_ht = fields.Float('Remise Comerciale (%)')
     remise_comerciale_ttc = fields.Float('TTC :')
     cout_packaging_ht = fields.Float('Cout de Packaging (%)', digits=dp.get_precision('Product Price'))
     cout_packaging_ttc = fields.Float('TTC :', digits=dp.get_precision('Manutention Price'))
