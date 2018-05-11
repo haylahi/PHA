@@ -26,11 +26,11 @@
                             <field name="interaction_devise_ttc" string="TTC :"/>
                             <field name="taux_marge"/>
                         </group>
-                        <group col="8">
+                        <!--<group col="8">-->
 
-                            <field name="prix_achat_hide_remise" string="prix_achat_hide_remise"/>
-                            <field name="prix_achat_hide_remise_devise" string="prix_achat_hide_remise_devise" />
-                        </group>
+                            <!--<field name="prix_achat_hide_remise" string="prix_achat_hide_remise"/>-->
+                            <!--<field name="prix_achat_hide_remise_devise" string="prix_achat_hide_remise_devise" />-->
+                        <!--</group>-->
 
                         <group col="8">
                             <field name="frais_transport_ht"/>
