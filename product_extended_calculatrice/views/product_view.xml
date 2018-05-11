@@ -8,25 +8,28 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='general_information']" position="after">
                     <page name="Calculette" string="Calculette">
-                        <field name="prix_achat_ttc_hide"  attrs="{'invisible':True}"/>
-                        <field name="taux_marque_hide" attrs="{'invisible':True}"/>
-                        <field name="montant_marge_hide" attrs="{'invisible':True}"/>
-                        <field name="coef_multi_hide" attrs="{'invisible':True}"/>
+
                         <group col="8">
                             <field name="prix_achat_ht"/>
-                            <field name="prix_achat_ttc_hide" string="TTC :"/>
+                            <field name="prix_achat_ttc" string="TTC :"/>
                             <field name="taux_tva"/>
                         </group>
+
+                          <group col="8">
+                            <field name="remise_comerciale_ht"/>
+                            <field name="remise_comerciale_ttc" string="TTC :"/>
+                            <field name="taux_marque"/>
+                        </group>
+
                           <group col="8">
                             <field name="interaction_devise_ht"/>
                             <field name="interaction_devise_ttc" string="TTC :"/>
                             <field name="taux_marge"/>
                         </group>
+                        <group col="8">
 
-                           <group col="8">
-                            <field name="remise_comerciale_ht"/>
-                            <field name="remise_comerciale_ttc" string="TTC :"/>
-                            <field name="taux_marque"/>
+                            <field name="prix_achat_hide_remise" string="prix_achat_hide_remise"/>
+                            <field name="prix_achat_hide_remise_devise" string="prix_achat_hide_remise_devise" />
                         </group>
 
                         <group col="8">
