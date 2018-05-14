@@ -34,16 +34,16 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
 
-    frais_transport = fields.Float('TTC :', digits=dp.get_precision('Product Price'))
+    frais_transport_ttc = fields.Float('TTC :', digits=dp.get_precision('Product Price'))
     frais_transport_ht = fields.Float('Coût de Transport (%)', digits=dp.get_precision('Product Price'))
     # ______________________________________________________________________________________________________
     prix_achat_ht = fields.Float('Prix achat HT', digits=dp.get_precision('Product Price'))
-    prix_achat_hide_remise = fields.Float(digits=dp.get_precision('Product Price'),store=True)
-    prix_achat_hide_remise_devise = fields.Float(digits=dp.get_precision('Product Price'), store=True)
+    prix_achat_hide_remise = fields.Float(digits=dp.get_precision('Product Price'))
+    prix_achat_hide_remise_devise = fields.Float(digits=dp.get_precision('Product Price'))
     prix_achat_ttc = fields.Float(related='cout_revient_ttc', string="TTC :")
 
-    cout_revient_ht = fields.Float( 'Cout revient  HT',digits=dp.get_precision('Product Price'), store=True)
-    cout_revient_ttc = fields.Float('Cout revient  TTC', digits=dp.get_precision('Product Price'), store=True)
+    cout_revient_ht = fields.Float( 'Cout revient  HT',digits=dp.get_precision('Product Price'))
+    cout_revient_ttc = fields.Float('Cout revient  TTC', digits=dp.get_precision('Product Price'))
 
     prix_vente_ht = fields.Float('Prix vente HT', digits=dp.get_precision('Product Price'))
     prix_vente_ttc = fields.Float('Prix vente TTC', digits=dp.get_precision('Product Price'))
@@ -51,19 +51,24 @@ class ProductTemplate(models.Model):
 
     taux_tva = fields.Float('Taux tva', digits=dp.get_precision('Product Price'))
 
-    taux_marge = fields.Float('Taux de marge', digits=dp.get_precision('Product Price'),
-                              help="Taux de marge = (( PV HT - PA HT)) / PA HT ) * 100")
     montant_marge_hide = fields.Float('Marge brute', digits=dp.get_precision('Product Price'), )
     montant_marge = fields.Float(related='montant_marge_hide', string="Marge Brute",
                                  help="Marge brute = PV HT - PA HT")
-    montant_marge_net =fields.Float(related='montant_marge_hide', string="Marge Nette",
-                                 help="Marge Nette=PV ht - coût de revient ht")
-    coef_multi_hide = fields.Float(string='Coef. multiplicateur', digits=dp.get_precision('Product Price'))
-    coef_multi = fields.Float(related='coef_multi_hide', string="Coefficient multiplicateur",
-                              help="PV TTC / COUT REVIENT HT")
+
+    montant_marge_net = fields.Float(related='montant_marge_hide', string="Marge Nette",
+                                     help="Marge Nette=PV ht - coût de revient ht")
+    taux_marge = fields.Float('Taux de marge', digits=dp.get_precision('Product Price'),
+                              help="Taux de marge = (( PV HT - PA HT)) / PA HT ) * 100")
     taux_marque_hide = fields.Float('Taux de marque', digits=dp.get_precision('Product Price'))
     taux_marque = fields.Float(related="taux_marque_hide", string="Taux de marque",
                                help="Taux de marque = (( PV HT - PA HT)) / PV HT ) * 100")
+
+    # _____________________________________________________________________________________________________
+
+    coef_multi_hide = fields.Float(string='Coef. multiplicateur', digits=dp.get_precision('Product Price'))
+    coef_multi = fields.Float(related='coef_multi_hide', string="Coefficient multiplicateur",
+                              help="PV TTC / COUT REVIENT HT")
+
 
     interaction_devise_ht = fields.Float('Interaction Devise(%)')
     interaction_devise_ttc = fields.Float('TTC :')
@@ -119,7 +124,7 @@ class ProductTemplate(models.Model):
         if not self.frais_transport_ht:
             return False
         self.coef_tva = 1 + (self.taux_tva / 100)
-        self.frais_transport = ((self.frais_transport_ht*self.prix_achat_hide_remise_devise )/100) * self.coef_tva
+        self.frais_transport_ttc = ((self.frais_transport_ht *self.prix_achat_hide_remise_devise )/100) * self.coef_tva
 
     @api.onchange('remise_comerciale_ht', 'taux_tva','prix_achat_ht','prix_achat_hide_remise')
     def remise_comerciale_ht_change(self):
@@ -146,24 +151,26 @@ class ProductTemplate(models.Model):
         if not self.prix_achat_ht:
             return False
         coef_tva = 1 + (self.taux_tva / 100)
+        self.prix_achat_ttc=self.prix_achat_ht * coef_tva
+        self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
+        self.prix_achat_hide_remise_devise = self.prix_achat_hide_remise * (1 + (self.interaction_devise_ht / 100))
         self.prix_achat_cout = self.prix_achat_hide_remise_devise * (
                 1 + ((self.frais_transport_ht / 100) + (self.cout_main_oeuvre_ht / 100) +
                      (self.autre_cout_ht / 100) + (self.cout_packaging_ht / 100)))
         self.cout_revient_ht=self.prix_achat_cout
         self.cout_revient_ttc = self.cout_revient_ht * coef_tva
-        self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
-        self.prix_achat_hide_remise_devise = self.prix_achat_hide_remise * (1 + (self.interaction_devise_ht / 100))
 
-        self.montant_marge = self.prix_vente_ht - self.prix_achat_cout
+
+        self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
 
-        if self.prix_achat_cout > 0:
-            self.taux_marge = (self.montant_marge / self.prix_achat_cout) * 100
+        if self.montant_marge > 0:
+            self.taux_marge = (self.montant_marge / self.prix_achat_hide_remise_devise) * 100
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
 
             self.prix_vente_ttc = self.prix_vente_ht * coef_tva
-            self.coef_multi_hide = self.prix_vente_ttc /self. prix_achat_cout
+            self.coef_multi_hide = self.prix_vente_ttc /self. prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
         else:
             self.taux_marge = 0
@@ -171,7 +178,7 @@ class ProductTemplate(models.Model):
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = 0
             self.taux_marque = self.taux_marque_hide
-    @api.onchange('prix_achat_ht', 'prix_vente_ht','frais_transport','prix_achat_hide_remise_devise', 'prix_vente_ht', 'taux_tva', 'montant_marge','interaction_devise_ht','interaction_devise_ttc','remise_comerciale_ht','remise_comerciale_ttc','cout_packaging_ht','cout_packaging_ttc','cout_main_oeuvre_ht','cout_main_oeuvre_ttc','autre_cout_ht','autre_cout_ttc')
+    @api.onchange('prix_achat_ht', 'prix_vente_ht','frais_transport_ht','prix_achat_hide_remise_devise', 'prix_vente_ht', 'taux_tva', 'montant_marge','interaction_devise_ht','interaction_devise_ttc','remise_comerciale_ht','remise_comerciale_ttc','cout_packaging_ht','cout_packaging_ttc','cout_main_oeuvre_ht','cout_main_oeuvre_ttc','autre_cout_ht','autre_cout_ttc')
     def tva_change(self):
         result = {}
         self.coef_tva = 1 + (self.taux_tva / 100)
@@ -185,13 +192,15 @@ class ProductTemplate(models.Model):
         self.cout_packaging_ttc = ((self.cout_packaging_ht*self.prix_achat_hide_remise_devise )/100)* self.coef_tva
         self.cout_main_oeuvre_ttc = ((self.cout_main_oeuvre_ht*self.prix_achat_hide_remise_devise )/100)* self.coef_tva
         self.autre_cout_ttc = ((self.autre_cout_ht*self.prix_achat_hide_remise_devise )/100)* self.coef_tva
+        self.frais_transport_ttc = (( self.frais_transport_ht * self.prix_achat_hide_remise_devise) / 100) * self.coef_tva
         self.cout_revient_ht = self.prix_achat_cout
         self.cout_revient_ttc = self.prix_achat_cout * self.coef_tva
         self.prix_vente_ht = self.cout_revient_ht+self.montant_marge_net
         self.prix_vente_ttc = self.prix_vente_ht*self.coef_tva
+        self.montant_marge = self.prix_vente_ht - self.prix_achat_cout
 
         if self.montant_marge > 0:
-            self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_cout
+            self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
         else:
             self.coef_multi_hide = 0
@@ -202,6 +211,7 @@ class ProductTemplate(models.Model):
         self.coef_tva = 1 + (self.taux_tva / 100)
         self.prix_achat_cout =  self.prix_achat_hide_remise_devise * (1+(self.frais_transport_ht + self.cout_main_oeuvre_ht+self.autre_cout_ht+self.cout_packaging_ht)/100)
 
+        self.prix_vente_ht = self.prix_achat_cout+self.montant_marge_net
         self.prix_vente_ttc = self.prix_vente_ht * self.coef_tva
         self.prix_vente_ttc = self.prix_vente_ttc
         self.montant_marge = self.prix_vente_ht - self.prix_achat_cout
@@ -211,10 +221,10 @@ class ProductTemplate(models.Model):
         self.montant_marge = self.montant_marge_hide
 
         if self.montant_marge > 0 :
-            self.taux_marge = self.montant_marge / self.prix_achat_cout * 100
-            self.taux_marque_hide = self.montant_marge / self.prix_vente_ht * 100
+            self.taux_marge = (self.montant_marge / self.prix_achat_cout) * 100
+            self.taux_marque_hide =( self.montant_marge / self.prix_vente_ht )* 100
             self.taux_marque = self.taux_marque_hide
-            self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_cout
+            self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
         else:
             self.taux_marge = 0
@@ -227,14 +237,16 @@ class ProductTemplate(models.Model):
         result = {}
         self.coef_tva = 1 + (self.taux_tva / 100)
         self.prix_achat_cout = self.prix_achat_hide_remise_devise * (1+(self.frais_transport_ht + self.cout_main_oeuvre_ht+self.autre_cout_ht+self.cout_packaging_ht)/100)
-        self.prix_vente_ht = self.prix_vente_ttc / self.coef_tva
+        self.prix_vente_ht = self.prix_achat_cout
+        # self.prix_vente_ht = self.prix_vente_ttc / self.coef_tva
         self.prix_vente_ht = self.prix_vente_ht
-        self.montant_marge = self.prix_vente_ht - self.prix_achat_cout
+        self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
         self.montant_marge = self.montant_marge_hide
 
         if self.montant_marge > 0:
             self.taux_marge = (self.montant_marge / self.prix_achat_cout) * 100
+            self. prix_vente_ht=self.prix_achat_cout
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
             self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_cout
@@ -246,25 +258,26 @@ class ProductTemplate(models.Model):
             self.taux_marque_hide = 0
             self.taux_marque = self.taux_marque_hide
 
-        # return {'value': result}
-    @api.onchange('prix_achat_ht', 'frais_transport', 'frais_transport', 'taux_marge', 'taux_tva')
+
+    @api.onchange('prix_achat_ht', 'frais_transport_ht', 'frais_transport_ttc', 'taux_marge','prix_achat_hide_remise_devise','cout_main_oeuvre_ht','cout_packaging_ht','autre_cout_ht')
     def taux_marge_change(self):
         result = {}
         self.coef_tva = 1 + (self.taux_tva / 100)
         self.coef_marge = 1 + (self.taux_marge / 100)
-        self.prix_achat_cout = self.prix_achat_ht + self.frais_transport
+        self.prix_achat_cout = self.prix_achat_hide_remise_devise * (1 + (
+                    self.frais_transport_ht + self.cout_main_oeuvre_ht + self.autre_cout_ht + self.cout_packaging_ht) / 100)
 
-        self.prix_vente_ht = self.prix_achat_cout * self.coef_marge
+        self.prix_vente_ht = self.prix_achat_cout + self.montant_marge_net
         self.prix_vente_ht = self.prix_vente_ht
         self.prix_vente_ttc = self.prix_vente_ht * self.coef_tva
         self.prix_vente_ttc = self.prix_vente_ttc
 
-        self.montant_marge = self.prix_vente_ht - self.prix_achat_cout
+        self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
         self.montant_marge = self.montant_marge_hide
 
         if self.montant_marge > 0:
-            self.coef_multi_hide = self.prix_vente_ttc / self.prix_achat_cout
+            self.coef_multi_hide = self.prix_vente_ht / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
