@@ -55,8 +55,8 @@
                              <field name="autre_cout_ttc" />
                         </group>
                           <group col="4">
-                            <field name="prix_achat_ttc" string="Cout de revient HT"/>
-                                  <field name="prix_achat_ht" string="TTC :"/>
+                            <field name="cout_revient_ht" string="Cout de revient HT"/>
+                                  <field name="cout_revient_ttc" string="TTC :"/>
                         </group>
                         <group col="4">
                             <field name="prix_vente_ht" readonly="1"/>
