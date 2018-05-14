@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pha_report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//div[@class='page']/table" position="replace">
+        <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th><strong>Description</strong></th>
+                        <!--<th><strong>Taxes</strong></th>-->
+                        <th class="text-center"><strong>Date Req.</strong></th>
+                        <th class="text-right"><strong>Qty</strong></th>
+                        <th class="text-right"><strong>Unit Price</strong></th>
+                        <th class="text-right"><strong>Amount</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.order_line" t-as="line">
+                        <td>
+                            <span t-field="line.name"/>
+                        </td>
+                        <!--<td>-->
+                            <!--<span t-esc="', '.join(map(lambda x: x.name, line.taxes_id))"/>-->
+                        <!--</td>-->
+                        <td class="text-center">
+                            <span t-field="line.date_planned" t-options='{"widget": "date"}'/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.product_qty"/>
+                            <!--<span t-field="line.product_uom.name" groups="product.group_uom"/>-->
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.price_unit"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.price_subtotal"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </xpath>
+
+        <xpath expr="//div[@class='page']/div[3]" position="replace">
+             <div class="row mt32 mb32">
+                <div t-if="o.name" class="col-xs-3">
+                    <strong>Our Order Reference:</strong>
+                    <p t-field="o.name"/>
+                </div>
+                <div t-if="o.partner_ref" class="col-xs-3">
+                    <strong>Your Order Reference:</strong>
+                    <p t-field="o.partner_ref"/>
+                </div>
+                <div t-if="o.date_order" class="col-xs-3">
+                    <strong>Order Date:</strong>
+                    <p t-field="o.date_order" t-options='{"widget": "date"}'/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

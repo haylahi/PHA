@@ -612,8 +612,6 @@ class IntrastatProductDeclaration(models.Model):
                     continue
                 lines.append(line_vals)
 
-
-
         return lines
 
     def _get_uom_refs(self, ref):

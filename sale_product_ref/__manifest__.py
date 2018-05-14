@@ -4,8 +4,8 @@
 {
     'name': 'Sale Product Refs',
     'version': '1.0.0',
-    'author': "",
-    'website': '',
+    'author': "AgilOrg",
+    'website': 'http://www.agilorg.com',
     'category': 'Sale Management',
     'depends': [
         'sale',

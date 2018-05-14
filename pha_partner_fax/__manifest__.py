@@ -16,7 +16,6 @@
         'views/partner.xml',
         'views/sale_order.xml',
         'views/account_invoice.xml',
-
     ],
 
     'installable': True,
