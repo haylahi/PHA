@@ -87,9 +87,7 @@ class ImportFEC(models.TransientModel):
     _name = "ci.account.import.fec"
 
     fec_file = fields.Binary(required=True)
-
     matrix_tiers_file = fields.Binary('Matrice des tiers')
-
     account_journal_ids = fields.Many2many('account.journal', string='Account Journals',
                                            help="Let it empty if you want to import all account moves")
     import_reconciliation = fields.Boolean(default=False)
@@ -108,7 +106,7 @@ class ImportFEC(models.TransientModel):
                                  ('utf_16', 'Unicode - utf-16'),
                                  ], 'Encodage Caractères ', default='latin_1')
     nbr_char = fields.Integer('Codification', default=10)
-
+    import_auto_num = fields.Boolean(string="Regroupement automatique", default=False)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('validate_journal', 'Validation Journaux'),
@@ -459,12 +457,34 @@ class ImportFEC(models.TransientModel):
         moves = []
         move_ids = []
         logging.info("**************** Debut Import ****************")
-        for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
-            lines = list(lines)
-            vals = self.get_move_account(lines)
-            move = move_obj.create(vals)
-            logging.info("---------- Import : %s Success", move)
-            moves.append(move)
+
+        if self.import_auto_num:
+            debit = 0
+            credit = 0
+            lines = []
+            for line in data:
+                debit_src = float(line['Debit'].replace(',', '.'))
+                credit_src = float(line['Credit'].replace(',', '.'))
+                debit = debit + debit_src
+                credit = credit + credit_src
+                lines.append(line)
+                if debit == credit:
+                    logging.info("---------- Import value : %s", lines)
+                    vals = self.get_move_account(lines)
+                    move = move_obj.create(vals)
+                    logging.info("---------- Import : %s Success", move)
+                    moves.append(move)
+                    debit = 0
+                    credit = 0
+                    lines = []
+
+        else:
+            for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
+                lines = list(lines)
+                vals = self.get_move_account(lines)
+                move = move_obj.create(vals)
+                logging.info("---------- Import : %s Success", move)
+                moves.append(move)
         logging.info("**************** Fin import ****************")
         for move in moves:
             move_ids.append(move.id)
@@ -559,7 +579,10 @@ class ImportFEC(models.TransientModel):
             journal_id = self._get_journal_from_line(line['JournalCode'])
             move_vals['journal_id'] = self._get_record_id(journal_id, 'account.journal')
         if line['EcritureNum']:
-            move_vals['name'] = line['EcritureNum']
+            if self.import_auto_num:
+                move_vals['name'] = self.env['ir.sequence'].next_by_code('mrp.routing')
+            else:
+                move_vals['name'] = line['EcritureNum']
         if line['EcritureDate']:
             move_vals['date'] = self._get_date(line['EcritureDate'])
         if line['PieceRef']:
