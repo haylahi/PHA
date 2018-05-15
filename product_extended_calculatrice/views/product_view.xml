@@ -34,7 +34,7 @@
 
                         <group col="8">
                             <field name="frais_transport_ht"/>
-                            <field name="frais_transport" string="TTC :"/>
+                            <field name="frais_transport_ttc" string="TTC :"/>
                             <field name="coef_multi"/>
                         </group>
 
