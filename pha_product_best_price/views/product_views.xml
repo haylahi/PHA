@@ -89,10 +89,10 @@
         </field>
     </record>
 
-    <record id="view_stock_product_tree2_inh" model="ir.ui.view">
-        <field name="name">product.stock.tree.2</field>
+    <record id="product_valuation_tree_inh" model="ir.ui.view">
+        <field name="name">product.valuation.tree</field>
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="stock_account.view_stock_product_tree2"/>
+        <field name="inherit_id" ref="stock_account.product_valuation_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="partner_id_low_price"/>
