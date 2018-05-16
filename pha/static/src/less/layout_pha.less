@@ -1,7 +1,12 @@
+@font-face {
+    font-family: 'Courier new';
+    font-weight: 900;
+    src: url('../fonts/courier.ttf') format('truetype');
+}
 .o_pha_footer, .o_pha_header, .o_report_layout_pha {
     font-family: 'Lato';
-    color: @gray;
-    font-size : 14px;
+    color: black;
+    font-size : 16px;
 
 }
 .o_pha_header {
@@ -63,6 +68,11 @@
         }
     }
     /*Total table*/
+    .blank_row
+        {
+            /*height: 25px !important;  overwrites any other rules */
+            background-color: transparent !important;
+        }
     .row > .col-xs-4 > table {
         td {
             border-right: none;
