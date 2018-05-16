@@ -19,6 +19,7 @@
         'security/ir.model.access.csv',
         'views/fec_config_views.xml',
         'data/fec_config_data.xml',
+        'data/account_move_seq.xml',
         'wizard/account_import_fec_view.xml',
     ],
     'installable': True,

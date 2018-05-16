@@ -10,6 +10,11 @@
                       <span t-field="move.name"/><br/>
                   </td>
             </xpath>
+            <xpath expr="//h1" position="replace">
+                 <h3  class="mt0 pull-left">
+                Bon de Préparation : <span t-field="o.name"/>
+            </h3>
+            </xpath>
         </template>
     </data>
 </odoo>

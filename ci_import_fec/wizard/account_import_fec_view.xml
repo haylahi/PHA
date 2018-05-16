@@ -24,7 +24,7 @@
                         <field name="fec_file" string="Fichier FEC" states="draft"/>
                         <field name="account_journal_ids" invisible="1"/>
                         <field name="import_reconciliation" states="draft"/>
-
+                        <field name="import_auto_num" states="draft"/>
                     </group>
                 </div>
                 <div states="validate_journal">

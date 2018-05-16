@@ -1,0 +1,311 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pha
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180512\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-16 11:08+0000\n"
+"PO-Revision-Date: 2018-05-16 11:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "&amp;bull;"
+msgstr "&amp;bull;"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+msgid "&amp;nbsp;<span>on</span>"
+msgstr "&amp;nbsp;<span>sur</span>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Accord Client :</strong>"
+msgstr "<strong>Accord Client :</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer_with_payments
+msgid "<strong>Amount Due</strong>"
+msgstr "<strong>Montant dû</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Amount</strong>"
+msgstr "<strong>Montant</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Customer reference:</strong>"
+msgstr "<strong>Référence client:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>Client:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Date Req.</strong>"
+msgstr "<strong>Date Demandée.</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Date:</strong>"
+msgstr "<strong>Date :</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Delais:</strong>"
+msgstr "<strong>Delais:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Description</strong>"
+msgstr "<strong>Description</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Expiration Date:</strong>"
+msgstr "<strong>Validité:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Mean of transport:</strong>"
+msgstr "<strong>Mode de transport:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>N/Ref:</strong>"
+msgstr "<strong>N/Ref:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>N° Client:</strong>"
+msgstr "<strong>N° Client:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Order Date:</strong>"
+msgstr "<strong>Date de commande:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Our Order Reference:</strong>"
+msgstr "<strong>Notre Référence de Commande</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Qty</strong>"
+msgstr "<strong>Qté</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Report</strong>"
+msgstr "<strong>Report</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Shipping address:</strong>"
+msgstr "<strong>Adresse de livraison:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Subtotal: </strong>"
+msgstr "<strong>Sous-total : </strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Sous-total</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Total</strong>"
+msgstr "<strong>Total</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>PU H.T</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>V/N°TVA:</strong>"
+msgstr "<strong>V/N°TVA:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>Vos References:</strong>"
+msgstr "<strong>Vos Références:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Your Order Reference:</strong>"
+msgstr "<strong>Votre référence de commande :</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "APE:"
+msgstr "APE:"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Amount"
+msgstr "Montant"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Cancelled Invoice"
+msgstr "Facture annulée"
+
+#. module: pha
+#: model:ir.model,name:pha.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Credit Note"
+msgstr "Avoir"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Description"
+msgstr "Description"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Draft Invoice"
+msgstr "Facture en brouillon"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_invoice_form_inh
+msgid "Information technique"
+msgstr "Information technique"
+
+#. module: pha
+#: model:ir.model,name:pha.model_account_invoice
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Invoicing address:"
+msgstr "Adresse de facturation :"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Invoicing and shipping address:"
+msgstr "Adresse de facturation et de livraison :"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Item number"
+msgstr "Référence"
+
+#. module: pha
+#: model:ir.model.fields,field_description:pha.field_account_invoice_max_line
+msgid "Nombre de lignes/page"
+msgstr "Nombre de lignes/page"
+
+#. module: pha
+#: model:ir.model.fields,help:pha.field_account_invoice_max_line
+msgid "Nombre maximum de lignes par page sur l'imprimé de facture."
+msgstr "Nombre maximum de lignes par page sur l'imprimé de facture."
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "N° Intracom:"
+msgstr "N° Intracom:"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "Page:\n"
+"                    <span class=\"page\"/>\n"
+"                    /\n"
+"                    <span class=\"topage\"/>"
+msgstr "Page:\n"
+"                    <span class=\"page\"/>\n"
+"                    /\n"
+"                    <span class=\"topage\"/>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer_with_payments
+msgid "Paid on"
+msgstr "Payé le"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+msgid "Price"
+msgstr "Prix"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+msgid "Qty"
+msgstr "Qté"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: pha
+#: model:ir.model,name:pha.model_sale_order
+msgid "Quotation"
+msgstr "Quotation"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "RC:"
+msgstr "RC:"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+msgid "Reference"
+msgstr "Référence"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "Siret:"
+msgstr "Siret:"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Total Price"
+msgstr "Prix total"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Vendor Bill"
+msgstr "Facture fournisseur"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Vendor Credit Note"
+msgstr "Avoir de fournisseur"
+
+#. module: pha
+#: model:ir.model,name:pha.model_report_pha_report_pha_invoice
+msgid "report.pha.report_pha_invoice"
+msgstr "report.pha.report_pha_invoice"
+
