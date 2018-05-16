@@ -6,4 +6,4 @@ class AccountInvoice(models.Model):
 
     category_id = fields.Many2many(string='Étiquettes',related='partner_id.category_id',readonly=True)
     name = fields.Char(string='Reference/Description', readonly=False ,states={'draft': [('readonly', False)],'open': [('readonly', False)],'paid': [('readonly', False)]}, index=True, copy=False, help='The name that will be used on account move lines')
-    contact_id = fields.Many2many('res.partner', string='Contact')
+    contact_id = fields.Many2one('res.partner', string='Contact')

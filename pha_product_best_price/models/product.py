@@ -63,6 +63,8 @@ class ProductTemplate(models.Model):
 
     highest_price = fields.Float(string="Highest Price")
     lowest_price = fields.Float(string="Lowest Price")
+    partner_id_low_price = fields.Many2one('res.partner', string='Fournisseur ppb', help="Fournisseur proposant le prix le plus bas.")
+    partner_id_high_price = fields.Many2one('res.partner', string='Fournisseur ppe', help="Fournisseur proposant le prix le plus élevé.")
 
     @api.multi
     def compute_highest_price(self, date=None):
@@ -73,6 +75,8 @@ class ProductTemplate(models.Model):
             # '''set all states to false'''
             supplier_info_ids.write({'state_lowest_price' : False,
                                      'state_highest_price': False,})
+            partner_id_high_price = partner_id_low_price = False
+
             net_prices = supplier_info_ids.mapped('net_price')
             highest_price = max(net_prices) if net_prices else 0.0
             lowest_price = min(net_prices) if net_prices else 0.0
@@ -80,15 +84,20 @@ class ProductTemplate(models.Model):
 
             if highest_price != 0 :
                 hp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',highest_price)])
+                partner_id_high_price = hp_line[0].name.id
                 highest_price = self.process_supplier_line_rate(price=highest_price,line=hp_line[0],default_currency=default_currency,date=date)
                 hp_line.write({'state_highest_price': True})
 
             if lowest_price != 0 :
                 lp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',lowest_price)])
+                partner_id_low_price = lp_line[0].name.id
                 lowest_price = self.process_supplier_line_rate(price=lowest_price,line=lp_line[0],default_currency=default_currency,date=date)
                 lp_line.write({'state_lowest_price': True})
 
-            rec.write({'highest_price': highest_price, 'lowest_price': lowest_price})
+            rec.write({'highest_price': highest_price,
+                       'partner_id_high_price':partner_id_high_price,
+                       'lowest_price': lowest_price,
+                       'partner_id_low_price': partner_id_low_price,})
 
     def process_supplier_line_rate(self, price, line, default_currency, date=None):
         if len(line) != 0 and line.currency_id.id != default_currency.id:

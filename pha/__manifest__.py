@@ -13,7 +13,10 @@
     'depends': ['base','sale','account','purchase','ci_account_desc'],
     'data': [
         'views/report_templates.xml',
+        'views/account_invoice_view.xml',
+        'views/res_company_view.xml',
         'reports/external_templates.xml',
+        'reports/invoice_report.xml',
         'reports/sale_order.xml',
         'reports/invoice.xml',
         'reports/purchase_quotation_templates.xml',
