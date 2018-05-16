@@ -286,7 +286,7 @@ class ImportFEC(models.TransientModel):
                     if partner_id:
                         # if odoo_partner_id and odoo_partner_id.ref != partner_id.partner_dst.ref:
                         if odoo_partner_id:
-                            partner_id.write({'partner_dst': odoo_partner_id.ref, 'type': type,
+                            partner_id.write({'partner_dst': odoo_partner_id.id, 'type': type,
                                               'compte_dst': odoo_partner_id.property_account_receivable_id.id})
                         partner_ids.append(partner_id.id)
                     else:
@@ -511,27 +511,45 @@ class ImportFEC(models.TransientModel):
             'domain': [('id', 'in', move_ids)],
         }
 
+    @api.multi
+    def trans_rec_reconcile_full(self, move_lines):
+
+        # Don't consider entrires that are already reconciled
+        move_lines_filtered = move_lines.filtered(lambda aml: not aml.reconciled)
+        # Because we are making a full reconcilition in batch, we need to consider use cases as defined in the test test_manual_reconcile_wizard_opw678153
+        # So we force the reconciliation in company currency only at first
+        move_lines_filtered.with_context(skip_full_reconcile_check='amount_currency_excluded').reconcile()
+
+        # then in second pass, consider the amounts in secondary currency (only if some lines are still not fully reconciled)
+        move_lines.force_full_reconcile()
+        return True
+
     @api.model
     def _reconcile(self, move_ids):
         if move_ids:
-            for move_id in move_ids:
-                line_obj = self.env['account.move.line']
-                lines_to_reconcile = line_obj.search([('is_reconcile_mapping', '=', True),
-                                                      ('account_id.reconcile', '=', True),
-                                                      ('move_id', '=', move_id)])
 
-                if lines_to_reconcile:
-                    for line in lines_to_reconcile:
-                        if line.is_reconcile_mapping and line.fec_reconcile_mapping:
-                            reconcile_id = self.env['account.full.reconcile'].search(
-                                [('name', '=', line.fec_reconcile_mapping)])
-                            if not reconcile_id:
-                                reconcile_id = self.env['account.full.reconcile'].create(
-                                    {'name': line.fec_reconcile_mapping})
-                            line.write({
-                                'full_reconcile_id': reconcile_id.id
-                            })
-                            logging.info("---------- Lettrage : %s Success", line)
+            # for move_id in move_ids:
+            line_obj = self.env['account.move.line']
+            lines_to_reconcile = line_obj.search([('is_reconcile_mapping', '=', True),
+                                                  ('account_id.reconcile', '=', True),
+                                                  ('move_id', 'in', move_ids.ids)])
+
+            for code_mapping, move_lines in groupby(lines_to_reconcile, lambda l: l.fec_reconcile_mapping):
+                logging.info("---------- Lettrage : %s Success", code_mapping)
+                self.trans_rec_reconcile_full(move_lines)
+
+                # if lines_to_reconcile:
+                #     for line in lines_to_reconcile:
+                #         if line.is_reconcile_mapping and line.fec_reconcile_mapping:
+                #             reconcile_id = self.env['account.full.reconcile'].search(
+                #                 [('name', '=', line.fec_reconcile_mapping)])
+                #             if not reconcile_id:
+                #                 reconcile_id = self.env['account.full.reconcile'].create(
+                #                     {'name': line.fec_reconcile_mapping})
+                #             line.write({
+                #                 'full_reconcile_id': reconcile_id.id
+                #             })
+            # logging.info("---------- Lettrage : %s Success", line)
         return True
 
     _fec_cache = {}
@@ -579,9 +597,9 @@ class ImportFEC(models.TransientModel):
             journal_id = self._get_journal_from_line(line['JournalCode'])
             move_vals['journal_id'] = self._get_record_id(journal_id, 'account.journal')
         if line['EcritureNum']:
-            if self.import_auto_num:
-                move_vals['name'] = self.env['ir.sequence'].next_by_code('mrp.routing')
-            else:
+            # if self.import_auto_num:
+            #     move_vals['name'] = self.env['ir.sequence'].next_by_code('mrp.routing')
+            if not self.import_auto_num:
                 move_vals['name'] = line['EcritureNum']
         if line['EcritureDate']:
             move_vals['date'] = self._get_date(line['EcritureDate'])
