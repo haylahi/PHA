@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* pha_product_best_price
+#	* pha
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e-20180418\n"
+"Project-Id-Version: Odoo Server 11.0+e-20180512\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-24 09:30+0000\n"
-"PO-Revision-Date: 2018-04-24 09:30+0000\n"
+"POT-Creation-Date: 2018-05-16 11:08+0000\n"
+"PO-Revision-Date: 2018-05-16 11:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,250 +15,297 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: pha_product_best_price
-#: code:addons/pha_product_best_price/wizard/calcule_best_price.py:9
-#: selection:pha.wizard.calcule.best.price,filter:0
-#, python-format
-msgid "All products"
-msgstr "Tout les articles"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "&amp;bull;"
+msgstr "&amp;bull;"
 
-#. module: pha_product_best_price
-#: model:ir.actions.act_window,name:pha_product_best_price.calcule_best_price_action
-msgid "Assistant de calcule des prix de ventes"
-msgstr "Assistant de calcule des prix de ventes"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+msgid "&amp;nbsp;<span>on</span>"
+msgstr "&amp;nbsp;<span>sur</span>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_filter
-#: model:ir.ui.view,arch_db:pha_product_best_price.calcule_best_price_form
-msgid "Calculer"
-msgstr "Calculer"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Accord Client :</strong>"
+msgstr "<strong>Accord Client :</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.actions.server,name:pha_product_best_price.action_calculer_prix_vente
-msgid "Calculer Prix de vente"
-msgstr "Calculer Prix de vente"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer_with_payments
+msgid "<strong>Amount Due</strong>"
+msgstr "<strong>Montant dû</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_category_id
-msgid "Category"
-msgstr "Catégorie"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Amount</strong>"
+msgstr "<strong>Montant</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.actions.act_window,name:pha_product_best_price.sale_coef_action
-#: model:ir.ui.menu,name:pha_product_best_price.sale_coef_menuitem
-msgid "Coef de vente"
-msgstr "Coef de vente"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Customer reference:</strong>"
+msgstr "<strong>Référence client:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_coef
-msgid "Coefficient Applicable"
-msgstr "Coefficient Applicable"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>Client:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_create_uid
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_create_uid
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_create_uid
-msgid "Created by"
-msgstr "Créé par"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Date Req.</strong>"
+msgstr "<strong>Date Demandée.</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_create_date
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_create_date
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_create_date
-msgid "Created on"
-msgstr "Créé le"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Date:</strong>"
+msgstr "<strong>Date :</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_date_currency_rate
-msgid "Currency rate Date"
-msgstr "Date taux de change"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Delais:</strong>"
+msgstr "<strong>Delais:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_display_name
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_display_name
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_display_name
-msgid "Display Name"
-msgstr "Nom à afficher"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Description</strong>"
+msgstr "<strong>Description</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.ui.view,arch_db:pha_product_best_price.calcule_best_price_form
-msgid "Fermer"
-msgstr "Fermer"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Expiration Date:</strong>"
+msgstr "<strong>Validité:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_product_supplierinfo_state_highest_price
-msgid "Highest "
-msgstr "Le plus élevé"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Mean of transport:</strong>"
+msgstr "<strong>Mode de transport:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_product_product_highest_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_product_template_highest_price
-msgid "Highest Price"
-msgstr "Le prix le plus élevé"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>N/Ref:</strong>"
+msgstr "<strong>N/Ref:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_id
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_id
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_id
-msgid "ID"
-msgstr "ID"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>N° Client:</strong>"
+msgstr "<strong>N° Client:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model,name:pha_product_best_price.model_product_supplierinfo
-msgid "Information about a product vendor"
-msgstr "Information sur le vendeur de l'article"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Order Date:</strong>"
+msgstr "<strong>Date de commande:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price___last_update
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale___last_update
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line___last_update
-msgid "Last Modified on"
-msgstr "Dernière modification le"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Our Order Reference:</strong>"
+msgstr "<strong>Notre Référence de Commande</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_write_uid
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_write_uid
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_write_uid
-msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Qty</strong>"
+msgstr "<strong>Qté</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_write_date
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_write_date
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_write_date
-msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Report</strong>"
+msgstr "<strong>Report</strong>"
 
-#. module: pha_product_best_price
-#: code:addons/pha_product_best_price/wizard/calcule_best_price.py:12
-#: selection:pha.wizard.calcule.best.price,filter:0
-#, python-format
-msgid "List of products"
-msgstr "Liste des articles"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Shipping address:</strong>"
+msgstr "<strong>Adresse de livraison:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_product_supplierinfo_state_lowest_price
-msgid "Lowest "
-msgstr "le plus bas"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Subtotal: </strong>"
+msgstr "<strong>Sous-total : </strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_product_product_lowest_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_product_template_lowest_price
-msgid "Lowest Price"
-msgstr "le prix le plus bas"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Sous-total</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_max_price
-msgid "Maximal Price"
-msgstr "Prix ​​maximal"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Total</strong>"
+msgstr "<strong>Total</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_min_price
-msgid "Minimal Price"
-msgstr "Prix ​​minimal"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>PU H.T</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.ui.menu,name:pha_product_best_price.pha_wizard_calcule_best_price_menu
-msgid "Mise a jour des prix de ventes"
-msgstr "Mise a jour des prix de ventes"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>V/N°TVA:</strong>"
+msgstr "<strong>V/N°TVA:</strong>"
 
-#. module: pha_product_best_price
-#: code:addons/pha_product_best_price/wizard/calcule_best_price.py:11
-#: selection:pha.wizard.calcule.best.price,filter:0
-#, python-format
-msgid "One product"
-msgstr "Un article"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>Vos References:</strong>"
+msgstr "<strong>Vos Références:</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_product_supplierinfo_net_price
-msgid "Prix Net"
-msgstr "Prix Net"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Your Order Reference:</strong>"
+msgstr "<strong>Votre référence de commande :</strong>"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_product_id
-msgid "Product"
-msgstr "Article"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "APE:"
+msgstr "APE:"
 
-#. module: pha_product_best_price
-#: code:addons/pha_product_best_price/wizard/calcule_best_price.py:10
-#: selection:pha.wizard.calcule.best.price,filter:0
-#, python-format
-msgid "Product Category"
-msgstr "Categorie de produits"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Amount"
+msgstr "Montant"
 
-#. module: pha_product_best_price
-#: model:ir.model,name:pha_product_best_price.model_product_template
-msgid "Product Template"
-msgstr "Modèle d'article"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Cancelled Invoice"
+msgstr "Facture annulée"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_pha_wizard_calcule_best_price_product_ids
-msgid "Products"
-msgstr "Articles"
+#. module: pha
+#: model:ir.model,name:pha.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_state
-msgid "State"
-msgstr "Région"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Credit Note"
+msgstr "Avoir"
 
-#. module: pha_product_best_price
-#: model:ir.ui.view,arch_db:pha_product_best_price.product_template_only_form_view_inherited
-msgid "Vous êtes sur le point de modifier le prix de vente et le cout! Voulez vous continuer?"
-msgstr "Vous êtes sur le point de modifier le prix de vente et le cout! Voulez vous continuer?"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Description"
+msgstr "Description"
 
-#. module: pha_product_best_price
-#: selection:price.scale,state:0
-msgid "close"
-msgstr "Fermé"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Draft Invoice"
+msgstr "Facture en brouillon"
 
-#. module: pha_product_best_price
-#: model:ir.ui.view,arch_db:pha_product_best_price.product_supplierinfo_tree_view_inherited
-msgid "highest price"
-msgstr "le prix le plus élevé"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_invoice_form_inh
+msgid "Information technique"
+msgstr "Information technique"
 
-#. module: pha_product_best_price
-#: model:ir.ui.view,arch_db:pha_product_best_price.product_supplierinfo_tree_view_inherited
-msgid "lowest price"
-msgstr "Le prix le plus bas"
+#. module: pha
+#: model:ir.model,name:pha.model_account_invoice
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Invoice"
+msgstr "Facture"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_name
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_name
-msgid "name"
-msgstr "name"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Invoicing address:"
+msgstr "Adresse de facturation :"
 
-#. module: pha_product_best_price
-#: selection:price.scale,state:0
-msgid "open"
-msgstr "Ouvert"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Invoicing and shipping address:"
+msgstr "Adresse de facturation et de livraison :"
 
-#. module: pha_product_best_price
-#: model:ir.model,name:pha_product_best_price.model_pha_wizard_calcule_best_price
-msgid "pha.wizard.calcule.best.price"
-msgstr "pha.wizard.calcule.best.price"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Item number"
+msgstr "Référence"
 
-#. module: pha_product_best_price
-#: model:ir.model,name:pha_product_best_price.model_price_scale
-msgid "price.scale"
-msgstr "price.scale"
+#. module: pha
+#: model:ir.model.fields,field_description:pha.field_account_invoice_max_line
+msgid "Nombre de lignes/page"
+msgstr "Nombre de lignes/page"
 
-#. module: pha_product_best_price
-#: model:ir.model,name:pha_product_best_price.model_price_scale_line
-msgid "price.scale.line"
-msgstr "price.scale.line"
+#. module: pha
+#: model:ir.model.fields,help:pha.field_account_invoice_max_line
+msgid "Nombre maximum de lignes par page sur l'imprimé de facture."
+msgstr "Nombre maximum de lignes par page sur l'imprimé de facture."
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_line_scale_id
-msgid "scale"
-msgstr "barème "
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "N° Intracom:"
+msgstr "N° Intracom:"
 
-#. module: pha_product_best_price
-#: model:ir.model.fields,field_description:pha_product_best_price.field_price_scale_price_scale_line_ids
-msgid "scale lines"
-msgstr "Lignes Barème "
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "Page:\n"
+"                    <span class=\"page\"/>\n"
+"                    /\n"
+"                    <span class=\"topage\"/>"
+msgstr "Page:\n"
+"                    <span class=\"page\"/>\n"
+"                    /\n"
+"                    <span class=\"topage\"/>"
 
-#. module: pha_product_best_price
-#: model:ir.ui.view,arch_db:pha_product_best_price.product_template_only_form_view_inherited
-msgid "update sale price"
-msgstr "Modifier Prix de Vente"
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer_with_payments
+msgid "Paid on"
+msgstr "Payé le"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+msgid "Price"
+msgstr "Prix"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+msgid "Qty"
+msgstr "Qté"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: pha
+#: model:ir.model,name:pha.model_sale_order
+msgid "Quotation"
+msgstr "Quotation"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "RC:"
+msgstr "RC:"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+msgid "Reference"
+msgstr "Référence"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "Siret:"
+msgstr "Siret:"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Total Price"
+msgstr "Prix total"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Vendor Bill"
+msgstr "Facture fournisseur"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Vendor Credit Note"
+msgstr "Avoir de fournisseur"
+
+#. module: pha
+#: model:ir.model,name:pha.model_report_pha_report_pha_invoice
+msgid "report.pha.report_pha_invoice"
+msgstr "report.pha.report_pha_invoice"
 
