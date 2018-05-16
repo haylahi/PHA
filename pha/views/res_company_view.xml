@@ -13,7 +13,7 @@
                     <div class="row mt16">
                         <field style="margin-right: 40px;" name="external_report_layout" widget="image_selection"
                                options="{
-                            'PHA': {
+                            'pha': {
                                 'image_link': '/pha/static/img/preview_pha.png',
                                 'preview_link': '/pha/static/pdf/preview_pha.pdf'
                             },
