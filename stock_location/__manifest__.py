@@ -8,7 +8,7 @@
     'website': 'http://www.agilorg.com',
     'category': 'Sale Management',
     'depends': [
-        'sale',
+        'sale', 'sale_stock'
     ],
     'data': [
         "views/product_template.xml",
