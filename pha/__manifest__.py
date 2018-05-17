@@ -10,11 +10,13 @@
     'website': "http://www.cadrinsitu.com",
 
 
-    'depends': ['base','sale','account','purchase','ci_account_desc'],
+    'depends': ['base','sale','stock','account','purchase','ci_account_desc'],
     'data': [
         'views/report_templates.xml',
         'views/account_invoice_view.xml',
         'views/res_company_view.xml',
+        'views/product_template_view.xml',
+        'views/stock_move_view.xml',
         'reports/external_templates.xml',
         'reports/invoice_report.xml',
         'reports/sale_order.xml',
