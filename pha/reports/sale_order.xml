@@ -2,20 +2,7 @@
 <odoo>
 
     <template id="pha_report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
-        <!--<xpath expr="//h2[1]" position="replace"></xpath>-->
         <xpath expr="//div[@class='row']" position="replace">
-            <!--<div class="col-xs-5 col-xs-offset-7" >-->
-                <!--<h2 >-->
-                    <!--<t t-if="not (env.context.get('proforma', False) or is_pro_forma)">-->
-                        <!--<span t-if="doc.state not in ['draft','sent']">Order N° </span>-->
-                        <!--<span t-if="doc.state in ['draft','sent']">Quotation N° </span>-->
-                    <!--</t>-->
-                    <!--<t t-if="env.context.get('proforma', False) or is_pro_forma">-->
-                        <!--<span>Pro-Forma Invoice N° </span>-->
-                    <!--</t>-->
-                    <!--<span t-field="doc.name"/>-->
-                <!--</h2>-->
-            <!--</div>-->
             <div class="row">
                 <div class="col-xs-6 border" style="margin-top:20px; border: 1px solid gray;">
                     <strong >Customer reference:</strong>
