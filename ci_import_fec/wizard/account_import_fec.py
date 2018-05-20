@@ -9,7 +9,7 @@ import logging
 import csv
 from itertools import groupby
 from io import BytesIO, StringIO
-from odoo.tools import pycompat
+from odoo.tools import pycompat, float_compare, float_round
 import io
 import base64
 
@@ -40,8 +40,7 @@ class ImportFECPartner(models.Model):
     ], 'Type')
 
     state = fields.Selection([
-        ('valid_general', 'Valide - [General]'),
-        ('valid_tiers', 'Valide - [Tiers]'),
+        ('valid', 'Valide'),
         ('no_partner', 'Partenaire non existant'),
     ], 'Status',
         copy=False, readonly=True)
@@ -287,17 +286,18 @@ class ImportFEC(models.TransientModel):
                         # if odoo_partner_id and odoo_partner_id.ref != partner_id.partner_dst.ref:
                         if odoo_partner_id:
                             partner_id.write({'partner_dst': odoo_partner_id.id, 'type': type,
+                                              'state': 'valid',
                                               'compte_dst': odoo_partner_id.property_account_receivable_id.id})
                         partner_ids.append(partner_id.id)
                     else:
                         if odoo_partner_id:
                             partner_ids.append(import_partner_obj.create({'name': z, 'partner_src': z,
                                                                           'partner_dst': odoo_partner_id.id,
-                                                                          'type': type,
+                                                                          'type': type, 'state': 'valid',
                                                                           'compte_dst': odoo_partner_id.property_account_receivable_id.id}).id)
                         else:
                             partner_ids.append(
-                                import_partner_obj.create({'name': z, 'partner_src': z, 'type': type}).id)
+                                import_partner_obj.create({'name': z, 'partner_src': z, 'state': 'no_partner', 'type': type}).id)
             logging.info("**************** FIN Configuration comptes tiers ****************")
             return partner_ids
 
@@ -453,32 +453,42 @@ class ImportFEC(models.TransientModel):
 
     @api.model
     def _import_data(self, data):
+        precision = self.env.user.company_id.currency_id.decimal_places
         move_obj = self.env['account.move']
         moves = []
         move_ids = []
         logging.info("**************** Debut Import ****************")
-
         if self.import_auto_num:
-            debit = 0
-            credit = 0
-            lines = []
-            for line in data:
-                debit_src = float(line['Debit'].replace(',', '.'))
-                credit_src = float(line['Credit'].replace(',', '.'))
-                debit = debit + debit_src
-                credit = credit + credit_src
-                lines.append(line)
-                if debit == credit:
-                    logging.info("---------- Import value : %s", lines)
-                    vals = self.get_move_account(lines)
-                    move = move_obj.create(vals)
-                    logging.info("---------- Import : %s Success", move)
-                    moves.append(move)
+            logging.info("---- Ecritures Auto ---- %s", data)
+
+            for ecritureNum, lines_jrl in groupby(data, lambda l: l['EcritureNum']):
+                lines_jrl = list(lines_jrl)
+                logging.info("---- By Journals - %s ---- %s", ecritureNum, lines_jrl)
+                for pieceDate, lines_date in groupby(lines_jrl, lambda l: l['PieceDate']):
+                    lines_date = list(lines_date)
                     debit = 0
                     credit = 0
                     lines = []
+                    logging.info("---- By Date - %s ---- %s", pieceDate, lines_date)
+                    for line in lines_date:
+                        debit_src = float_round(float(line['Debit'].replace(',', '.')), precision_digits=precision)
+                        credit_src = float_round(float(line['Credit'].replace(',', '.')), precision_digits=precision)
+                        debit = float_round(debit, precision_digits=precision) + debit_src
+                        credit = float_round(credit, precision_digits=precision) + credit_src
+                        # logging.info("---- debit = %s - credit = %s ----", debit, credit)
+                        lines.append(line)
+                        if debit == credit:
+                            # logging.info("---------- Import value : %s", lines)
+                            vals = self.get_move_account(lines)
+                            move = move_obj.create(vals)
+                            logging.info("---------- Import : %s Success", move)
+                            moves.append(move)
+                            debit = 0
+                            credit = 0
+                            lines = []
 
         else:
+            logging.info("---- Ecritures Manuelles ----")
             for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
                 lines = list(lines)
                 vals = self.get_move_account(lines)
@@ -512,31 +522,46 @@ class ImportFEC(models.TransientModel):
         }
 
     @api.multi
-    def trans_rec_reconcile_full(self, move_lines):
-
+    def trans_rec_reconcile_full(self, line_ids):
+        move_lines = self.env['account.move.line'].search([('id', 'in', line_ids)])
         # Don't consider entrires that are already reconciled
         move_lines_filtered = move_lines.filtered(lambda aml: not aml.reconciled)
+        logging.info('-- 1 - %s', move_lines_filtered)
         # Because we are making a full reconcilition in batch, we need to consider use cases as defined in the test test_manual_reconcile_wizard_opw678153
         # So we force the reconciliation in company currency only at first
         move_lines_filtered.with_context(skip_full_reconcile_check='amount_currency_excluded').reconcile()
-
+        logging.info('-- 2 -  %s', move_lines_filtered)
         # then in second pass, consider the amounts in secondary currency (only if some lines are still not fully reconciled)
         move_lines.force_full_reconcile()
+        logging.info('-- 3 -  %s', move_lines_filtered)
         return True
 
     @api.model
     def _reconcile(self, move_ids):
         if move_ids:
-
+            logging.info("---------- move_ids.mapped %s", move_ids)
+            move__vals = []
             # for move_id in move_ids:
             line_obj = self.env['account.move.line']
             lines_to_reconcile = line_obj.search([('is_reconcile_mapping', '=', True),
                                                   ('account_id.reconcile', '=', True),
-                                                  ('move_id', 'in', move_ids.ids)])
+                                                  ('fec_reconcile_mapping', '=', 'Z'),
+                                                  ('move_id', 'in', move_ids)])
+
+            lines_to_reconcile = lines_to_reconcile.sorted(
+                key=lambda p: p.fec_reconcile_mapping,
+                reverse=True,
+            )
 
             for code_mapping, move_lines in groupby(lines_to_reconcile, lambda l: l.fec_reconcile_mapping):
-                logging.info("---------- Lettrage : %s Success", code_mapping)
-                self.trans_rec_reconcile_full(move_lines)
+                move_lines = list(move_lines)
+                line_ids = []
+                if code_mapping != 'Z':
+                    for line in move_lines:
+                        line_ids.append(line.id)
+                    logging.info("---------- Lettrage : %s - %s Success", code_mapping, line_ids)
+
+                    self.trans_rec_reconcile_full(line_ids)
 
                 # if lines_to_reconcile:
                 #     for line in lines_to_reconcile:
