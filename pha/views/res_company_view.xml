@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="pha_view_company_report_form" model="ir.ui.view">
+            <field name="name">res.company.report.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_report_form"/>
+            <field name="mode">primary</field>
+            <field name="priority">15</field>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='row mt16']" position="replace">
+                    <div class="row mt16">
+                        <field style="margin-right: 40px;" name="external_report_layout" widget="image_selection"
+                               options="{
+                            'pha': {
+                                'image_link': '/pha/static/img/preview_pha.png',
+                                'preview_link': '/pha/static/pdf/preview_pha.pdf'
+                            },
+                            'background': {
+                                'image_link': '/base/static/img/preview_background.png',
+                                'preview_link': '/base/static/pdf/preview_background.pdf'
+                            },
+                            'boxed': {
+                                'image_link': '/base/static/img/preview_boxed.png',
+                                'preview_link': '/base/static/pdf/preview_boxed.pdf'
+                            },
+                            'clean': {
+                                'image_link': '/base/static/img/preview_clean.png',
+                                'preview_link': '/base/static/pdf/preview_clean.pdf'
+                            },
+                            'standard': {
+                                'image_link': '/base/static/img/preview_standard.png',
+                                'preview_link': '/base/static/pdf/preview_standard.pdf'
+                            }
+
+                        }"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
