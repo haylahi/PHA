@@ -58,7 +58,7 @@
                                 <field name="partner_dst"/>
                                 <field name="compte_dst"/>
                                 <field name="type"/>
-                                <field name="state" invisible="1"/>
+                                <field name="state" invisible="0"/>
                             </tree>
                         </field>
                     </group>
