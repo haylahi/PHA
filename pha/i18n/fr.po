@@ -292,7 +292,7 @@ msgstr "Prix total"
 #: model:ir.ui.view,arch_db:pha.information_body
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "Unit Price"
-msgstr "Prix unitaire"
+msgstr "P.U"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.information_header
