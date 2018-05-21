@@ -11,3 +11,4 @@ class AccountMoveLine(models.Model):
 
     fec_reconcile_mapping = fields.Char(string='Reconcile code')
     is_reconcile_mapping = fields.Boolean(string="Reconciled")
+
