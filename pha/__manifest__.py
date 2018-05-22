@@ -10,7 +10,7 @@
     'website': "http://www.cadrinsitu.com",
 
 
-    'depends': ['base','sale','stock','account','purchase','ci_account_desc'],
+    'depends': ['base','sale','sale_stock','pha_partner_fax','stock','account','purchase','ci_account_desc','stock_location'],
     'data': [
         'views/report_templates.xml',
         'views/account_invoice_view.xml',
@@ -23,6 +23,7 @@
         'reports/invoice.xml',
         'reports/purchase_quotation_templates.xml',
         'reports/purchase_order_templates.xml',
+        'reports/report_deliveryslip.xml',
     ],
 
     'installable': True,
