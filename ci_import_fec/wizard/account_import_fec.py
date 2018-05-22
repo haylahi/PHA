@@ -308,7 +308,7 @@ class ImportFEC(models.TransientModel):
 
         if not account_tiers_id:
             config_id = self.get_config_from_code(code)
-            values = {'name': code_src, 'code': code,
+            values = {'name': partner.name, 'code': code,
                       'reconcile': config_id.reconcile}
             if config_id:
                 values['user_type_id'] = config_id.user_type_id.id
@@ -526,14 +526,11 @@ class ImportFEC(models.TransientModel):
         move_lines = self.env['account.move.line'].search([('id', 'in', line_ids)])
         # Don't consider entrires that are already reconciled
         move_lines_filtered = move_lines.filtered(lambda aml: not aml.reconciled)
-        logging.info('-- 1 - %s', move_lines_filtered)
         # Because we are making a full reconcilition in batch, we need to consider use cases as defined in the test test_manual_reconcile_wizard_opw678153
         # So we force the reconciliation in company currency only at first
-        move_lines_filtered.with_context(skip_full_reconcile_check='amount_currency_excluded').reconcile()
-        logging.info('-- 2 -  %s', move_lines_filtered)
+        move_lines_filtered.with_context(skip_full_reconcile_check='amount_currency_excluded').fec_reconcile()
         # then in second pass, consider the amounts in secondary currency (only if some lines are still not fully reconciled)
         move_lines.force_full_reconcile()
-        logging.info('-- 3 -  %s', move_lines_filtered)
         return True
 
     @api.model
@@ -555,12 +552,21 @@ class ImportFEC(models.TransientModel):
                 move_lines = list(move_lines)
                 logging.info("---------- %s - %s", code_mapping, move_lines)
                 line_ids = []
-                if code_mapping != 'Z':
-                    for line in move_lines:
-                        line_ids.append(line.id)
-                    logging.info("---------- Lettrage : %s - %s Success", code_mapping, line_ids)
+                # for line in move_lines:
+                #     line_ids.append(line.id)
+                # data = line_obj.search([('id', 'in', line_ids)]).sorted(key=lambda p: p.partner_id.id)
+                # logging.info("---------- data - %s", data)
+                # for partner, lines in groupby(data, lambda l: l.partner_id.id):
+                #     lines = list(lines)
+                #     logging.info("---------- lines - %s", lines)
+                #     line_ids = []
+                # logging.info("---------- %s - %s", partner, lines)
+                # if code_mapping != 'Z':
+                for line in move_lines:
+                    line_ids.append(line.id)
+                logging.info("---------- Lettrage : %s - %s Success", code_mapping, line_ids)
 
-                    self.trans_rec_reconcile_full(line_ids)
+                self.trans_rec_reconcile_full(line_ids)
         return True
 
     _fec_cache = {}
