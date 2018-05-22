@@ -122,12 +122,12 @@ class ProductTemplate(models.Model):
     #         self.taux_marque = self.taux_marque_hide
     @api.onchange('autre_cout_ht','taux_tva','prix_achat_hide_remise_devise')
     def autre_cout_ht_change(self):
-        if not self.autre_cout_ht:
-            return False
+        # if not self.autre_cout_ht:
+        #     return False
         self.coef_tva = 1 + (self.taux_tva / 100)
         self.autre_cout_ttc = ((self.autre_cout_ht * self.prix_achat_hide_remise_devise )/100)*self.coef_tva
         self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
-        self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1+(self.interaction_devise_ht/100))
+        self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1-(self.interaction_devise_ht/100))
         self.prix_achat_cout = self.prix_achat_hide_remise_devise * (1 + (
                     self.frais_transport_ht + self.cout_main_oeuvre_ht + self.autre_cout_ht + self.cout_packaging_ht) / 100)
 
@@ -156,7 +156,7 @@ class ProductTemplate(models.Model):
         self.coef_tva = 1 + (self.taux_tva / 100)
         self.cout_main_oeuvre_ttc =((self.cout_main_oeuvre_ht*self.prix_achat_hide_remise_devise )/100)* self.coef_tva
         self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
-        self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1+(self.interaction_devise_ht/100))
+        self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1-(self.interaction_devise_ht/100))
         self.prix_achat_cout = self.prix_achat_hide_remise_devise * (1 + (
                     self.frais_transport_ht + self.cout_main_oeuvre_ht + self.autre_cout_ht + self.cout_packaging_ht) / 100)
         self.cout_revient_ht = self.prix_achat_cout
@@ -185,7 +185,7 @@ class ProductTemplate(models.Model):
         self.coef_tva = 1 + (self.taux_tva / 100)
         self.cout_packaging_ttc = ((self.cout_packaging_ht*self.prix_achat_hide_remise_devise )/100) * self.coef_tva
         self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
-        self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1+(self.interaction_devise_ht/100))
+        self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1-(self.interaction_devise_ht/100))
         self.prix_achat_cout = self.prix_achat_hide_remise_devise * (1 + (self.frais_transport_ht + self.cout_main_oeuvre_ht + self.autre_cout_ht + self.cout_packaging_ht) / 100)
         self.prix_vente_ht = self.prix_achat_cout + self.montant_marge_net
         self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
@@ -212,7 +212,7 @@ class ProductTemplate(models.Model):
         self.coef_tva = 1 + (self.taux_tva / 100)
         self.frais_transport_ttc = ((self.frais_transport_ht *self.prix_achat_hide_remise_devise )/100) * self.coef_tva
         self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
-        self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1+(self.interaction_devise_ht/100))
+        self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1-(self.interaction_devise_ht/100))
         self.prix_achat_cout = self.prix_achat_hide_remise_devise * (1 + (
                     self.frais_transport_ht + self.cout_main_oeuvre_ht + self.autre_cout_ht + self.cout_packaging_ht) / 100)
 
@@ -236,12 +236,12 @@ class ProductTemplate(models.Model):
             self.taux_marque = self.taux_marque_hide
     @api.onchange('remise_comerciale_ht')
     def remise_comerciale_ht_change(self):
-        if not self.remise_comerciale_ht:
-            return False
+        # if not self.remise_comerciale_ht:
+        #     return False
         self.coef_tva = 1 + (self.taux_tva / 100)
         self.remise_comerciale_ttc = ((self.remise_comerciale_ht *self.prix_achat_ht)/100)* self.coef_tva
         self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
-        self.prix_achat_hide_remise_devise = self.prix_achat_hide_remise * (1 + (self.interaction_devise_ht / 100))
+        self.prix_achat_hide_remise_devise = self.prix_achat_hide_remise * (1 - (self.interaction_devise_ht / 100))
         self.prix_achat_cout = self.prix_achat_hide_remise_devise * (1 + (
                     self.frais_transport_ht + self.cout_main_oeuvre_ht + self.autre_cout_ht + self.cout_packaging_ht) / 100)
 
@@ -265,10 +265,10 @@ class ProductTemplate(models.Model):
             self.taux_marque = self.taux_marque_hide
     @api.onchange('interaction_devise_ht')
     def interaction_devise_ht_change(self):
-        if not self.interaction_devise_ht:
-            return False
+        # if not self.interaction_devise_ht:
+        #     return False
         self.coef_tva = 1 + (self.taux_tva / 100)
-        self.interaction_devise_ttc =((self.remise_comerciale_ht * self.prix_achat_hide_remise) / 100) * self.coef_tva
+        self.interaction_devise_ttc =((self.interaction_devise_ht * self.prix_achat_hide_remise) / 100) * self.coef_tva
         self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
         self.prix_achat_hide_remise_devise=self.prix_achat_hide_remise*(1-(self.interaction_devise_ht/100))
         self.prix_achat_cout = self.prix_achat_hide_remise_devise * (1 + (
@@ -298,10 +298,10 @@ class ProductTemplate(models.Model):
         coef_tva = 1 + (self.taux_tva / 100)
         self.prix_achat_ttc=self.prix_achat_ht * coef_tva
         self.prix_achat_hide_remise = self.prix_achat_ht * (1 - (self.remise_comerciale_ht / 100))
-        self.prix_achat_hide_remise_devise = self.prix_achat_hide_remise * (1 + (self.interaction_devise_ht / 100))
+        self.prix_achat_hide_remise_devise = self.prix_achat_hide_remise * (1 - (self.interaction_devise_ht / 100))
         # ______________les couts TTC_____________
-        self.interaction_devise_ttc = ((self.interaction_devise_ht * self.prix_achat_hide_remise_devise) / 100) * self.coef_tva
-        self.remise_comerciale_ttc = (( self.remise_comerciale_ht * self.prix_achat_hide_remise_devise) / 100) * self.coef_tva
+        self.interaction_devise_ttc = ((self.interaction_devise_ht * self.prix_achat_hide_remise) / 100) * self.coef_tva
+        self.remise_comerciale_ttc = (( self.remise_comerciale_ht * self.prix_achat_ht) / 100) * self.coef_tva
         self.cout_packaging_ttc = ((self.cout_packaging_ht * self.prix_achat_hide_remise_devise) / 100) * self.coef_tva
         self.cout_main_oeuvre_ttc = ((self.cout_main_oeuvre_ht * self.prix_achat_hide_remise_devise) / 100) * self.coef_tva
         self.autre_cout_ttc = ((self.autre_cout_ht * self.prix_achat_hide_remise_devise) / 100) * self.coef_tva
@@ -348,8 +348,8 @@ class ProductTemplate(models.Model):
                      (self.autre_cout_ht / 100) + (self.cout_packaging_ht / 100)))
         self.prix_vente_ttc = ((self.prix_vente_ht*self.prix_achat_hide_remise_devise )/100) *self.coef_tva
 
-        self.interaction_devise_ttc = ((self.interaction_devise_ht*self.prix_achat_hide_remise_devise )/100) * self.coef_tva
-        self.remise_comerciale_ttc = ((self.remise_comerciale_ht*self.prix_achat_hide_remise_devise )/100)* self.coef_tva
+        self.interaction_devise_ttc = ((self.interaction_devise_ht * self.prix_achat_hide_remise) / 100) * self.coef_tva
+        self.remise_comerciale_ttc = ((self.remise_comerciale_ht * self.prix_achat_ht) / 100) * self.coef_tva
         self.cout_packaging_ttc = ((self.cout_packaging_ht*self.prix_achat_hide_remise_devise )/100)* self.coef_tva
         self.cout_main_oeuvre_ttc = ((self.cout_main_oeuvre_ht*self.prix_achat_hide_remise_devise )/100)* self.coef_tva
         self.autre_cout_ttc = ((self.autre_cout_ht*self.prix_achat_hide_remise_devise )/100)* self.coef_tva
