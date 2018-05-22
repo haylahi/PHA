@@ -3,7 +3,7 @@
     <data>
         <template id="information_header">
             <div class="row">
-                <div class="col-xs-5" style="margin-top:40px;">
+                <div class="col-xs-5 customer_reference">
                     <strong>Vos References:</strong>
                     <div t-field="o.name" />
                     <div t-field="o.contact_id.name" />

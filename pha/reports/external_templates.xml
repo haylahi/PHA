@@ -2,40 +2,35 @@
 <odoo>
     <template id="pha.external_layout_pha">
         <div class="header o_pha_header">
-            <div class="w-50 p-3">
-                <div class="col-xs-7 col-xs-offset-1">
+            <div class="company_logo">
+                <div>
                     <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
                 </div>
-                <div class="col-xs-6 text-center" name="company_address" >
-                    <div>
-                        <span>
-                            <t t-esc="company.partner_id.street"/>
-                            -
-                            <t t-esc="company.partner_id.zip"/>
-                            <t t-esc="company.partner_id.city"/>
-                            -
-                            <t t-esc="company.partner_id.country_id.name"/>
-                        </span>
-
-                    </div>
-                    <div>
-                        <span>
-                            <t t-esc="company.partner_id.phone"/>
-                            -
-                            <t t-esc="company.partner_id.email"/>
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <strong>
-                                <t t-esc="company.partner_id.website"/>
-                            </strong>
-                        </span>
-                    </div>
-
+                <div>
+                    <span>
+                        <t t-esc="company.partner_id.street"/>
+                        -
+                        <t t-esc="company.partner_id.zip"/>
+                        <t t-esc="company.partner_id.city"/>
+                        -
+                        <t t-esc="company.partner_id.country_id.name"/>
+                    </span>
 
                 </div>
-
+                <div>
+                    <span>
+                        <t t-esc="company.partner_id.phone"/>
+                        -
+                        <t t-esc="company.partner_id.email"/>
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        <strong>
+                            <t t-esc="company.partner_id.website"/>
+                        </strong>
+                    </span>
+                </div>
             </div>
         </div>
 
