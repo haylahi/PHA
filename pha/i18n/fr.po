@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e-20180512\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-21 15:08+0000\n"
-"PO-Revision-Date: 2018-05-21 15:08+0000\n"
+"POT-Creation-Date: 2018-05-24 13:03+0000\n"
+"PO-Revision-Date: 2018-05-24 13:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "&amp;nbsp;<span>on</span>"
 msgstr "&amp;nbsp;<span>sur</span>"
 
 #. module: pha
-#: model:ir.ui.view,arch_db:pha.report_delivery_document_inherit_sale_stock
+#: model:ir.ui.view,arch_db:pha.report_delivery_document_inherit
 msgid "<span><strong>Customer Address:</strong></span>"
 msgstr "<span><strong>Adresse du client :</strong></span>"
 
@@ -46,7 +46,7 @@ msgid "<strong>Amount</strong>"
 msgstr "<strong>Montant</strong>"
 
 #. module: pha
-#: model:ir.ui.view,arch_db:pha.report_delivery_document_inherit_sale_stock
+#: model:ir.ui.view,arch_db:pha.report_delivery_document_inherit
 msgid "<strong>Customer Reference:</strong>"
 msgstr "<strong>Référence client:</strong>"
 
@@ -95,11 +95,6 @@ msgstr "<strong>Transport:</strong>"
 #: model:ir.ui.view,arch_db:pha.information_header
 msgid "<strong>N/Ref:</strong>"
 msgstr "<strong>N/Ref:</strong>"
-
-#. module: pha
-#: model:ir.ui.view,arch_db:pha.information_header
-msgid "<strong>N° Client:</strong>"
-msgstr "<strong>N° Client:</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
@@ -213,6 +208,11 @@ msgid "Draft Invoice"
 msgstr "Facture en brouillon"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Fournisseur:"
+msgstr "Fournisseur:"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_invoice_form_inh
 msgid "Information technique"
 msgstr "Information technique"
@@ -247,6 +247,11 @@ msgstr "Nombre de lignes/page"
 #: model:ir.model.fields,help:pha.field_account_invoice_max_line
 msgid "Nombre maximum de lignes par page sur l'imprimé de facture."
 msgstr "Nombre maximum de lignes par page sur l'imprimé de facture."
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "N° Client:"
+msgstr "N° Client:"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.external_layout_pha
@@ -322,7 +327,7 @@ msgstr "Origine"
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "Total Price"
-msgstr "Prix total"
+msgstr "Prix Total"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.information_body
