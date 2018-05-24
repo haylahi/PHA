@@ -429,7 +429,7 @@ class IntrastatProductDeclaration(models.Model):
                         total_inv_accessory_costs_cc *
                         ac_line_vals['weight'] /
                         total_inv_weight)
-
+    # @api.multi
     def _prepare_invoice_domain(self):
         """
         Complete this method in the localization module
