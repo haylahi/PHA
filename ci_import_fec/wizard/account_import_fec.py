@@ -9,7 +9,7 @@ import logging
 import csv
 from itertools import groupby
 from io import BytesIO, StringIO
-from odoo.tools import pycompat
+from odoo.tools import pycompat, float_compare, float_round
 import io
 import base64
 
@@ -40,8 +40,7 @@ class ImportFECPartner(models.Model):
     ], 'Type')
 
     state = fields.Selection([
-        ('valid_general', 'Valide - [General]'),
-        ('valid_tiers', 'Valide - [Tiers]'),
+        ('valid', 'Valide'),
         ('no_partner', 'Partenaire non existant'),
     ], 'Status',
         copy=False, readonly=True)
@@ -87,9 +86,7 @@ class ImportFEC(models.TransientModel):
     _name = "ci.account.import.fec"
 
     fec_file = fields.Binary(required=True)
-
     matrix_tiers_file = fields.Binary('Matrice des tiers')
-
     account_journal_ids = fields.Many2many('account.journal', string='Account Journals',
                                            help="Let it empty if you want to import all account moves")
     import_reconciliation = fields.Boolean(default=False)
@@ -108,7 +105,7 @@ class ImportFEC(models.TransientModel):
                                  ('utf_16', 'Unicode - utf-16'),
                                  ], 'Encodage Caractères ', default='latin_1')
     nbr_char = fields.Integer('Codification', default=10)
-
+    import_auto_num = fields.Boolean(string="Regroupement automatique", default=False)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('validate_journal', 'Validation Journaux'),
@@ -288,18 +285,19 @@ class ImportFEC(models.TransientModel):
                     if partner_id:
                         # if odoo_partner_id and odoo_partner_id.ref != partner_id.partner_dst.ref:
                         if odoo_partner_id:
-                            partner_id.write({'partner_dst': odoo_partner_id.ref, 'type': type,
+                            partner_id.write({'partner_dst': odoo_partner_id.id, 'type': type,
+                                              'state': 'valid',
                                               'compte_dst': odoo_partner_id.property_account_receivable_id.id})
                         partner_ids.append(partner_id.id)
                     else:
                         if odoo_partner_id:
                             partner_ids.append(import_partner_obj.create({'name': z, 'partner_src': z,
                                                                           'partner_dst': odoo_partner_id.id,
-                                                                          'type': type,
+                                                                          'type': type, 'state': 'valid',
                                                                           'compte_dst': odoo_partner_id.property_account_receivable_id.id}).id)
                         else:
                             partner_ids.append(
-                                import_partner_obj.create({'name': z, 'partner_src': z, 'type': type}).id)
+                                import_partner_obj.create({'name': z, 'partner_src': z, 'state': 'no_partner', 'type': type}).id)
             logging.info("**************** FIN Configuration comptes tiers ****************")
             return partner_ids
 
@@ -310,7 +308,7 @@ class ImportFEC(models.TransientModel):
 
         if not account_tiers_id:
             config_id = self.get_config_from_code(code)
-            values = {'name': code_src, 'code': code,
+            values = {'name': partner.name, 'code': code,
                       'reconcile': config_id.reconcile}
             if config_id:
                 values['user_type_id'] = config_id.user_type_id.id
@@ -449,22 +447,54 @@ class ImportFEC(models.TransientModel):
                 error = True
                 message = message + "\nName = " + ecritureNum + "; Debit = " + str(debit) + "; Credit : " + str(credit)
 
-        if error:
-            raise exceptions.Warning(message)
+        # if error:
+        #     raise exceptions.Warning(message)
         return True
 
     @api.model
     def _import_data(self, data):
+        precision = self.env.user.company_id.currency_id.decimal_places
         move_obj = self.env['account.move']
         moves = []
         move_ids = []
         logging.info("**************** Debut Import ****************")
-        for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
-            lines = list(lines)
-            vals = self.get_move_account(lines)
-            move = move_obj.create(vals)
-            logging.info("---------- Import : %s Success", move)
-            moves.append(move)
+        if self.import_auto_num:
+            logging.info("---- Ecritures Auto ---- %s", data)
+
+            # for ecritureNum, lines_jrl in groupby(data, lambda l: l['EcritureNum']):
+            #     lines_jrl = list(lines_jrl)
+            #     logging.info("---- By Journals - %s ---- %s", ecritureNum, lines_jrl)
+            for pieceDate, lines_date in groupby(data, lambda l: l['PieceDate']):
+                lines_date = list(lines_date)
+                debit = 0
+                credit = 0
+                lines = []
+                logging.info("---- By Date - %s ---- %s", pieceDate, lines_date)
+                for line in lines_date:
+                    debit_src = float_round(float(line['Debit'].replace(',', '.')), precision_digits=precision)
+                    credit_src = float_round(float(line['Credit'].replace(',', '.')), precision_digits=precision)
+                    debit = float_round(debit, precision_digits=precision) + debit_src
+                    credit = float_round(credit, precision_digits=precision) + credit_src
+                    # logging.info("---- debit = %s - credit = %s ----", debit, credit)
+                    lines.append(line)
+                    if debit == credit:
+                        # logging.info("---------- Import value : %s", lines)
+                        vals = self.get_move_account(lines)
+                        move = move_obj.create(vals)
+                        logging.info("---------- Import : %s Success", move)
+                        moves.append(move)
+                        debit = 0
+                        credit = 0
+                        lines = []
+
+        else:
+            logging.info("---- Ecritures Manuelles ----")
+            for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
+                lines = list(lines)
+                vals = self.get_move_account(lines)
+                move = move_obj.create(vals)
+                logging.info("---------- Import : %s Success", move)
+                moves.append(move)
         logging.info("**************** Fin import ****************")
         for move in moves:
             move_ids.append(move.id)
@@ -491,27 +521,52 @@ class ImportFEC(models.TransientModel):
             'domain': [('id', 'in', move_ids)],
         }
 
+    @api.multi
+    def trans_rec_reconcile_full(self, line_ids):
+        move_lines = self.env['account.move.line'].search([('id', 'in', line_ids)])
+        # Don't consider entrires that are already reconciled
+        move_lines_filtered = move_lines.filtered(lambda aml: not aml.reconciled)
+        # Because we are making a full reconcilition in batch, we need to consider use cases as defined in the test test_manual_reconcile_wizard_opw678153
+        # So we force the reconciliation in company currency only at first
+        move_lines_filtered.with_context(skip_full_reconcile_check='amount_currency_excluded').fec_reconcile()
+        # then in second pass, consider the amounts in secondary currency (only if some lines are still not fully reconciled)
+        move_lines.force_full_reconcile()
+        return True
+
     @api.model
     def _reconcile(self, move_ids):
         if move_ids:
-            for move_id in move_ids:
-                line_obj = self.env['account.move.line']
-                lines_to_reconcile = line_obj.search([('is_reconcile_mapping', '=', True),
-                                                      ('account_id.reconcile', '=', True),
-                                                      ('move_id', '=', move_id)])
+            logging.info("---------- move_ids.mapped %s", move_ids)
+            move__vals = []
+            # for move_id in move_ids:
+            line_obj = self.env['account.move.line']
+            lines_to_reconcile = line_obj.search([('is_reconcile_mapping', '=', True),
+                                                  ('account_id.reconcile', '=', True),
+                                                  ('move_id', 'in', move_ids)])
 
-                if lines_to_reconcile:
-                    for line in lines_to_reconcile:
-                        if line.is_reconcile_mapping and line.fec_reconcile_mapping:
-                            reconcile_id = self.env['account.full.reconcile'].search(
-                                [('name', '=', line.fec_reconcile_mapping)])
-                            if not reconcile_id:
-                                reconcile_id = self.env['account.full.reconcile'].create(
-                                    {'name': line.fec_reconcile_mapping})
-                            line.write({
-                                'full_reconcile_id': reconcile_id.id
-                            })
-                            logging.info("---------- Lettrage : %s Success", line)
+            lines_to_reconcile = lines_to_reconcile.sorted(
+                key=lambda p: p.fec_reconcile_mapping
+            )
+            logging.info("---------- lines_to_reconcile %s", lines_to_reconcile.mapped('fec_reconcile_mapping'))
+            for code_mapping, move_lines in groupby(lines_to_reconcile, lambda l: l.fec_reconcile_mapping):
+                move_lines = list(move_lines)
+                logging.info("---------- %s - %s", code_mapping, move_lines)
+                line_ids = []
+                # for line in move_lines:
+                #     line_ids.append(line.id)
+                # data = line_obj.search([('id', 'in', line_ids)]).sorted(key=lambda p: p.partner_id.id)
+                # logging.info("---------- data - %s", data)
+                # for partner, lines in groupby(data, lambda l: l.partner_id.id):
+                #     lines = list(lines)
+                #     logging.info("---------- lines - %s", lines)
+                #     line_ids = []
+                # logging.info("---------- %s - %s", partner, lines)
+                # if code_mapping != 'Z':
+                for line in move_lines:
+                    line_ids.append(line.id)
+                logging.info("---------- Lettrage : %s - %s Success", code_mapping, line_ids)
+
+                self.trans_rec_reconcile_full(line_ids)
         return True
 
     _fec_cache = {}
@@ -559,7 +614,10 @@ class ImportFEC(models.TransientModel):
             journal_id = self._get_journal_from_line(line['JournalCode'])
             move_vals['journal_id'] = self._get_record_id(journal_id, 'account.journal')
         if line['EcritureNum']:
-            move_vals['name'] = line['EcritureNum']
+            # if self.import_auto_num:
+            #     move_vals['name'] = self.env['ir.sequence'].next_by_code('mrp.routing')
+            if not self.import_auto_num:
+                move_vals['name'] = line['EcritureNum']
         if line['EcritureDate']:
             move_vals['date'] = self._get_date(line['EcritureDate'])
         if line['PieceRef']:

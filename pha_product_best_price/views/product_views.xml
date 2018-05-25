@@ -11,10 +11,27 @@
             <xpath expr="//field[@name='seller_ids']" position="before">
 
                 <group>
-                    <field name="highest_price"/>
+                    <label for="highest_price"/>
+                    <div>
+                        <div>
+                            <field name="highest_price"/>
+                        </div>
+                        <div>
+                            <field name="partner_id_high_price" class="oe_link"/>
+                        </div>
+
+                    </div>
                 </group>
                 <group>
-                    <field name="lowest_price"/>
+                    <label for="lowest_price"/>
+                    <div>
+                        <div>
+                            <field name="lowest_price"/>
+                        </div>
+                        <div>
+                            <field name="partner_id_low_price" class="oe_link"/>
+                        </div>
+                    </div>
                 </group>
                 <group>
                     <button class="oe_highlight" type="object" name="update_sale_price" string="update sale price"
@@ -47,7 +64,6 @@
         </field>
     </record>
 
-
     <record id="product_supplierinfo_form_view_inherited" model="ir.ui.view">
         <field name="name">product.supplierinfo.form.inherited</field>
         <field name="model">product.supplierinfo</field>
@@ -73,5 +89,14 @@
         </field>
     </record>
 
-
+    <record id="view_stock_product_tree2_inh" model="ir.ui.view">
+        <field name="name">product.stock.tree.2</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock_account.view_stock_product_tree2"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="partner_id_low_price"/>
+            </field>
+        </field>
+    </record>
 </odoo>

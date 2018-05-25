@@ -1,14 +1,19 @@
+@font-face {
+    font-family: 'Courier new';
+    font-weight: 900;
+    src: url('../fonts/courier.ttf') format('truetype');
+}
 .o_pha_footer, .o_pha_header, .o_report_layout_pha {
     font-family: 'Lato';
-    color: @gray;
-    font-size : 14px;
-
+    color: black;
+    font-size : 16px;
 }
 .o_pha_header {
     /*border-bottom: 1px solid @gray-lighter;*/
     font-size : 12px;
-    .company_address {
-        min-width: 300px;
+    .company_logo {
+        width: 50%;
+        text-align: center;
     }
     img {
         max-height: 120px;
@@ -23,6 +28,7 @@
 }
 .o_pha_footer {
     border-top: 1px solid @gray-lighter;
+    font-size : 12px;
     ul {
         padding: 4px 0;
         margin: 0 0 4px 0;
@@ -37,6 +43,10 @@
         /*border-radius: 25px;*/
         padding-top: 10px;
         margin: 0;
+    }
+    .customer_reference {
+        margin-top:50px;
+        border: 1px solid gray;
     }
     > h2 {
         text-transform: uppercase;

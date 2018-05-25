@@ -9,13 +9,14 @@
     'author': "Cadrinsitu",
     'website': "http://www.cadrinsitu.com",
 
-    'depends': ['base_vat','l10n_fr'],
+    'depends': ['base','base_vat','l10n_fr','account'],
 # l10n_fr est requis pour rendre le champs siret (onglet 'Ventes & Achats' invisible sur la fiche partner
 
     'data': [
         'views/partner.xml',
         'views/sale_order.xml',
         'views/account_invoice.xml',
+        'views/stock_picking_view.xml',
     ],
 
     'installable': True,
