@@ -52,13 +52,13 @@ class L10nFrIntrastatProductDeclaration(models.Model):
     def _prepare_invoice_domain(self):
         domain = super(L10nFrIntrastatProductDeclaration, self).\
             _prepare_invoice_domain()
-        newdomain = []
+        # newdomain = []
         if self.type == 'arrivals':
-            newdomain.append(('type', '=', 'in_invoice'))
-            return newdomain
+            domain.append(('type', '=', 'in_invoice'))
+            return domain
         if self.type == 'dispatches':
-            newdomain.append(('type', '=', 'out_invoice'))
-            return newdomain
+            domain.append(('type', '=', 'out_invoice'))
+            return domain
         return domain
 
     @api.model

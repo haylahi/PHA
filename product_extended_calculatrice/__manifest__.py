@@ -21,7 +21,7 @@
 
 
 {
-    'name': 'ES Product Calculatrice',
+    'name': ' Product Calculatrice',
     'version': '11.0',
     'depends': ['base', 'product', 'sale', 'crm', ],
     'sequence': 1,

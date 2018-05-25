@@ -18,7 +18,7 @@
                           <group col="8">
                             <field name="remise_comerciale_ht"/>
                             <field name="remise_comerciale_ttc" string="TTC :" readonly="1"/>
-                            <field name="taux_marque"  readonly="1"/>
+                            <field name="taux_marque" readonly="1"/>
                         </group>
 
                           <group col="8">
