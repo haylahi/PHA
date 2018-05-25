@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="report_delivery_document_inherit_sale_stock" inherit_id="sale_stock.report_delivery_document_inherit_sale_stock">
+        <!--<template id="report_delivery_document_inherit_sale_stock" inherit_id="sale_stock.report_delivery_document_inherit_sale_stock">-->
+            <!--<xpath expr="//div[@name='customer_address']" position="replace"/>-->
+        <!--</template>-->
+        <template id="report_delivery_document_inherit" inherit_id="stock.report_delivery_document">
             <xpath expr="//div[@class='row']" position="replace">
                 <div class="row" name="customer_address">
                     <div class="col-xs-6 customer_reference">
@@ -28,7 +31,7 @@
 
                 </div>
             </xpath>
-            <xpath expr="//div[@t-if='o.sale_id.client_order_ref']" position="replace" />
+            <!--<xpath expr="//div[@t-if='o.sale_id.client_order_ref']" position="replace" />-->
 
             <xpath expr="//span[@t-field='move_line.product_uom_id']" position="replace"/>
         </template>

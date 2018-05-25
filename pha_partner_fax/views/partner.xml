@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_partner_form_inherited" model="ir.ui.view">
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Parc Matériels" attrs="{'invisible': [('supplier', '=', True)]}" groups="base.group_user">
+                        <field name="parc_materials" placeholder="Parc Matériels..."/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+       <record id="view_partner_property_form_inherited" model="ir.ui.view">
             <field name="name">res.partner</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="account.view_partner_property_form" />
@@ -10,18 +22,10 @@
                 <xpath expr="//field[@name='email']" position="after">
                     <field name="fax"/>
                 </xpath>
-                <xpath expr="//field[@name='vat']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
                 <xpath expr="//field[@name='property_account_position_id']" position="after">
                     <field name="vat"/>
                     <field name="tva_migration"/>
                 </xpath>
-                <notebook>
-                    <page string="Parc Matériels" attrs="{'invisible': [('supplier', '=', True)]}">
-                        <field name="parc_materials" placeholder="Parc Matériels..."/>
-                    </page>
-                </notebook>
 
             </field>
         </record>
