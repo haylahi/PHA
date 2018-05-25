@@ -135,7 +135,7 @@ class ProductTemplate(models.Model):
         self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.taux_marge = (self.montant_marge / self.prix_achat_hide_remise_devise) * 100
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
@@ -164,7 +164,7 @@ class ProductTemplate(models.Model):
         self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.taux_marge = (self.montant_marge / self.prix_achat_hide_remise_devise) * 100
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
@@ -191,7 +191,7 @@ class ProductTemplate(models.Model):
         self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.taux_marge = (self.montant_marge / self.prix_achat_hide_remise_devise) * 100
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
@@ -220,7 +220,7 @@ class ProductTemplate(models.Model):
         self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.taux_marge = (self.montant_marge / self.prix_achat_hide_remise_devise) * 100
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
@@ -249,7 +249,7 @@ class ProductTemplate(models.Model):
         self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.taux_marge = (self.montant_marge / self.prix_achat_hide_remise_devise) * 100
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
@@ -278,7 +278,7 @@ class ProductTemplate(models.Model):
         self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
         self.montant_marge_hide = self.montant_marge
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.taux_marge = (self.montant_marge / self.prix_achat_hide_remise_devise) * 100
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
             self.taux_marque = self.taux_marque_hide
@@ -328,7 +328,7 @@ class ProductTemplate(models.Model):
 
 
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.montant_marge_net = self.prix_vente_ht - self.cout_revient_ht
             self.coef_multi_hide = self.prix_vente_ht / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
@@ -367,7 +367,7 @@ class ProductTemplate(models.Model):
         self.prix_achat_ttc= self.prix_achat_ht*self.coef_tva
         # self.montant_marge = self.prix_vente_ht - self.prix_achat_cout
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.coef_multi_hide = self.prix_vente_ht / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
@@ -397,7 +397,7 @@ class ProductTemplate(models.Model):
         self.montant_marge_hide = self.montant_marge
         self.montant_marge = self.montant_marge_hide
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.coef_multi_hide = self.prix_vente_ht / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
@@ -424,7 +424,7 @@ class ProductTemplate(models.Model):
         self.montant_marge = self.montant_marge_hide
         self.montant_marge_net = self.prix_vente_ht - self.prix_achat_cout
 
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.coef_multi_hide = self.prix_vente_ht / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
@@ -475,7 +475,7 @@ class ProductTemplate(models.Model):
         self.prix_vente_ttc = self.prix_vente_ht * self.coef_tva
         self.montant_marge_net = self.prix_vente_ht - self.prix_achat_cout
 
-        if self.montant_marge >  0 and self.prix_achat_ht > 0:
+        if self.montant_marge >  0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.coef_multi_hide = self.prix_vente_ht / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
@@ -498,7 +498,7 @@ class ProductTemplate(models.Model):
         self.prix_vente_ht = self.prix_achat_cout + self.montant_marge_net
         self.prix_vente_ttc = self.prix_vente_ht * self.coef_tva
         self.montant_marge = self.prix_vente_ht - self.prix_achat_hide_remise_devise
-        if self.montant_marge > 0 and self.prix_achat_ht > 0:
+        if self.montant_marge > 0 and self.prix_achat_ht > 0 and self.prix_achat_hide_remise_devise > 0:
             self.coef_multi_hide = self.prix_vente_ht / self.prix_achat_hide_remise_devise
             self.coef_multi = self.coef_multi_hide
             self.taux_marque_hide = (self.montant_marge / self.prix_vente_ht) * 100
