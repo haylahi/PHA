@@ -4,7 +4,7 @@
         <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="in	base.view_partner_formherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
                     <page string="Parc Matériels" attrs="{'invisible': [('supplier', '=', True)]}" groups="base.group_user">
@@ -24,12 +24,11 @@
                 </xpath>
                 <xpath expr="//field[@name='property_account_position_id']" position="after">
                     <field name="vat"/>
-                    <field name="tva_migration"/>
+                    <!--<field name="tva_migration"/>-->
                 </xpath>
 
             </field>
         </record>
-
         <record id="view_partner_tree_inherited" model="ir.ui.view">
             <field name="name">res.partner</field>
             <field name="model">res.partner</field>
@@ -64,6 +63,5 @@
                 </field>
             </field>
         </record>
-
     </data>
 </odoo>
