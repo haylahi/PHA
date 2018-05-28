@@ -37,7 +37,8 @@
                     <p t-field="o.date_invoice"/>
                 </div>
                 <div t-if="o.partner_id" class="col-xs-2">
-                    <strong>N° Client:</strong>
+                    <strong t-if="o.type == 'out_invoice'">N° Client:</strong>
+                    <strong t-if="o.type == 'in_invoice'">Fournisseur:</strong>
                     <t t-if="o.partner_id.parent_id">
                         <p t-field="o.partner_id.parent_id.ref"/>
                     </t>

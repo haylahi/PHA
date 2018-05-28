@@ -429,7 +429,7 @@ class IntrastatProductDeclaration(models.Model):
                         total_inv_accessory_costs_cc *
                         ac_line_vals['weight'] /
                         total_inv_weight)
-
+    # @api.multi
     def _prepare_invoice_domain(self):
         """
         Complete this method in the localization module
@@ -465,15 +465,6 @@ class IntrastatProductDeclaration(models.Model):
              inv_line.product_origin_country_id = self.env.user.company_id.country_id
 
          return inv_line.product_origin_country_id
-
-    # def _get_partner_country(self, inv_line):
-    #     country = inv_line.invoice_id.src_dest_country_id \
-    #               or inv_line.invoice_id.partner_id.country_id
-    #     if not country.intrastat:
-    #         country = False
-    #     elif country == self.company_id.country_id:
-    #         country = False
-    #     return country
 
     def _gather_invoices(self):
 
