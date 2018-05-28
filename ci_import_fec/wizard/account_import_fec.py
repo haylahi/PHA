@@ -12,6 +12,8 @@ from io import BytesIO, StringIO
 from odoo.tools import pycompat, float_compare, float_round
 import io
 import base64
+from odoo.addons import decimal_precision as dp
+# from openerp.tools.float_utils import float_round as round
 
 _logger = logging.getLogger(__name__)
 
@@ -447,13 +449,13 @@ class ImportFEC(models.TransientModel):
                 error = True
                 message = message + "\nName = " + ecritureNum + "; Debit = " + str(debit) + "; Credit : " + str(credit)
 
-        # if error:
-        #     raise exceptions.Warning(message)
+        if error:
+            raise exceptions.Warning(message)
         return True
 
     @api.model
     def _import_data(self, data):
-        precision = self.env.user.company_id.currency_id.decimal_places
+        precision = 2
         move_obj = self.env['account.move']
         moves = []
         move_ids = []
@@ -464,6 +466,8 @@ class ImportFEC(models.TransientModel):
             # for ecritureNum, lines_jrl in groupby(data, lambda l: l['EcritureNum']):
             #     lines_jrl = list(lines_jrl)
             #     logging.info("---- By Journals - %s ---- %s", ecritureNum, lines_jrl)
+            move_count = 0
+            line_count = 0
             for pieceDate, lines_date in groupby(data, lambda l: l['PieceDate']):
                 lines_date = list(lines_date)
                 debit = 0
@@ -471,14 +475,18 @@ class ImportFEC(models.TransientModel):
                 lines = []
                 logging.info("---- By Date - %s ---- %s", pieceDate, lines_date)
                 for line in lines_date:
-                    debit_src = float_round(float(line['Debit'].replace(',', '.')), precision_digits=precision)
-                    credit_src = float_round(float(line['Credit'].replace(',', '.')), precision_digits=precision)
-                    debit = float_round(debit, precision_digits=precision) + debit_src
-                    credit = float_round(credit, precision_digits=precision) + credit_src
-                    # logging.info("---- debit = %s - credit = %s ----", debit, credit)
+                    v1 = float(line['Debit'].replace(',', '.'))
+                    v2 = float(line['Credit'].replace(',', '.'))
+                    debit_src = round(v1, precision)
+                    credit_src = round(v2, precision)
+                    debit = round(debit + debit_src, precision)
+                    credit = round(credit + credit_src, precision)
+                    logging.info("-------- debit = %s - credit = %s ----", debit_src, credit_src)
                     lines.append(line)
+                    line_count = line_count + 1
                     if debit == credit:
-                        # logging.info("---------- Import value : %s", lines)
+                        move_count = move_count + 1
+                        logging.info("================ Import value :  %s - %s ----", debit, credit)
                         vals = self.get_move_account(lines)
                         move = move_obj.create(vals)
                         logging.info("---------- Import : %s Success", move)
@@ -486,7 +494,7 @@ class ImportFEC(models.TransientModel):
                         debit = 0
                         credit = 0
                         lines = []
-
+            logging.info("================ Move created :  %s - Line created %s", move_count, line_count)
         else:
             logging.info("---- Ecritures Manuelles ----")
             for ecritureNum, lines in groupby(data, lambda l: l['EcritureNum']):
@@ -498,6 +506,8 @@ class ImportFEC(models.TransientModel):
         logging.info("**************** Fin import ****************")
         for move in moves:
             move_ids.append(move.id)
+
+        move_ids = self.env['account.move'].search([]).ids
 
         if self.import_reconciliation:
             logging.info("**************** Debut Lettrage ****************")
@@ -538,6 +548,8 @@ class ImportFEC(models.TransientModel):
         if move_ids:
             logging.info("---------- move_ids.mapped %s", move_ids)
             move__vals = []
+            false_count = 0
+            all_count = 0
             # for move_id in move_ids:
             line_obj = self.env['account.move.line']
             lines_to_reconcile = line_obj.search([('is_reconcile_mapping', '=', True),
@@ -550,23 +562,46 @@ class ImportFEC(models.TransientModel):
             logging.info("---------- lines_to_reconcile %s", lines_to_reconcile.mapped('fec_reconcile_mapping'))
             for code_mapping, move_lines in groupby(lines_to_reconcile, lambda l: l.fec_reconcile_mapping):
                 move_lines = list(move_lines)
-                logging.info("---------- %s - %s", code_mapping, move_lines)
-                line_ids = []
+                lines_vals = []
+                for ln in move_lines:
+                    lines_vals.append(ln.id)
+                data = line_obj.search([('id', 'in', lines_vals)]).sorted(key=lambda p: p.account_id.id)
+                logging.info("--------------------- %s - %s", code_mapping, data)
+                for account, lines in groupby(data, lambda l: l.account_id.id):
+                    account_lines = list(lines)
+                    lines_vals = []
+                    for ln in account_lines:
+                        lines_vals.append(ln.id)
+
+                    partner_data = line_obj.search([('id', 'in', lines_vals)]).sorted(key=lambda p: p.partner_id.id)
+                    logging.info("-------- account - %s", account)
+                    for partner, partner_lines in groupby(partner_data, lambda l: l.partner_id.id):
+                        partner_lines = list(partner_lines)
+                        lines_vals = []
+                        for ln in partner_lines:
+                            logging.info("= %s - %s", partner, ln)
+                            lines_vals.append(ln.id)
+                            if partner == False:
+                                false_count = false_count + 1
+                        all_count = all_count + 1
+                        self.trans_rec_reconcile_full(lines_vals)
+                        # logging.info("--- Lettrage : %s - %s", account, lines_vals)
+
+
                 # for line in move_lines:
                 #     line_ids.append(line.id)
-                # data = line_obj.search([('id', 'in', line_ids)]).sorted(key=lambda p: p.partner_id.id)
-                # logging.info("---------- data - %s", data)
-                # for partner, lines in groupby(data, lambda l: l.partner_id.id):
-                #     lines = list(lines)
-                #     logging.info("---------- lines - %s", lines)
-                #     line_ids = []
-                # logging.info("---------- %s - %s", partner, lines)
-                # if code_mapping != 'Z':
-                for line in move_lines:
-                    line_ids.append(line.id)
-                logging.info("---------- Lettrage : %s - %s Success", code_mapping, line_ids)
+                #
+                #         lines = list(lines)
+                #         # logging.info("---------- lines - %s", lines)
+                #         lines_vals = []
+                #         logging.info("---------- %s - %s", account, lines)
+                #         for ln in move_lines:
+                #             lines_vals.append(ln.id)
+                #         logging.info("---------- Lettrage : %s - %s Success", code_mapping, line_ids)
 
-                self.trans_rec_reconcile_full(line_ids)
+                        # self.trans_rec_reconcile_full(lines_vals)
+        logging.info("--- Nombre lignes lettrés : %s", all_count)
+        logging.info("--- Nombre lignes lettrés sans partenaire : %s", false_count)
         return True
 
     _fec_cache = {}
