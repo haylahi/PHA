@@ -74,7 +74,7 @@ msgstr "<strong>Date :</strong>"
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "<strong>Delais:</strong>"
-msgstr "<strong>Delais:</strong>"
+msgstr "<strong>Délai:</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
