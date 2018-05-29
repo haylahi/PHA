@@ -6,7 +6,9 @@
                 <div class="col-xs-5 customer_reference">
                     <strong>Vos References:</strong>
                     <div t-field="o.name" />
-                    <div t-field="o.contact_id.name" />
+                    <div t-if="o.contact_id" >
+                        A l'attention de <span t-if="o.contact_id.title" t-field="o.contact_id.title"/> <span t-field="o.contact_id.name"/>
+                    </div>
                 </div>
                 <div name="invoice_address" class="col-xs-5 col-xs-offset-6" style="font-family:'Courier New';font-weight: bold;margin-top:-40px;">
                     <address t-field="o.partner_id"

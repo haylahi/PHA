@@ -24,12 +24,11 @@
                 </xpath>
                 <xpath expr="//field[@name='property_account_position_id']" position="after">
                     <field name="vat"/>
-                    <field name="tva_migration"/>
+                    <!--<field name="tva_migration"/>-->
                 </xpath>
 
             </field>
         </record>
-
         <record id="view_partner_tree_inherited" model="ir.ui.view">
             <field name="name">res.partner</field>
             <field name="model">res.partner</field>
@@ -64,6 +63,5 @@
                 </field>
             </field>
         </record>
-
     </data>
 </odoo>
