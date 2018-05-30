@@ -10,10 +10,11 @@
     'website': "http://www.cadrinsitu.com",
 
 
-    'depends': ['base','sale','sale_stock','pha_partner_fax','stock','account','purchase','ci_account_desc','stock_location'],
+    'depends': ['base','sale','sale_stock','sale_order_dates','pha_partner_fax','stock','account','purchase','ci_account_desc','stock_location'],
     'data': [
         'views/report_templates.xml',
         'views/account_invoice_view.xml',
+        'views/sale_order_views.xml',
         'views/res_company_view.xml',
         'views/product_template_view.xml',
         'views/stock_move_view.xml',
