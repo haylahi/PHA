@@ -32,32 +32,6 @@
         </xpath>
 
         <xpath expr="//div[@id='informations']" position="replace">
-            <!--<div class="row mt32 mb32" id="informations">-->
-                <!--<div t-if="doc.confirmation_date and doc.state not in ['draft','sent']" class="col-xs-2">-->
-                    <!--<strong>Date:</strong>-->
-                    <!--<p t-field="doc.confirmation_date" t-options='{"widget": "date"}'/>-->
-                <!--</div>-->
-                <!--<div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-xs-2">-->
-                    <!--<strong>Date:</strong>-->
-                    <!--<p t-field="doc.date_order" t-options='{"widget": "date"}'/>-->
-                <!--</div>-->
-                <!--<div t-if="doc.partner_id" class="col-xs-2">-->
-                    <!--<strong>Customer:</strong>-->
-                    <!--<p t-field="doc.partner_id.ref"/>-->
-                <!--</div>-->
-                <!--<div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-xs-2">-->
-                    <!--<strong>Expiration Date:</strong>-->
-                    <!--<p t-field="doc.validity_date"/>-->
-                <!--</div>-->
-                <!--<div t-if="doc.commitment_date" class="col-xs-2">-->
-                    <!--<strong>Delais:</strong>-->
-                    <!--<p t-field="doc.commitment_date" t-options='{"widget": "date"}'/>-->
-                <!--</div>-->
-                <!--<div t-if="doc.carrier_id" class="col-xs-2">-->
-                    <!--<strong>Mean of transport:</strong>-->
-                    <!--<p t-field="doc.carrier_id.display_name"/>-->
-                <!--</div>-->
-            <!--</div>-->
             <table class="table table-condensed mt32" >
                 <thead>
                     <tr>
@@ -87,7 +61,7 @@
                             <span t-field="doc.confirmation_date" t-options='{"widget": "date"}'/>
                         </td>
                         <td t-if="doc.date_order and doc.state in ['draft','sent']">
-                            <span t-field="doc.confirmation_date" t-options='{"widget": "date"}'/>
+                            <span t-field="doc.date_order" t-options='{"widget": "date"}'/>
                         </td>
                         <td t-if="doc.partner_id">
                             <span t-field="doc.partner_id.ref"/>
