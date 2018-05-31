@@ -86,13 +86,11 @@
 
                             <!-- Lines associated -->
                             <t t-foreach="layout_category['lines']" t-as="l">
-                                <!--<t t-set="maximum"><t t-raw="doc.max_line(l_index,15)"/></t>-->
-
                                 <tr>
                                     <t t-if="l.product_id.is_title">
                                         <td />
                                         <td >
-                                            <span t-esc="l.name"/>
+                                            <span t-field="l.name"/>
                                         </td>
                                         <td />
                                         <td />
@@ -104,7 +102,7 @@
                                             <t t-if="not l.sale_product_ref.ref"><span t-field="l.product_id.default_code"/></t>
                                             <t t-if="l.sale_product_ref.ref"><span t-field="l.sale_product_ref.ref"/></t>
                                         </td>
-                                        <td><span t-esc="str(l.name).split('] ')[-1]"/></td>
+                                        <td><span t-field="l.name"/></td>
                                         <td class="text-right">
                                             <span t-field="l.product_uom_qty"/>
                                         </td>
