@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e-20180512\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-24 13:03+0000\n"
-"PO-Revision-Date: 2018-05-24 13:03+0000\n"
+"POT-Creation-Date: 2018-05-31 14:01+0000\n"
+"PO-Revision-Date: 2018-05-31 14:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,51 @@ msgid "&amp;nbsp;<span>on</span>"
 msgstr "&amp;nbsp;<span>sur</span>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>\n"
+"                                    <strong>Customer Address:</strong>\n"
+"                                </span>"
+msgstr "<span>\n"
+"                                    <strong>Customer Address:</strong>\n"
+"                                </span>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>\n"
+"                                    <strong>Delivery Address:</strong>\n"
+"                                </span>"
+msgstr "<span>\n"
+"                                    <strong>Delivery Address:</strong>\n"
+"                                </span>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>\n"
+"                                    <strong>Partner Address:</strong>\n"
+"                                </span>"
+msgstr "<span>\n"
+"                                    <strong>Partner Address:</strong>\n"
+"                                </span>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>\n"
+"                                    <strong>Warehouse Address:</strong>\n"
+"                                </span>"
+msgstr "<span>\n"
+"                                    <strong>Warehouse Address:</strong>\n"
+"                                </span>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
 #: model:ir.ui.view,arch_db:pha.report_delivery_document_inherit
 msgid "<span><strong>Customer Address:</strong></span>"
 msgstr "<span><strong>Adresse du client :</strong></span>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>No reservation or quantity done yet.</span>"
+msgstr "<span>Aucune réservation ni quantité traitée pour le moment.</span>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
@@ -46,6 +88,12 @@ msgid "<strong>Amount</strong>"
 msgstr "<strong>Montant</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<strong>Commitment Date</strong>"
+msgstr "<strong>Date d'engagement</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
 #: model:ir.ui.view,arch_db:pha.report_delivery_document_inherit
 msgid "<strong>Customer Reference:</strong>"
 msgstr "<strong>Référence client:</strong>"
@@ -69,7 +117,12 @@ msgstr "<strong>Date Demandée.</strong>"
 #: model:ir.ui.view,arch_db:pha.information_header
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "<strong>Date:</strong>"
-msgstr "<strong>Date :</strong>"
+msgstr "<strong>Date:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "<strong>Date</strong>"
+msgstr "<strong>Date</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
@@ -77,6 +130,7 @@ msgid "<strong>Delais:</strong>"
 msgstr "<strong>Délai:</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
 #: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
 msgid "<strong>Description</strong>"
 msgstr "<strong>Description</strong>"
@@ -97,6 +151,12 @@ msgid "<strong>N/Ref:</strong>"
 msgstr "<strong>N/Ref:</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<strong>Order (Origin)</strong>"
+msgstr "<strong>Commande (Origine)</strong>"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
 msgid "<strong>Order Date:</strong>"
 msgstr "<strong>Date de commande:</strong>"
@@ -112,16 +172,36 @@ msgid "<strong>Qty</strong>"
 msgstr "<strong>Qté</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "<strong>Quantity</strong>"
+msgstr "<strong>Quantité</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "<strong>Reference</strong>"
+msgstr "<strong>Référence</strong>"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.information_footer
 #: model:ir.ui.view,arch_db:pha.total_report
 msgid "<strong>Report</strong>"
 msgstr "<strong>Report</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<strong>Scheduled Date</strong>"
+msgstr "<strong>Date planifiée</strong>"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.information_header
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "<strong>Shipping address:</strong>"
 msgstr "<strong>Adresse de livraison:</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<strong>State</strong>"
+msgstr "<strong>Etat</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
@@ -161,14 +241,45 @@ msgid "<strong>Your Order Reference:</strong>"
 msgstr "<strong>Votre référence de commande :</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "A l'attention de"
+msgstr "A l'attention de"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.external_layout_pha
 msgid "APE:"
 msgstr "APE:"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "All items couldn't be shipped, the remaining ones will be shipped as soon as they become available."
+msgstr "Tous les éléments n'ont pas pu être expédiés, le reliquat sera expédié dès qu'il sera disponible"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "Amount"
 msgstr "Montant"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Barcode"
+msgstr "Code-barres"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "Bon de Livraison"
+msgstr "Bon de Livraison"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Bon de Préparation :"
+msgstr "Bon de Préparation :"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "Bon de Réception"
+msgstr "Bon de Réception"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.information_header
@@ -194,11 +305,13 @@ msgstr "Avoir"
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.information_body
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "Description"
 msgstr "Description"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_stock_move_line_view_search
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "Destination"
 msgstr "Destination"
 
@@ -226,17 +339,28 @@ msgstr "Facture"
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "Invoicing address:"
-msgstr "Adresse de facturation :"
+msgstr "Adresse de facturation:"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "Invoicing and shipping address:"
-msgstr "Adresse de facturation et de livraison :"
+msgstr "Adresse de facturation et de livraison:"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "Item number"
 msgstr "Référence"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Localisation"
+msgstr "Localisation"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Lot/Serial Number"
+msgstr "Lot/numéro de série"
 
 #. module: pha
 #: model:ir.model.fields,field_description:pha.field_account_invoice_max_line
@@ -257,6 +381,11 @@ msgstr "N° Client:"
 #: model:ir.ui.view,arch_db:pha.external_layout_pha
 msgid "N° Intracom:"
 msgstr "N° Intracom:"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Package"
+msgstr "Localisation comptable"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.external_layout_pha
@@ -285,6 +414,11 @@ msgid "Price"
 msgstr "Prix"
 
 #. module: pha
+#: model:ir.model,name:pha.model_product_pricelist_item
+msgid "Pricelist item"
+msgstr "Élément de la liste de prix"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_stock_move_line_view_search
 msgid "Product"
 msgstr "Article"
@@ -296,13 +430,14 @@ msgstr "Qté"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "Quantity"
 msgstr "Qté"
 
 #. module: pha
 #: model:ir.model,name:pha.model_sale_order
 msgid "Quotation"
-msgstr "Devis"
+msgstr "Quotation"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.external_layout_pha
@@ -311,8 +446,14 @@ msgstr "RC:"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "Reference"
 msgstr "Référence"
+
+#. module: pha
+#: model:ir.model,name:pha.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.external_layout_pha
@@ -321,8 +462,14 @@ msgstr "Siret:"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_stock_move_line_view_search
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "Source"
 msgstr "Origine"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "This shipment is a backorder of"
+msgstr "Cet envoi est un reliquat de"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
@@ -344,6 +491,18 @@ msgstr "Facture fournisseur"
 #: model:ir.ui.view,arch_db:pha.information_header
 msgid "Vendor Credit Note"
 msgstr "Avoir de fournisseur"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "You do not have any products reserved for this picking. Please click the 'Reserve' button\n"
+"                        to check if products are available."
+msgstr "You do not have any products reserved for this picking. Please click the 'Reserve' button\n"
+"                        to check if products are available."
+
+#. module: pha
+#: model:ir.model,name:pha.model_product_pricelist_print
+msgid "product.pricelist.print"
+msgstr "product.pricelist.print"
 
 #. module: pha
 #: model:ir.model,name:pha.model_res_config_settings
