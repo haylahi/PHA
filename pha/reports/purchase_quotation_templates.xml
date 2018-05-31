@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-<template id="pha_report_purchasequotation_document" inherit_id="purchase.report_purchasequotation_document">
-
-</template>
-
-
-</odoo>
