@@ -1,9 +1,13 @@
 from odoo import models, fields, api
-import math
 
-class SaleOrder(models.Model):
-    _inherit = "sale.order"
 
-    def max_line(self,index,max):
-        max_line = int(math.ceil(index / max)) * max
-        return max_line
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    @api.multi
+    @api.onchange('product_id')
+    def product_id_change(self):
+        result = super(SaleOrderLine, self).product_id_change()
+        self.name = str(self.name).split('] ')[-1]
+
+        return result
