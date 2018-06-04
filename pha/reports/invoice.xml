@@ -188,17 +188,18 @@
                             </tr>
                         </table>
                     </div>
+                    <p t-if="o.comment">
+                        <span t-field="o.comment"/>
+                    </p>
+                    <p t-if="o.payment_term_id">
+                        <span t-field="o.payment_term_id.note"/>
+                    </p>
+                    <p t-if="o.fiscal_position_id.note">
+                        <span t-field="o.fiscal_position_id.note"/>
+                    </p>
                 </div>
             </div>
-            <p t-if="o.comment">
-                <span t-field="o.comment"/>
-            </p>
-            <p t-if="o.payment_term_id">
-                <span t-field="o.payment_term_id.note"/>
-            </p>
-            <p t-if="o.fiscal_position_id.note">
-                <span t-field="o.fiscal_position_id.note"/>
-            </p>
+
         </template>
 
         <template id="information_footer_with_payments" inherit_id="pha.information_footer" primary="True">
