@@ -90,6 +90,7 @@
                             <th>Description</th>
                             <th class="text-right">Quantity</th>
                             <th class="text-right">Unit Price</th>
+                            <th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">Disc.(%)</th>
                             <th class="text-right" groups="sale.group_show_price_subtotal">Amount</th>
                             <th class="text-right price_tax_included" groups="sale.group_show_price_total">Total Price</th>
                         </tr>
@@ -114,6 +115,7 @@
                                             <span t-field="l.name"/>
                                         </td>
                                         <td />
+                                        <td t-if="display_discount" />
                                         <td />
                                         <td />
                                     </t>
@@ -129,6 +131,9 @@
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_unit"/>
+                                        </td>
+                                        <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                                            <span t-if="l.discount != 0"><t t-esc="int(l.discount)" />%</span>
                                         </td>
                                         <td class="text-right" groups="sale.group_show_price_subtotal">
                                             <span t-field="l.price_subtotal"/>
