@@ -22,7 +22,7 @@ class TrialBalanceReportWizard(models.TransientModel):
                                          ('soldes', 'Masquer uniquement les comptes non mouvementés')],
                                         string='Comptes soldés',
                                         required=True,
-                                        default='tous')
+                                        default='soldes')
 
     
     masquer_detail_groupes = fields.Boolean("Masquer le détail des groupes")
