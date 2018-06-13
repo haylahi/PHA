@@ -4,33 +4,34 @@
         <div class="header o_pha_header">
             <div class="company_logo">
                 <div>
-                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+                    <!--<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>-->
+                    <img src="/pha/static/img/logo_pha.bmp"/>
                 </div>
-                <div>
-                    <span>
-                        <t t-esc="company.partner_id.street"/>
-                        -
-                        <t t-esc="company.partner_id.zip"/>
-                        <t t-esc="company.partner_id.city"/>
-                        -
-                        <t t-esc="company.partner_id.country_id.name"/>
-                    </span>
+                <!--<div>-->
+                    <!--<span>-->
+                        <!--<t t-esc="company.partner_id.street"/>-->
+                        <!-- - -->
+                        <!--<t t-esc="company.partner_id.zip"/>-->
+                        <!--<t t-esc="company.partner_id.city"/>-->
+                        <!-- - -->
+                        <!--<t t-esc="company.partner_id.country_id.name"/>-->
+                    <!--</span>-->
 
-                </div>
-                <div>
-                    <span>
-                        <t t-esc="company.partner_id.phone"/>
-                        -
-                        <t t-esc="company.partner_id.email"/>
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <strong>
-                            <t t-esc="company.partner_id.website"/>
-                        </strong>
-                    </span>
-                </div>
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>-->
+                        <!--<t t-esc="company.partner_id.phone"/>-->
+                        <!-- - -->
+                        <!--<t t-esc="company.partner_id.email"/>-->
+                    <!--</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>-->
+                        <!--<strong>-->
+                            <!--<t t-esc="company.partner_id.website"/>-->
+                        <!--</strong>-->
+                    <!--</span>-->
+                <!--</div>-->
             </div>
         </div>
 
@@ -40,6 +41,7 @@
 
         <div class="footer o_pha_footer">
             <div class="text-center">
+                <br/>
                 <div t-field="company.report_footer"/>
                 <ul class="list-inline">
                     <li t-if="company.siret">Siret: <span t-field="company.siret"/></li>
