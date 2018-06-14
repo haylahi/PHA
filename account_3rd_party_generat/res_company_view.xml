@@ -56,14 +56,14 @@
                   <group>
                     <field name="partner_type" select="1" required="1"/>
                     <field name="code" select="1"/>
-                    <field name="name" select="1" colspan="4"/>
+                    <field name="name" select="1"/>
                     <field name="ir_sequence_id" select="1" domain="[('code','=', 'account.partner.third_part')]"/>
                     <field name="default_value" select="1"/>
                     <field name="lock_partner_name" select="1"/>
-                    <separator string="Generate template (with treatment)" colspan="4"/>
+                    <separator string="Generate template (with treatment)"/>
                     <field name="account_template_id" select="1"
                         attrs="{'required': [('ir_sequence_id','!=', False)], 'readonly': [('ir_sequence_id','=', False)]}"/>
-                    <separator string="Reference template (no treatment)" colspan="4"/>
+                    <separator string="Reference template (no treatment)" />
                     <field name="account_reference_id"
                         attrs="{'required': [('ir_sequence_id','=', False)], 'readonly': [('ir_sequence_id','!=', False)]}"/>
                   </group>

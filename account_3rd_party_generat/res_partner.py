@@ -159,6 +159,8 @@ class Partner(models.Model):
             'active': True,
             # 'type': acc_tmpl.type,
             'tax_ids': [(6, 0, [x.id for x in acc_tmpl.tax_ids])],
+            # ajout du groupe
+            'group_id':acc_tmpl.group_id and acc_tmpl.group_id.id or False,
         }
         return new_account
 

@@ -1,0 +1,55 @@
+<odoo>
+  <data>
+
+  	
+  	<menuitem
+        parent="account_reports.account_reports_audit_reports_menu"
+        action="account_financial_report.action_trial_balance_wizard"
+        id="account_financial_report.menu_trial_balance_wizard"
+        sequence="20"
+        />
+
+     <delete model="ir.ui.menu" id="account_financial_report.menu_oca_reports"></delete>
+     <delete model="ir.ui.menu" id="account_financial_report.menu_general_ledger_wizard"></delete>
+     <delete model="ir.ui.menu" id="account_financial_report.menu_open_items_wizard"></delete>
+     <delete model="ir.ui.menu" id="account_financial_report.menu_aged_partner_balance_wizard"></delete>
+     <delete model="ir.ui.menu" id="account_financial_report.menu_vat_report_wizard"></delete>
+     
+     <!--<delete model="ir.ui.menu" id="account_reports.menu_action_account_report_coa"></delete>-->
+     <menuitem
+        id="account_reports.menu_action_account_report_coa"
+        action="account_reports.action_account_report_coa" 
+        parent="account_reports.account_reports_audit_reports_menu"
+        name="Ancienne balance générale"
+        groups="base.group_no_one"
+        />
+     
+     <menuitem
+        id="account_reports.menu_action_account_report_coa"
+        action="account_reports.action_account_report_coa" 
+        parent="account_reports.account_reports_audit_reports_menu"
+        name="Ancienne balance générale"
+        groups="-account.group_account_user"
+        />
+        
+     <record model="ir.ui.menu" id="account_reports.menu_action_account_report_coa">
+        <field name='name'>Ancienne balance générale</field>
+    </record>
+
+     <!-- on supprime l'affichage du menu rapport pdf pour le groupe erp manager" -->
+     <menuitem
+        id="account.menu_finance_legal_statement"
+        name="PDF Reports"
+        parent="account.menu_finance_reports"
+        groups="base.group_no_one"
+        />
+        
+     <menuitem
+        id="account.menu_finance_legal_statement"
+        name="PDF Reports"
+        parent="account.menu_finance_reports"
+        groups="-base.group_erp_manager"
+        />
+   
+  </data>
+</odoo>
