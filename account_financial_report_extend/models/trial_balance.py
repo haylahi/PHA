@@ -16,7 +16,7 @@ class TrialBalanceReport(models.TransientModel):
                                          ('soldes', 'Masquer uniquement les comptes non mouvementés')],
                                         string='Comptes soldés',
                                         required=True,
-                                        default='tous')
+                                        default='soldes')
     
     # le calcul automatique sur le total des groupes théoriques ne nous intéresse pas, on garde seulement le calcul concret de la somme des comptes appartenant réellement au groupe
     hierarchy_on = fields.Selection([('relation', 'Child Accounts')

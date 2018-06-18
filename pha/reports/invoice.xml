@@ -60,6 +60,9 @@
         </template>
 
         <template id="information_body">
+            <!-- Is there a discount on at least one line? -->
+            <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+
             <table class="table table-condensed">
                 <thead>
                     <tr>
@@ -67,6 +70,7 @@
                         <th>Description</th>
                         <th class="text-right">Qty</th>
                         <th class="text-right">Unit Price</th>
+                        <th t-if="display_discount" class="text-right">Disc.(%)</th>
                         <th class="text-right">Price</th>
                     </tr>
                 </thead>
@@ -87,6 +91,9 @@
                             <td class="text-right">
                                 <span t-field="l.price_unit"/>
                             </td>
+                            <td t-if="display_discount" class="text-right">
+                                <span t-if="l.discount != 0"><t t-esc="int(l.discount)" />%</span>
+                            </td>
                             <td class="text-right" groups="sale.group_show_price_subtotal">
                                 <span t-field="l.price_subtotal"
                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
@@ -102,6 +109,7 @@
                                     <td />
                                     <td />
                                     <td />
+                                    <td t-if="display_discount" />
                                     <td />
                                 </tr>
                             </t>
