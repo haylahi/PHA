@@ -48,7 +48,7 @@
                         <th t-if="doc.validity_date and doc.state in ['draft', 'sent']">
                             <strong>Expiration Date:</strong>
                         </th>
-                        <th t-if="doc.commitment_date">
+                        <th t-if="doc.delai">
                             <strong>Delais:</strong>
                         </th>
                         <th t-if="doc.carrier_id">
@@ -70,8 +70,8 @@
                         <td t-if="doc.validity_date and doc.state in ['draft', 'sent']">
                             <span t-field="doc.validity_date" t-options='{"widget": "date"}'/>
                         </td>
-                        <td t-if="doc.commitment_date">
-                            <span t-field="doc.commitment_date" t-options='{"widget": "date"}'/>
+                        <td t-if="doc.delai">
+                            <span t-field="doc.delai"/>
                         </td>
                         <td t-if="doc.carrier_id">
                             <span t-field="doc.carrier_id.display_name"/>
@@ -144,9 +144,6 @@
                                     </t>
 
                                 </tr>
-                                <t t-if="int(l_index) == maximum">
-                                    <tr><div style="page-break-after: always;"/></tr>
-                                </t>
                             </t>
 
                             <t t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']" groups="sale.group_sale_layout">
