@@ -48,7 +48,7 @@
                         <th t-if="doc.validity_date and doc.state in ['draft', 'sent']">
                             <strong>Expiration Date:</strong>
                         </th>
-                        <th t-if="doc.commitment_date">
+                        <th t-if="doc.delai">
                             <strong>Delais:</strong>
                         </th>
                         <th t-if="doc.carrier_id">
@@ -70,8 +70,8 @@
                         <td t-if="doc.validity_date and doc.state in ['draft', 'sent']">
                             <span t-field="doc.validity_date" t-options='{"widget": "date"}'/>
                         </td>
-                        <td t-if="doc.commitment_date">
-                            <span t-field="doc.commitment_date" t-options='{"widget": "date"}'/>
+                        <td t-if="doc.delai">
+                            <span t-field="doc.delai"/>
                         </td>
                         <td t-if="doc.carrier_id">
                             <span t-field="doc.carrier_id.display_name"/>
@@ -90,6 +90,7 @@
                             <th>Description</th>
                             <th class="text-right">Quantity</th>
                             <th class="text-right">Unit Price</th>
+                            <th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">Disc.(%)</th>
                             <th class="text-right" groups="sale.group_show_price_subtotal">Amount</th>
                             <th class="text-right price_tax_included" groups="sale.group_show_price_total">Total Price</th>
                         </tr>
@@ -114,6 +115,7 @@
                                             <span t-field="l.name"/>
                                         </td>
                                         <td />
+                                        <td t-if="display_discount" />
                                         <td />
                                         <td />
                                     </t>
@@ -130,6 +132,9 @@
                                         <td class="text-right">
                                             <span t-field="l.price_unit"/>
                                         </td>
+                                        <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                                            <span t-if="l.discount != 0"><t t-esc="int(l.discount)" />%</span>
+                                        </td>
                                         <td class="text-right" groups="sale.group_show_price_subtotal">
                                             <span t-field="l.price_subtotal"/>
                                         </td>
@@ -139,9 +144,6 @@
                                     </t>
 
                                 </tr>
-                                <t t-if="int(l_index) == maximum">
-                                    <tr><div style="page-break-after: always;"/></tr>
-                                </t>
                             </t>
 
                             <t t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']" groups="sale.group_sale_layout">
