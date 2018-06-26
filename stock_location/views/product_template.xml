@@ -22,4 +22,21 @@
 </record>
 
 
+<record id="product_product_form_view" model="ir.ui.view">
+    <field name="name">sale.product.product.form</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view"/>
+    <field name="arch" type="xml">
+             <xpath expr="//div[@name='volume']" position="after">
+                <group>
+                 <field name="travee"/>
+                 <field name="colonne"/>
+                 <field name="etagere"/>
+                 <field name="location"/>
+                 </group>
+             </xpath>
+    </field>
+</record>
+
+
 </odoo>

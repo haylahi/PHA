@@ -1,6 +1,11 @@
 from odoo import models, fields, api
 
 
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    delai = fields.Char('Délai')
+
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
