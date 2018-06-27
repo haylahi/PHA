@@ -511,7 +511,7 @@ class ImportFEC(models.TransientModel):
 
         if self.import_reconciliation:
             logging.info("**************** Debut Lettrage ****************")
-            self._reconcile(moves.ids)
+            self._reconcile(move_ids)
             logging.info("**************** Fin Lettrage ****************")
 
         logging.info("**************** Debut validation ****************")
