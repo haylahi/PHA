@@ -6,8 +6,7 @@ import logging
 class sale_order_line(models.Model):
     _inherit = "sale.order.line"
 
-
-
+    product_tmpl_id = fields.Many2one(related="product_id.product_tmpl_id")
     sale_product_ref = fields.Many2one("sale.product.ref")
 
 
@@ -19,3 +18,4 @@ class sale_order_line(models.Model):
     @api.onchange('product_id')
     def onchange_product_id(self):
         self.sale_product_ref = False
+
