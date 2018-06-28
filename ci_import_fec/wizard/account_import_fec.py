@@ -282,6 +282,9 @@ class ImportFEC(models.TransientModel):
                         type = matrix_mapped_line['Type']
 
                     odoo_partner_id = partner_obj.search([('ref', '=', ref)])
+                    if len(odoo_partner_id) > 1:
+                        raise exceptions.Warning("Attention!! Doublon partner - ref = %s", ref)
+
                     if odoo_partner_id and matrix_data:
                         obj.config_compte_tiers(z, code_partner, type, odoo_partner_id)
 
