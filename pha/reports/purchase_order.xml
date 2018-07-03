@@ -3,6 +3,8 @@
     <template id="pha_report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document">
         <xpath expr="//div[@class='page']/table" position="replace">
         <table class="table table-condensed">
+                <!-- Is there a discount on at least one line? -->
+                <t t-set="display_discount" t-value="any([l.discount for l in o.order_line])"/>
                 <thead>
                     <tr>
                         <th><strong>Description</strong></th>
@@ -10,6 +12,7 @@
                         <th class="text-center"><strong>Date Req.</strong></th>
                         <th class="text-right"><strong>Qty</strong></th>
                         <th class="text-right"><strong>Unit Price</strong></th>
+                        <th t-if="display_discount" class="text-right"><strong>Rem.(%)</strong></th>
                         <th class="text-right"><strong>Amount</strong></th>
                     </tr>
                 </thead>
@@ -30,6 +33,9 @@
                         </td>
                         <td class="text-right">
                             <span t-field="line.price_unit"/>
+                        </td>
+                        <td t-if="display_discount" class="text-right">
+                            <span t-if="line.discount != 0"><t t-esc="int(line.discount)" />%</span>
                         </td>
                         <td class="text-right">
                             <span t-field="line.price_subtotal"
