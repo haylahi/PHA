@@ -282,6 +282,8 @@ class ImportFEC(models.TransientModel):
                         type = matrix_mapped_line['Type']
 
                     odoo_partner_id = partner_obj.search([('ref', '=', ref)])
+                    if len(odoo_partner_id) > 1:
+                        raise exceptions.Warning(_("Attention!! Doublon partner - ref = %s") % ref)
                     if odoo_partner_id and matrix_data:
                         obj.config_compte_tiers(z, code_partner, type, odoo_partner_id)
 
@@ -511,7 +513,7 @@ class ImportFEC(models.TransientModel):
 
         if self.import_reconciliation:
             logging.info("**************** Debut Lettrage ****************")
-            self._reconcile(moves.ids)
+            self._reconcile(move_ids)
             logging.info("**************** Fin Lettrage ****************")
 
         logging.info("**************** Debut validation ****************")
