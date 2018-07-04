@@ -38,6 +38,10 @@
                     <strong>Date:</strong>
                     <p t-field="o.date_invoice"/>
                 </div>
+                <div t-if="o.date_due" class="col-xs-2">
+                    <strong>Date d'échéance:</strong>
+                    <p t-field="o.date_due"/>
+                </div>
                 <div t-if="o.partner_id" class="col-xs-2">
                     <strong t-if="o.type == 'out_invoice'">N° Client:</strong>
                     <strong t-if="o.type == 'in_invoice'">Fournisseur:</strong>
