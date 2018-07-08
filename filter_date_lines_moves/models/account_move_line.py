@@ -38,7 +38,7 @@ class account_move_line(models.Model):
         current_date = datetime.strptime(str(self.date),'%Y-%m-%d')
         mois = current_date.date().month
         
-        _logger.info("\n\n mois : "+ str(mois)) 
+        # _logger.info("\n\n mois : "+ str(mois))
 
         self.date_month = mois
         
@@ -49,7 +49,7 @@ class account_move_line(models.Model):
         current_date = datetime.strptime(str(self.date),'%Y-%m-%d')
         year = current_date.date().year
         
-        _logger.info("\n\n mois : "+ str(year)) 
+        # _logger.info("\n\n mois : "+ str(year))
 
         self.date_year = year
         

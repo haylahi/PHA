@@ -100,7 +100,7 @@
                             <tr>
                                 <th width="15%">Reference</th>
                                 <th width="15%">Description</th>
-                                <th width="15%">Localisation</th>
+                                <th width="15%">Location</th>
                                 <th width="10%">Quantity</th>
                                 <th width="20%" class="text-center">
                                     <t t-if="has_barcode">Barcode</t>

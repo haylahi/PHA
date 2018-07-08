@@ -4,10 +4,10 @@
         <template id="information_header">
             <div class="row">
                 <div class="col-xs-5 customer_reference">
-                    <strong>Vos References:</strong>
+                    <strong>Your Reference:</strong>
                     <div t-field="o.name" />
                     <div t-if="o.contact_id" >
-                        A l'attention de <span t-if="o.contact_id.title" t-field="o.contact_id.title"/> <span t-field="o.contact_id.name"/>
+                        To the attention of <span t-if="o.contact_id.title" t-field="o.contact_id.title"/> <span t-field="o.contact_id.name"/>
                     </div>
                 </div>
                 <div name="invoice_address" class="col-xs-5 col-xs-offset-6" style="font-family:'Courier New';font-weight: bold;margin-top:-40px;">
@@ -37,6 +37,10 @@
                 <div t-if="o.date_invoice" class="col-xs-2">
                     <strong>Date:</strong>
                     <p t-field="o.date_invoice"/>
+                </div>
+                <div t-if="o.date_due" class="col-xs-2">
+                    <strong>Due date:</strong>
+                    <p t-field="o.date_due"/>
                 </div>
                 <div t-if="o.partner_id" class="col-xs-2">
                     <strong t-if="o.type == 'out_invoice'">N° Client:</strong>

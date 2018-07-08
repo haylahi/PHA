@@ -31,7 +31,7 @@
 
                     </div>
                     <h3>
-                        <span t-if="o.picking_type_code == 'outgoing'">Bon de Livraison</span>
+                        <span t-if="o.picking_type_code == 'outgoing'">Delivery order</span>
                         <span t-if="o.picking_type_code == 'incoming'">Bon de Réception</span><span t-field="o.name"/>
                     </h3>
                     <table class="table table-condensed">
