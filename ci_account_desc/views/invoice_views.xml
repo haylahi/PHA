@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="invoice_form_inh" model="ir.ui.view">
+            <field name="name">account.invoice.form.inh</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree" position="replace">
+                    <tree string="Invoice Lines" editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="product_title" invisible="1"/>
+                        <field name="product_id" domain="[('sale_ok','=',True)]"/>
+                        <field name="origin" invisible="1"/>
+                        <field name="is_rounding_line" invisible="1"/>
+                        <field name="name"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="account_id" groups="account.group_account_user" domain="[('company_id', '=', parent.company_id), ('internal_type', '=', 'other'), ('deprecated', '=', False)]" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="account_analytic_id" groups="analytic.group_analytic_accounting" domain="[('company_id', '=', parent.company_id)]" context="{'default_partner_id': parent.partner_id}" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting" widget="many2many_tags" options="{'color_field': 'color'}" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="quantity" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="uom_id" groups="product.group_uom" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="price_unit" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="discount" groups="base.group_no_one" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="invoice_line_tax_ids" widget="many2many_tags" options="{'no_create': True}" context="{'type':parent.type}" domain="[('type_tax_use','=','sale'),('company_id', '=', parent.company_id)]" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="price_subtotal" attrs="{'invisible':[('product_title','=',True)]}"/>
+                        <field name="currency_id" invisible="1"/>
+                    </tree>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -15,9 +15,8 @@ class SaleOrderLine(models.Model):
     def product_id_change(self):
         res = super(SaleOrderLine, self).product_id_change()
         if self.product_id.is_title:
-            vals = {}
-            vals['price_unit'] = 0
-            vals['product_uom_qty'] = 1
+            vals = {'price_unit':0,
+                    'product_uom_qty':1}
             self.update(vals)
         return res
 
