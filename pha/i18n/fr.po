@@ -132,7 +132,7 @@ msgstr "<strong>Rem.(%)</strong>"
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.information_header
 msgid "<strong>Due date:</strong>"
-msgstr "<strong>Due date:</strong>"
+msgstr "<strong>Date d'échéance:</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
