@@ -5,10 +5,10 @@
         <xpath expr="//div[@class='row']" position="replace">
             <div class="row">
                 <div class="col-xs-6 customer_reference">
-                    <strong >Customer reference:</strong>
+                    <strong >Customer Reference:</strong>
                     <div t-field="doc.client_order_ref"/>
                     <div t-if="doc.contact_id" >
-                        A l'attention de <span t-if="doc.contact_id.title" t-field="doc.contact_id.title"/> <span t-field="doc.contact_id.name"/>
+                        To the attention of <span t-if="doc.contact_id.title" t-field="doc.contact_id.title"/> <span t-field="doc.contact_id.name"/>
                     </div>
                 </div>
                 <div class="col-xs-5 col-xs-offset-1 ">
@@ -36,23 +36,20 @@
             <table class="table table-condensed mt32" >
                 <thead>
                     <tr>
-                        <th t-if="doc.confirmation_date and doc.state not in ['draft','sent']">
-                            <strong>Date:</strong>
-                        </th>
-                        <th t-if="doc.date_order and doc.state in ['draft','sent']">
-                            <strong>Date:</strong>
+                        <th>
+                            <strong>Date</strong>
                         </th>
                         <th t-if="doc.partner_id">
-                            <strong>Customer:</strong>
+                            <strong>Customer</strong>
                         </th>
                         <th t-if="doc.validity_date and doc.state in ['draft', 'sent']">
-                            <strong>Expiration Date:</strong>
+                            <strong>Expiration Date</strong>
                         </th>
-                        <th t-if="doc.commitment_date">
-                            <strong>Delais:</strong>
+                        <th t-if="doc.delai">
+                            <strong>Time period</strong>
                         </th>
                         <th t-if="doc.carrier_id">
-                            <strong>Mean of transport:</strong>
+                            <strong>Transport</strong>
                         </th>
                     </tr>
                 </thead>
@@ -70,8 +67,8 @@
                         <td t-if="doc.validity_date and doc.state in ['draft', 'sent']">
                             <span t-field="doc.validity_date" t-options='{"widget": "date"}'/>
                         </td>
-                        <td t-if="doc.commitment_date">
-                            <span t-field="doc.commitment_date" t-options='{"widget": "date"}'/>
+                        <td t-if="doc.delai">
+                            <span t-field="doc.delai"/>
                         </td>
                         <td t-if="doc.carrier_id">
                             <span t-field="doc.carrier_id.display_name"/>
@@ -86,7 +83,7 @@
             <table class="table table-condensed">
                     <thead>
                         <tr>
-                            <th>Item number</th>
+                            <th>Reference</th>
                             <th>Description</th>
                             <th class="text-right">Quantity</th>
                             <th class="text-right">Unit Price</th>
@@ -144,9 +141,6 @@
                                     </t>
 
                                 </tr>
-                                <t t-if="int(l_index) == maximum">
-                                    <tr><div style="page-break-after: always;"/></tr>
-                                </t>
                             </t>
 
                             <t t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']" groups="sale.group_sale_layout">
@@ -171,7 +165,7 @@
                 <span t-field="doc.payment_term_id.note"/>
             </p>
             <div t-if="doc.state in ('draft','sent')" class="col-xs-4 " id="informations" style="min-width: 60%;min-height: 80px;page-break-inside: avoid;">
-                <strong>Accord Client :</strong>
+                <strong>Customer agreement :</strong>
                 <!--<table class="table table-condensed" style="min-width: 200px;max-width: 350px;">-->
 
                 <!--</table>-->

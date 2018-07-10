@@ -1,26 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record model="ir.ui.view" id="view_partner_form">
-        <field name="name">Partner form : short category name</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+
+    <record model="ir.ui.view" id="res_partner_nace_form_view">
+        <field name="name">Nace</field>
+        <field name="model">res.partner.nace</field>
         <field name="arch" type="xml">
-            <field name="category_id" position="attributes">
-                <attribute name="context">{'partner_category_display': 'short'}</attribute>
-                <attribute name="options">{"always_reload": True}</attribute>
-            </field>
+            <form string="Contact Tag">
+                <group col="4">
+                    <field name="name"/>
+                    <field name="active"/>
+                    <field name="parent_id"/>
+                </group>
+            </form>
         </field>
     </record>
-    <!-- Only show the short category name, NACE titles are very long -->
-    <record model="ir.ui.view" id="res_partner_kanban_view">
-        <field name="name">Partner kanban : short category name</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.res_partner_kanban_view" />
+
+    <record model="ir.ui.view" id="res_partner_nace_tree_view">
+        <field name="name">Nace</field>
+        <field name="model">res.partner.nace</field>
         <field name="arch" type="xml">
-            <field name="category_id" position="attributes">
-                <attribute name="context">{'partner_category_display': 'short'}</attribute>
-                <attribute name="options">{"always_reload": True}</attribute>
-            </field>
+            <tree string="Nace">
+                <field name="display_name"/>
+            </tree>
         </field>
     </record>
+
+    <record id="action_partner_nace_form" model="ir.actions.act_window">
+        <field name="name">Nace</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.nace</field>
+        <field name="view_type">form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new partner Nace.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_partner_nace_form"
+        action="action_partner_nace_form"
+        name="Nace"
+        sequence="10" parent="contacts.res_partner_menu_config"/>
+
+    <!--<record model="ir.ui.view" id="view_partner_form">-->
+        <!--<field name="name">Partner form : short category name</field>-->
+        <!--<field name="model">res.partner</field>-->
+        <!--<field name="inherit_id" ref="base.view_partner_form" />-->
+        <!--<field name="arch" type="xml">-->
+            <!--<field name="category_id" position="attributes">-->
+                <!--<attribute name="context">{'partner_category_display': 'short'}</attribute>-->
+                <!--<attribute name="options">{"always_reload": True}</attribute>-->
+            <!--</field>-->
+        <!--</field>-->
+    <!--</record>-->
+    <!--&lt;!&ndash; Only show the short category name, NACE titles are very long &ndash;&gt;-->
+    <!--<record model="ir.ui.view" id="res_partner_kanban_view">-->
+        <!--<field name="name">Partner kanban : short category name</field>-->
+        <!--<field name="model">res.partner</field>-->
+        <!--<field name="inherit_id" ref="base.res_partner_kanban_view" />-->
+        <!--<field name="arch" type="xml">-->
+            <!--<field name="category_id" position="attributes">-->
+                <!--<attribute name="context">{'partner_category_display': 'short'}</attribute>-->
+                <!--<attribute name="options">{"always_reload": True}</attribute>-->
+            <!--</field>-->
+        <!--</field>-->
+    <!--</record>-->
 </odoo>

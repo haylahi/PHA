@@ -282,6 +282,8 @@ class ImportFEC(models.TransientModel):
                         type = matrix_mapped_line['Type']
 
                     odoo_partner_id = partner_obj.search([('ref', '=', ref)])
+                    if len(odoo_partner_id) > 1:
+                        raise exceptions.Warning(_("Attention!! Doublon partner - ref = %s") % ref)
                     if odoo_partner_id and matrix_data:
                         obj.config_compte_tiers(z, code_partner, type, odoo_partner_id)
 
@@ -480,14 +482,14 @@ class ImportFEC(models.TransientModel):
                     credit_src = round(v2, precision)
                     debit = round(debit + debit_src, precision)
                     credit = round(credit + credit_src, precision)
-                    logging.info("-------- debit = %s - credit = %s ----", debit_src, credit_src)
                     lines.append(line)
                     line_count = line_count + 1
+                    logging.info("-------- %s - debit = %s - credit = %s ----", line_count, debit_src, credit_src)
                     if debit == credit:
                         move_count = move_count + 1
-                        logging.info("================ Import value :  %s - %s ----", debit, credit)
+                        logging.info("================ %s - Import value :  %s - %s ----", move_count, debit, credit)
                         vals = self.get_move_account(lines)
-
+                        logging.info("*** %s", vals)
                         move = move_obj.create(vals)
                         logging.info("---------- Import : %s Success", move)
                         moves.append(move)
@@ -511,7 +513,7 @@ class ImportFEC(models.TransientModel):
 
         if self.import_reconciliation:
             logging.info("**************** Debut Lettrage ****************")
-            self._reconcile(moves.ids)
+            self._reconcile(move_ids)
             logging.info("**************** Fin Lettrage ****************")
 
         logging.info("**************** Debut validation ****************")

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_order_form_inh" model="ir.ui.view">
+            <field name="name">sale.product.order.form.inh</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='order_line']/tree" position="replace">
+                    <tree string="Sales Order Lines" editable="bottom" decoration-info="invoice_status=='to invoice'">
+                        <field name="product_tmpl_id" invisible="1"/>
+                        <field name="product_title" invisible="1"/>
+                        <field name="sequence" widget="handle"/>
+                        <field name="product_updatable" invisible="1"/>
+                        <field name="product_id" attrs="{'readonly': [('product_updatable', '=', False)]}" force_save="1" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"/>
+                        <field name="sale_product_ref"
+                           string="Ref Vente "
+                           options="{'no_create': True}"
+                           domain="[('product_id','=',product_tmpl_id)]" attrs="{'invisible': [('product_title', '=', True)]}"/>
+                        <field name="layout_category_id" groups="sale.group_sale_layout"/>
+                        <field name="name"/>
+                        <field name="product_uom_qty" string="Ordered Qty" attrs="{'invisible': [('product_title', '=', True)]}" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"/>
+                        <field name="qty_delivered" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])], 'readonly': [('qty_delivered_updateable', '=', False)], 'invisible': [('product_title', '=', True)]}"/>
+                        <field name="qty_invoiced" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])], 'invisible': [('product_title', '=', True)]}"/>
+                        <field name="qty_to_invoice" invisible="1"/>
+                        <field name="product_uom" attrs="{'readonly': [('state', 'in', ('sale','done', 'cancel'))],'invisible': [('product_title', '=', True)]}" context="{'company_id': parent.company_id}" groups="product.group_uom" options="{&quot;no_open&quot;: True}"/>
+                        <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <field name="price_unit" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)],'invisible': [('product_title', '=', True)]}"/>
+                        <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)],'invisible': [('product_title', '=', True)]}"/>
+                        <field name="discount" groups="sale.group_discount_per_so_line" attrs="{'invisible': [('product_title', '=', True)]}"/>
+                        <field name="price_subtotal" widget="monetary" groups="sale.group_show_price_subtotal" attrs="{'invisible': [('product_title', '=', True)]}"/>
+                        <field name="price_total" widget="monetary" groups="sale.group_show_price_total" attrs="{'invisible': [('product_title', '=', True)]}"/>
+                        <field name="qty_delivered_updateable" invisible="1"/>
+                        <field name="state" invisible="1"/>
+                        <field name="invoice_status" invisible="1"/>
+                        <field name="customer_lead" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </tree>
+
+                </xpath>
+
+            </field>
+
+        </record>
+    </data>
+</odoo>
