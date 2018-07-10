@@ -11,7 +11,7 @@
         'l10n_eu_nace'
     ],
     'data': [
-        'data/res.partner.category.csv',
+        'data/res.partner.nace.csv',
         'views/partner.xml',
     ],
     'license': 'AGPL-3',
