@@ -11,10 +11,12 @@
     'website': "http://www.cadrinsitu.com",
     'category': 'Sale',
     'version': '0.1',
-    'depends': ['sale', 'product', 'website_quote'],
+    'depends': ['sale', 'product', 'website_quote','stock','sale_product_ref'],
     'data': [
         'views/product_views.xml',
         'views/title_product_views.xml',
+        'views/stock_picking_views.xml',
+        'views/sale_order_views.xml',
         'report/sale_report_templates.xml',
         'report/website_quote_templates.xml',
         'report/invoice_report_templates.xml',
