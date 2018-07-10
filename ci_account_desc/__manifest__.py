@@ -17,6 +17,7 @@
         'views/title_product_views.xml',
         'views/stock_picking_views.xml',
         'views/sale_order_views.xml',
+        'views/invoice_views.xml',
         'report/sale_report_templates.xml',
         'report/website_quote_templates.xml',
         'report/invoice_report_templates.xml',
