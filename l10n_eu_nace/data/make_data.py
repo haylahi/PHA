@@ -34,7 +34,7 @@ ID_TEMPLATE = "nace_%s"
 
 print "Generating the English CSV file..."
 src = csv.reader(open("NACE_REV2_en.csv", "rU"))
-dest = csv.writer(open("res.partner.category.csv", "w"),
+dest = csv.writer(open("res.partner.nace.csv", "w"),
                   quoting=csv.QUOTE_ALL)
 # Write the file header
 dest.writerow(["id", "parent_id:id", "name"])
@@ -87,7 +87,7 @@ msgstr ""
         name = "[%s] %s" % (row[1], row[2])
         xml_id = ID_TEMPLATE % row[1].replace('.', '_')
         dest.write("""#. module: l10n_eu_nace
-#: model:res.partner.category,name:l10n_eu_nace.%s
+#: model:res.partner.nace,name:l10n_eu_nace.%s
 msgid "%s"
 msgstr "%s"
 
