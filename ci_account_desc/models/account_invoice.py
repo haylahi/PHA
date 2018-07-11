@@ -11,7 +11,6 @@ class AccountInvoiceLine(models.Model):
     @api.model
     def create(self, vals):
         res = super(AccountInvoiceLine, self).create(vals)
-
         if res.product_id.is_title:
             res.write({'price_unit': 0})
         return res
