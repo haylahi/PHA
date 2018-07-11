@@ -28,6 +28,33 @@
         </record>
 
 
+        <record id="product_normal_form_view_inherited" model="ir.ui.view">
+            <field name="name">product.product.form.inherited</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+                <notebook>
+                    <page string="Caractéristiques">
+                        <sheet>
+                            <group name="group_top">
+                                <group name="group_left">
+                                    <field name="description"/>
+                                    <field name="material_id"/>
+                                </group>
+
+                                <group name="group_right">
+                                    <field name="dimension"/>
+                                    <field name="diameter"/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
         <act_window context="{}" groups="" id="product_mat_action" name="Configuration Matières Produits "
                     res_model="product.materiales" view_mode="tree,form" view_type="form"/>
         <menuitem action="product_mat_action" id="product_materiels_menuitem" name="Matières Configuration"

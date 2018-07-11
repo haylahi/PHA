@@ -1,0 +1,505 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pha
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180707\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-08 13:42+0000\n"
+"PO-Revision-Date: 2018-07-08 13:42+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "&amp;bull;"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+msgid "&amp;nbsp;<span>on</span>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>\n"
+"                                    <strong>Customer Address:</strong>\n"
+"                                </span>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>\n"
+"                                    <strong>Delivery Address:</strong>\n"
+"                                </span>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>\n"
+"                                    <strong>Partner Address:</strong>\n"
+"                                </span>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>\n"
+"                                    <strong>Warehouse Address:</strong>\n"
+"                                </span>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "<span><strong>Customer Address:</strong></span>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<span>No reservation or quantity done yet.</span>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer_with_payments
+msgid "<strong>Amount Due</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Amount</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<strong>Commitment Date</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Customer Reference:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Customer agreement :</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Customer</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Date Req.</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>Date:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Date</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Description</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Disc.(%)</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>Due date:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Expiration Date</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>N/Ref:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<strong>Order (Origin)</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Order Date:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Our Order Reference:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Qty</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "<strong>Quantity</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "<strong>Reference</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Report</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<strong>Scheduled Date</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Shipping address:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "<strong>State</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Subtotal: </strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Subtotal</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Time period</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer
+#: model:ir.ui.view,arch_db:pha.total_report
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "<strong>Transport</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Unit Price</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>V/N°TVA:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
+msgid "<strong>Your Order Reference:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "<strong>Your Reference:</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "APE:"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "All items couldn't be shipped, the remaining ones will be shipped as soon as they become available."
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Amount"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Barcode"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Bon de Préparation :"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "Bon de Réception"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Cancelled Invoice"
+msgstr ""
+
+#. module: pha
+#: code:addons/pha/models/res_config_settings.py:22
+#, python-format
+msgid "Choose Your Document Layout"
+msgstr ""
+
+#. module: pha
+#: model:ir.model,name:pha.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Credit Note"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "Delivery order"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Description"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stock_move_line_view_search
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Destination"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Disc.(%)"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Draft Invoice"
+msgstr ""
+
+#. module: pha
+#: model:ir.model.fields,field_description:pha.field_sale_order_delai
+msgid "Délai"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Fournisseur:"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_invoice_form_inh
+msgid "Information technique"
+msgstr ""
+
+#. module: pha
+#: model:ir.model,name:pha.model_account_invoice
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Invoice"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Invoicing address:"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Invoicing and shipping address:"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Location"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Lot/Serial Number"
+msgstr ""
+
+#. module: pha
+#: model:ir.model.fields,field_description:pha.field_account_invoice_max_line
+msgid "Nombre de lignes/page"
+msgstr ""
+
+#. module: pha
+#: model:ir.model.fields,help:pha.field_account_invoice_max_line
+msgid "Nombre maximum de lignes par page sur l'imprimé de facture."
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "N° Client:"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "N° Intracom:"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Package"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "Page:\n"
+"                    <span class=\"page\"/>\n"
+"                    /\n"
+"                    <span class=\"topage\"/>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_footer_with_payments
+msgid "Paid on"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stock_move_line_view_search
+msgid "Picking"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+msgid "Price"
+msgstr ""
+
+#. module: pha
+#: model:ir.model,name:pha.model_product_pricelist_item
+msgid "Pricelist item"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stock_move_line_view_search
+msgid "Product"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+msgid "Qty"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Quantity"
+msgstr ""
+
+#. module: pha
+#: model:ir.model,name:pha.model_sale_order
+msgid "Quotation"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "RC:"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Reference"
+msgstr ""
+
+#. module: pha
+#: model:ir.model,name:pha.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.external_layout_pha
+msgid "Siret:"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stock_move_line_view_search
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "Source"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "This shipment is a backorder of"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "To the attention of"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Total Price"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_body
+#: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
+msgid "Unit Price"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Vendor Bill"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.information_header
+msgid "Vendor Credit Note"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_stockpicking
+msgid "You do not have any products reserved for this picking. Please click the 'Reserve' button\n"
+"                        to check if products are available."
+msgstr ""
+
+#. module: pha
+#: model:ir.model,name:pha.model_res_config_settings
+msgid "res.config.settings"
+msgstr ""
+

@@ -3,3 +3,4 @@
 from . import product
 from . import account_invoice
 from . import sale
+from . import stock

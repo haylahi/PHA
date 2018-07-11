@@ -482,14 +482,14 @@ class ImportFEC(models.TransientModel):
                     credit_src = round(v2, precision)
                     debit = round(debit + debit_src, precision)
                     credit = round(credit + credit_src, precision)
-                    logging.info("-------- debit = %s - credit = %s ----", debit_src, credit_src)
                     lines.append(line)
                     line_count = line_count + 1
+                    logging.info("-------- %s - debit = %s - credit = %s ----", line_count, debit_src, credit_src)
                     if debit == credit:
                         move_count = move_count + 1
-                        logging.info("================ Import value :  %s - %s ----", debit, credit)
+                        logging.info("================ %s - Import value :  %s - %s ----", move_count, debit, credit)
                         vals = self.get_move_account(lines)
-
+                        logging.info("*** %s", vals)
                         move = move_obj.create(vals)
                         logging.info("---------- Import : %s Success", move)
                         moves.append(move)

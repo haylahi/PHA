@@ -12,7 +12,7 @@
                         <th class="text-center"><strong>Date Req.</strong></th>
                         <th class="text-right"><strong>Qty</strong></th>
                         <th class="text-right"><strong>Unit Price</strong></th>
-                        <th t-if="display_discount" class="text-right"><strong>Rem.(%)</strong></th>
+                        <th t-if="display_discount" class="text-right"><strong>Disc.(%)</strong></th>
                         <th class="text-right"><strong>Amount</strong></th>
                     </tr>
                 </thead>
