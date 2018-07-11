@@ -13,5 +13,5 @@ class AccountInvoiceLine(models.Model):
         res = super(AccountInvoiceLine, self).create(vals)
 
         if res.product_id.is_title:
-            res.write({'price_unit': 0,'quantity': 0})
+            res.write({'price_unit': 0})
         return res
