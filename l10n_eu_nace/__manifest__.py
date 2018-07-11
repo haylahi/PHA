@@ -24,8 +24,9 @@
     "version": "11.0.1.0.0",
     'author': u'Numérigraphe SARL,Sistheo,Odoo Community Association (OCA)',
     "category": "Localization",
+    "depends":["contacts"],
     "data": [
-        "data/res.partner.category.csv",
+        "data/res.partner.nace.csv",
         'views/partner_view.xml',
     ],
     'installable': True,
