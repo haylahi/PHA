@@ -26,6 +26,7 @@
     "category": "Localization",
     "depends":["contacts"],
     "data": [
+        "security/ir.model.access.csv",
         "data/res.partner.nace.csv",
         'views/partner_view.xml',
     ],
