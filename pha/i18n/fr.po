@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e-20180707\n"
+"Project-Id-Version: Odoo Server 11.0+e-20180712\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-08 13:52+0000\n"
-"PO-Revision-Date: 2018-07-08 13:52+0000\n"
+"POT-Creation-Date: 2018-07-25 13:35+0000\n"
+"PO-Revision-Date: 2018-07-25 13:35+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgid "<span>\n"
 "                                    <strong>Partner Address:</strong>\n"
 "                                </span>"
 msgstr "<span>\n"
-"                                    <strong>Adresse client:</strong>\n"
+"                                    <strong>Adresse du client:</strong>\n"
 "                                </span>"
 
 #. module: pha
@@ -88,6 +88,7 @@ msgstr "<strong>Date d'engagement</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+#: model:ir.ui.view,arch_db:pha.pha_report_mrprepairorder_inherit
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "<strong>Customer Reference:</strong>"
 msgstr "<strong>Référence client:</strong>"
@@ -98,19 +99,19 @@ msgid "<strong>Customer agreement :</strong>"
 msgstr "<strong>Accord client :</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_mrprepairorder_inherit
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>Client:</strong>"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "<strong>Customer</strong>"
 msgstr "<strong>Client</strong>"
 
 #. module: pha
-#: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
-msgid "<strong>Date Req.</strong>"
-msgstr "<strong>Date Demandée.</strong>"
-
-#. module: pha
 #: model:ir.ui.view,arch_db:pha.information_header
 msgid "<strong>Date:</strong>"
-msgstr "<strong>Date :</strong>"
+msgstr "<strong>Date:</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_deliveryslip
@@ -140,6 +141,11 @@ msgid "<strong>Expiration Date</strong>"
 msgstr "<strong>Validité</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_mrprepairorder_inherit
+msgid "<strong>Lot/Serial Number:</strong>"
+msgstr "<strong>Lot/numéro de série:</strong>"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.information_header
 msgid "<strong>N/Ref:</strong>"
 msgstr "<strong>N/Ref:</strong>"
@@ -159,6 +165,16 @@ msgstr "<strong>Date de commande:</strong>"
 #: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
 msgid "<strong>Our Order Reference:</strong>"
 msgstr "<strong>Notre Référence de Commande</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_mrprepairorder_inherit
+msgid "<strong>Printing Date:</strong>"
+msgstr "<strong>Date d'impression :</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_mrprepairorder_inherit
+msgid "<strong>Product to Repair:</strong>"
+msgstr "<strong>Article à réparer :</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
@@ -235,6 +251,11 @@ msgid "<strong>V/N°TVA:</strong>"
 msgstr "<strong>V/N°TVA:</strong>"
 
 #. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_report_mrprepairorder_inherit
+msgid "<strong>Warranty:</strong>"
+msgstr "<strong/>"
+
+#. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_purchaseorder_document
 msgid "<strong>Your Order Reference:</strong>"
 msgstr "<strong>Votre référence de commande :</strong>"
@@ -294,6 +315,11 @@ msgstr "Sociétés"
 #: model:ir.ui.view,arch_db:pha.information_header
 msgid "Credit Note"
 msgstr "Avoir"
+
+#. module: pha
+#: model:ir.model.fields,field_description:pha.field_mrp_repair_client_ref
+msgid "Customer Reference"
+msgstr "Référence client"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_deliveryslip
@@ -358,7 +384,7 @@ msgstr "Adresse de facturation et de livraison :"
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "Location"
-msgstr "Emplacement"
+msgstr "Lieu"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_deliveryslip
@@ -436,7 +462,7 @@ msgstr "Qté"
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 #: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "Quantity"
-msgstr "Quantité"
+msgstr "Qté"
 
 #. module: pha
 #: model:ir.model,name:pha.model_sale_order
@@ -454,6 +480,11 @@ msgstr "RC:"
 #: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "Reference"
 msgstr "Référence"
+
+#. module: pha
+#: model:ir.model,name:pha.model_mrp_repair
+msgid "Repair Order"
+msgstr "Ordre de réparation"
 
 #. module: pha
 #: model:ir.model,name:pha.model_sale_order_line
