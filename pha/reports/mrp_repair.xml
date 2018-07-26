@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template inherit_id="mrp_repair.report_mrprepairorder" id="pha_report_mrprepairorder_inherit">
+            <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+                <div class="row mt32 mb32">
+                    <div t-if="o.product_id.name" class="col-xs-3">
+                        <strong>Product to Repair:</strong>
+                        <p t-field="o.product_id.name"/>
+                    </div>
+                    <div t-if="o.partner_id.parent_id.ref or o.partner_id.ref" class="col-xs-2">
+                        <strong>Customer:</strong>
+                        <p t-esc="o.partner_id.parent_id.ref or o.partner_id.ref"/>
+                    </div>
+                    <div t-if="o.client_ref" class="col-xs-3">
+                        <strong>Customer Reference:</strong>
+                        <p t-esc="o.client_ref"/>
+                    </div>
+                    <div class="col-xs-2" groups="stock.group_production_lot">
+                        <strong>Lot/Serial Number:</strong>
+                        <t t-if="o.lot_id">
+                            <span t-field="o.lot_id.name"/>
+                        </t>
+                    </div>
+                    <div t-if="o.guarantee_limit" class="col-xs-3">
+                        <strong>Warranty:</strong>
+                        <p t-field="o.guarantee_limit"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Printing Date:</strong>
+                        <p t-esc="datetime.datetime.now().strftime('%Y-%m-%d')" t-options="{'widget': 'date'}"/>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
