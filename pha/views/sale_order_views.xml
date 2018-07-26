@@ -5,7 +5,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale_order_dates.view_order_form_inherit_sale_stock_inherit_sale_order_dates"/>
         <field name="arch" type="xml">
-            <!--<field name="commitment_date" position="replace"/>-->
+            <field name="commitment_date" position="attributes">
+                <attribute name="attrs">{'readonly':False}</attribute>
+            </field>
             <field name="confirmation_date" position="after">
                 <!--<field name="commitment_date" widget="date" attrs="{'readonly':[('state','not in',('draft','sent'))]}"/>-->
                 <field name="delai"/>
