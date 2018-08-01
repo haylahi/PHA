@@ -45,7 +45,7 @@
                 <div t-if="o.partner_id" class="col-xs-2">
                     <strong t-if="o.type != 'in_invoice'">N° Client:</strong>
                     <strong t-if="o.type == 'in_invoice'">Fournisseur:</strong>
-                    <p t-esc="o.partner_id.parent_id.ref or o.partner_id.ref"/>
+                    <p t-esc="o.partner_id.parent_id.ref or o.partner_id.ref or '' "/>
                 </div>
                 <div t-if="o.origin" name='reference' class="col-xs-2">
                     <strong>N/Ref:</strong>
