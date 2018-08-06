@@ -23,7 +23,8 @@
                 </div>
             </div>
 
-            <h2>
+            <!--workaround : changement de la balise <h2/> en <div/> pour contourner le probléme de l'impression des documents avec deux pages ou plus -->
+            <div style="font-size: 1.5em; margin: .75em 0;">
                 <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Invoice</span>
                 <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
                 <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
@@ -31,7 +32,7 @@
                 <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>
                 <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
                 <span t-field="o.number"/>
-            </h2>
+            </div>
 
             <div class="row mt32 mb32" id="informations">
                 <div t-if="o.date_invoice" class="col-xs-2">
