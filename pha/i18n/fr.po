@@ -546,3 +546,12 @@ msgstr "You do not have any products reserved for this picking. Please click the
 msgid "res.config.settings"
 msgstr "res.config.settings"
 
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "<strong>Delivred</strong>"
+msgstr "<strong>Total livré</strong>"
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "of"
+msgstr "sur"
