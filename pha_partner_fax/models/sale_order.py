@@ -19,4 +19,6 @@ class SaleOrder(models.Model):
     def _prepare_invoice(self):
         res = super(SaleOrder, self)._prepare_invoice()
         res['contact_id']= self.contact_id.id or False
+        if self.category_id:
+            res['category_id'] = [(6,0,self.category_id.ids)]
         return res
