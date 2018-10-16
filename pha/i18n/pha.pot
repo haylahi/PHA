@@ -534,3 +534,12 @@ msgstr ""
 msgid "res.config.settings"
 msgstr ""
 
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "<strong>Delivred</strong>"
+msgstr ""
+
+#. module: pha
+#: model:ir.ui.view,arch_db:pha.pha_deliveryslip
+msgid "of"
+msgstr ""
