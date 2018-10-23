@@ -30,6 +30,7 @@
             </field>
             <group position="inside">
                 <filter string="Reference" name="reference" domain="[]"  context="{'group_by':'reference'}"/>
+                <filter string="Partenaire" name="partner" domain="[]"  context="{'group_by':'partner_id'}"/>
             </group>
 
         </field>
@@ -44,7 +45,7 @@
         <field name="domain">[('picking_type_id','=',active_id)]</field>
         <field name="context">{
             'search_default_todo': 1,
-            'search_default_reference': 1,
+            'search_default_partner': 1,
             }
         </field>
     </record>
