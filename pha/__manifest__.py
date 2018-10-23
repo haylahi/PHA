@@ -23,6 +23,7 @@
         'views/stock_move_view.xml',
         'views/res_partner.xml',
         'views/mrp_repair_views.xml',
+        'views/stock_picking_views.xml',
         'reports/external_templates.xml',
         'reports/report_actions.xml',
         'reports/sale_order.xml',
