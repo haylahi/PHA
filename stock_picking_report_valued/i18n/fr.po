@@ -101,4 +101,4 @@ msgstr "Livraison chiffré"
 #: model:ir.model.fields,help:stock_picking_report_valued.field_res_users_valued_picking
 #: model:ir.model.fields,help:stock_picking_report_valued.field_stock_picking_valued
 msgid "You can select which partners have valued pickings"
-msgstr "Coché si vous voulez des livraisons chiffré pour ce partenaire"
+msgstr "Cochez si vous voulez voir les livraisons chiffré pour ce partenaire"
