@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+<template id="pha_report_mrprepairorder" inherit_id="mrp_repair.report_mrprepairorder">
+    <xpath expr="//table/thead/tr/th[1]" position="after">
+        <th>Ref</th>
+    </xpath>
+    <xpath expr="//table/tbody/t/tr[2]/td[1]" position="after">
+        <td><span  t-field="line.sale_product_ref"/>
+        <span t-if="not line.sale_product_ref" t-field="line.product_id.default_code"/>
+        </td>
+    </xpath>
+</template>
+</data>
+</odoo>

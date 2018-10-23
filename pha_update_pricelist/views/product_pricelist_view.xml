@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="pha_product_template_search_view" model="ir.ui.view">
+            <field name="name">pha.product.pricelist.form</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <field name="item_ids" position="before">
+                    <group>
+
+                        <field name="automatic_update"/>
+                    </group>
+
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -48,7 +48,7 @@ class PriceScale(models.Model):
     @api.multi
     def get_coef(self,price):
         if price:
-            scale_line = self.price_scale_line_ids.search([('min_price','<=',price),
+            scale_line = self.price_scale_line_ids.search([('scale_id','=',self.id),('min_price','<=',price),
                                                       ('max_price', '>=', price)])
             if scale_line:
                 return scale_line.coef
