@@ -1,7 +1,7 @@
 from odoo import api, fields, models, _
 
 
-class ResPartner(model.TransientModel):
+class ResPartner(models.TransientModel):
     _name="supplier.update.date.wizard"
 
     start_date= fields.Date("Date debut")
