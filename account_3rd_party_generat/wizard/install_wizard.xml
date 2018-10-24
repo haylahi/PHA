@@ -9,19 +9,26 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Accounts Generate">
-                    <!-- separator col="4" colspan="4" string="Generate Chart of Accounts from a Chart Template"/ -->
-                    <!--label align="0.0" colspan="4" string="This will automatically configure your chart of accounts, bank accounts, taxes and journals according to the selected template"/-->
-                    <field name="company_id" />
-                    <!-- field name ="code_digits" / -->
-                    <separator string="Account number" colspan="4"/>
-                    <field name="receivable_id" />
-                    <field name="payable_id" />
-                    <separator string="" colspan="4"/>
-                    <label string="" colspan="2"/>
-                    <group col="2" colspan="2">
-                        <button icon="gtk-cancel" special="cancel" type="object" name="action_cancel" string="Cancel"/>
-                        <button icon="gtk-ok" name="action_start_install" string="Update" type="object"/>
+                    <separator col="4" colspan="4" string="Generate Chart of Accounts from a Chart Template"/>
+                    <label align="0.0" colspan="4" string="This will automatically configure your chart of accounts, bank accounts, taxes and journals according to the selected template"/>
+                    <group>
+                        <group colspan="4">
+                            <field name="company_id" colspan="2"/>
+                        </group>
+                        <!-- field name ="code_digits" / -->
+                        <separator string="Account number" colspan="4"/>
+                        <group>
+                            <field name="receivable_id" />
+                        </group>
+                        <group>
+                            <field name="payable_id" />
+                        </group>
                     </group>
+
+                    <footer>
+                        <button special="cancel" type="object" name="action_cancel" string="Cancel"/>
+                        <button name="action_start_install" string="Update" type="object"/>
+                    </footer>
                 </form>
             </field>
         </record>
@@ -35,7 +42,7 @@
             <field name="target">new</field>
         </record>
 
-<!-- register configuration wizard -->
+        <!-- register configuration wizard -->
         <record model="ir.actions.todo" id="config_third_part_account">
             <field name="name">Account 3rd part Configure Wizard</field>
             <field name="note">Configure third party account rules</field>
@@ -44,12 +51,11 @@
         </record>
 
 
-<!--
         # This menu is to reconfigure module. It is not supposed to be used.
-        <menuitem id="menu_wizard_install_third_part_accounts" 
-            action="action_third_part_account" 
+        <menuitem id="menu_wizard_install_third_part_accounts"
+            action="action_third_part_account"
             parent="account.menu_finance_configuration"/>
--->
+
 
 
     </data>
