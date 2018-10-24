@@ -47,37 +47,6 @@ class AccountGeneratorType(models.Model):
     code_suf = fields.Char('Code Suffix', size=64, )
     code_seq_id = fields.Many2one('ir.sequence', 'Sequence', domain=[('code', '=', 'res.partner')])
 
-    # @api.multi
-    # @api.depends('partner_type', 'partner_type')
-    # def onchange_partner_type(self):
-    #     """
-    #     When partner type change, we must change domain for:
-    #     - account_template_id
-    #     - account_parent_id
-    #     """
-    #     if self.partner_type is None or self.partner_type == False:
-    #         domain = {
-    #             'account_template_id': [('id', '=', 0)],
-    #             'account_parent_id': [('id', '=', 0)],
-    #             'account_reference_id': [('id', '=', 0)],
-    #         }
-    #     elif self.partner_type == 'customer':
-    #         domain = {
-    #             'account_template_id': [('type', '=', 'receivable')],
-    #             'account_parent_id': [('type', 'in', ('view', 'receivable'))],
-    #             'account_reference_id': [('type', '=', 'receivable')],
-    #         }
-    #     elif self.partner_type == 'supplier':
-    #         domain = {
-    #             'account_template_id': [('type', '=', 'payable')],
-    #             'account_parent_id': [('type', 'in', ('view', 'payable'))],
-    #             'account_reference_id': [('type', '=', 'payable')],
-    #         }
-    #     else:
-    #         raise osv.except_osv(_('Error'), _('Error in process, contact your administrator!'))
-    #     return {'value': {}, 'domain': domain}
-
-
 
 class ResCompany(models.Model):
     _inherit = 'res.company'
