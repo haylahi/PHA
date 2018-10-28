@@ -15,12 +15,14 @@ class ProductSupplierinfor(models.Model):
     state_lowest_price = fields.Boolean("Lowest ", default=False)
     state_highest_price = fields.Boolean("Highest ", default=False)
     net_price= fields.Float(compute='_compute_net_price',string="Prix Net",store=True, digits=dp.get_precision('Product Price'))
+
     @api.multi
     @api.depends('price','discount')
     def _compute_net_price(self):
         for record in self:
-            record.net_price = record.price -(record.price * record.discount)/100.0
-
+            price = record.price -(record.price * record.discount)/100.0
+            record.net_price = self.env['res.currency']._compute(record.currency_id, record.company_id.currency_id,
+                                                                 price)
 
 
 class PriceScaleLine(models.Model):
@@ -32,6 +34,7 @@ class PriceScaleLine(models.Model):
     max_price=fields.Float('Maximal Price', default=0.0)
     coef =fields.Float('Coefficient Applicable', default=0.0)
     scale_id = fields.Many2one('price.scale', string="scale")
+
 
 class PriceScale(models.Model):
     """ Product Scale for price evaluating. """
@@ -55,7 +58,6 @@ class PriceScale(models.Model):
 
         #TODO: rendre le coef standar parametrable, le 1.68 est specific pour le projet pha
         return  1.68
-
 
 
 class ProductTemplate(models.Model):
@@ -85,13 +87,13 @@ class ProductTemplate(models.Model):
             if highest_price != 0 :
                 hp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',highest_price)])
                 partner_id_high_price = hp_line[0].name.id
-                highest_price = self.process_supplier_line_rate(price=highest_price,line=hp_line[0],default_currency=default_currency,date=date)
+                # highest_price = self.process_supplier_line_rate(price=highest_price,line=hp_line[0],default_currency=default_currency,date=date)
                 hp_line.write({'state_highest_price': True})
 
             if lowest_price != 0 :
                 lp_line = supplier_info_ids.search([('id','in',supplier_info_ids.ids),('net_price','=',lowest_price)])
                 partner_id_low_price = lp_line[0].name.id
-                lowest_price = self.process_supplier_line_rate(price=lowest_price,line=lp_line[0],default_currency=default_currency,date=date)
+                # lowest_price = self.process_supplier_line_rate(price=lowest_price,line=lp_line[0],default_currency=default_currency,date=date)
                 lp_line.write({'state_lowest_price': True})
 
             rec.write({'highest_price': highest_price,
