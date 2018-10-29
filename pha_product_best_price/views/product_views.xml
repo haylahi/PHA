@@ -51,7 +51,7 @@
             <field name="discount" position="after">
                 <field name="currency_id"/>
                 <field name="net_price"/>
-                <!--<field name="company_currency_price"/>-->
+                <field name="current_price"/>
 
             </field>
             <field name="date_end" position="after">
