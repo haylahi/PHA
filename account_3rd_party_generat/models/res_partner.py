@@ -47,21 +47,28 @@ class Partner(models.Model):
             return False
         return type_id
 
-    @api.depends('property_account_receivable_id','property_account_payable_id')
+    @api.depends('customer','supplier','property_account_receivable_id','property_account_payable_id')
     def _get_reference(self):
-        ref = ''
-        logging.info('## property_account_receivable_id: %s' %self.property_account_receivable_id[0])
-        logging.info('## property_account_payable_id: %s' % self.property_account_payable_id[0])
-        customer_ref = self.property_account_receivable_id.code if self.property_account_receivable_id.id else False
-        supplier_ref = self.property_account_payable_id.code if self.property_account_payable_id.id else False
-        if customer_ref and self.customer:
-            ref = customer_ref
-        if supplier_ref and self.supplier:
-            if self.customer:
-                ref += ' / ' + supplier_ref
-            else:
-                ref += supplier_ref
-        self.ref = ref
+        for rec in self:
+            ref = ''
+            customer_ref = rec.property_account_receivable_id.code if rec.property_account_receivable_id else False
+            supplier_ref = rec.property_account_payable_id.code if rec.property_account_payable_id else False
+
+            if customer_ref and rec.customer:
+                if rec.customer_type:
+                    ref = rec.get_refnumber(rec.customer_type,customer_ref)
+            if supplier_ref and rec.supplier:
+                if rec.supplier_type:
+                    supplier_ref = rec.get_refnumber(rec.supplier_type,supplier_ref)
+                    ref += (' / ' + supplier_ref) if rec.customer else supplier_ref
+
+            rec.ref = ref
+
+    def get_refnumber(self, generator, ref_number):
+        prefix = generator.ir_sequence_id.prefix or ''
+        partner_prefix = generator.code_pre or ''
+        reference = partner_prefix + ref_number[len(prefix):]
+        return reference
 
     customer_type = fields.Many2one(string='Customer type', company_dependent=True, comodel_name='account.generator.type', help='Customer account type')
     supplier_type = fields.Many2one(string='Supplier type', company_dependent=True, comodel_name='account.generator.type', help='Supplier account type')
@@ -70,15 +77,21 @@ class Partner(models.Model):
     ref = fields.Char(string='Internal Reference', index=True, compute='_get_reference', store=True)
 
 
-    @api.onchange('customer', 'supplier')
+    @api.onchange('customer')
     def activate_generation_customer(self):
-        # customer
-        self.force_create_customer_account = True if self.customer else False
-        self.customer_type = self._partner_default_value('customer')
+        if self.customer:
+            self.customer_type = self._partner_default_value('customer')
+            if self.property_account_receivable_id.id == self.customer_type.account_template_id.id:
+                self.force_create_customer_account = True
 
-        # supplier
-        self.force_create_supplier_account = True if self.supplier else False
-        self.supplier_type = self._partner_default_value('supplier')
+
+    @api.onchange('supplier')
+    def activate_generation_supplier(self):
+        if self.supplier:
+            self.supplier_type = self._partner_default_value('supplier')
+            if self.property_account_payable_id.id == self.supplier_type.account_template_id.id:
+                self.force_create_supplier_account = True
+
 
 
     @api.multi
@@ -127,8 +140,7 @@ class Partner(models.Model):
                 # Increments sequence number
                 self.pool.get('ir.sequence').write([sequence.id], {'number_next': sequence.number_next + sequence.number_increment})
         else:
-            seq_obj = self.env['ir.sequence']
-            account_number = seq_obj.get_id(sequence.id)
+            account_number = sequence.next_by_id()
 
         return account_number
 
@@ -181,7 +193,7 @@ class Partner(models.Model):
                 return self.env['account.account'].create(new_acc)
             else:
                 return gen.account_reference_id and gen.account_reference_id.id or False
-        return False
+
 
     @api.model
     def create(self, vals):
@@ -189,28 +201,16 @@ class Partner(models.Model):
         When create a customer and supplier, we create the account code
         and affect it to this partner
         """
-        data = {
-            'id': vals.get('id'),
-            'name': vals.get('name'),
-            'customer_type': self._partner_default_value('customer'),
-            'supplier_type': self._partner_default_value('supplier'),
-        }
-        if vals.get('customer'):
-            vals['force_create_customer_account'] = False
-            vals['property_account_receivable_id'] = self._create_new_account(data['customer_type'], data)
-
-        if vals.get('supplier'):
-            vals['force_create_supplier_account'] = False
-            vals['property_account_payable_id'] = self._create_new_account(data['supplier_type'], data)
+        vals = self.generate_account(vals)
 
         return super(Partner, self).create(vals)
 
     @api.multi
     def write(self, vals):
-
         if 'name' in vals:
             self.check_lock_name(vals)
-        vals = self.generate_account(vals)
+        if vals.get('force_create_customer_account') or vals.get('force_create_supplier_account'):
+            vals = self.generate_account(vals)
 
         return super(Partner, self).write(vals)
 
@@ -218,32 +218,29 @@ class Partner(models.Model):
         # Check if name is allowed to be modified
         acc_move_line_obj = self.env['account.move.line']
         if vals.get('customer', self.customer):
-            # Check if account type locks partner's name and if partner account has at least one move
             if self.customer_type.lock_partner_name \
                     and acc_move_line_obj.search([('account_id', '=', self.property_account_receivable_id.id)]):
                 raise osv.except_osv(_('Error'),
                                      _('You cannot change partner\'s name when his account has moves'))
 
         if vals.get('supplier',self.supplier):
-            # Check if account type locks partner's name and if partner account has at leasr one move
             if self.supplier_type.lock_partner_name \
                     and acc_move_line_obj.search([('account_id', '=', self.property_account_payable_id.id)]):
                 raise osv.except_osv(_('Error'),
                                      _('You cannot change partner\'s name when his account has moves'))
 
     def generate_account(self,vals):
-        if vals.get('force_create_customer_account') or vals.get('force_create_supplier_account'):
-            data = {
-                'id': vals.get('id', self.id),
-                'name': vals.get('name', self.name),
-                'customer_type': vals.get('customer_type', self.customer_type),
-                'supplier_type': vals.get('supplier_type', self.supplier_type),
-            }
-            if vals.get('force_create_customer_account'):
-                 vals['force_create_customer_account'] = False
-                 vals['property_account_receivable_id'] = self._create_new_account(data['customer_type'], data)
-            if vals.get('force_create_supplier_account'):
-                 vals['force_create_supplier_account'] = False
-                 vals['property_account_payable_id'] = self._create_new_account(data['supplier_type'], data)
+        data = {
+            'name': vals.get('name',self.name),
+            'customer_type': self._partner_default_value('customer'),
+            'supplier_type': self._partner_default_value('supplier'),
+        }
+
+        if vals.get('force_create_customer_account'):
+             vals['force_create_customer_account'] = False
+             vals['property_account_receivable_id'] = self._create_new_account(data['customer_type'], data)
+        if vals.get('force_create_supplier_account'):
+             vals['force_create_supplier_account'] = False
+             vals['property_account_payable_id'] = self._create_new_account(data['supplier_type'], data)
 
         return vals
