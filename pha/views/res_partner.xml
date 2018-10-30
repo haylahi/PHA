@@ -9,13 +9,6 @@
                 <xpath expr="//field[@name='vat']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-
-                <field name="lang" position="after">
-                    		<button string="mettre à jour les dates" type="action"
-                                    name="%(pha.supplier_update_date_action)d"
-                                    context="{'default_supplier_id': active_id}"/>
-
-                </field>
             </field>
         </record>
 

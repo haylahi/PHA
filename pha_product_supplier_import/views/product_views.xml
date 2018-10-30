@@ -1,39 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_partner_form_inherited" model="ir.ui.view">
-            <field name="name">res.partner</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//div[@name='button_box']" position="inside">
-                    <button class="oe_inline oe_stat_button" type="action" string="Import Tarifs"
-                            context="{'default_supplier_id': context.get('id')}"
-                            name="%(tarif_import_action)d" icon="fa-mail-forward"
-                            attrs="{'invisible': [('supplier', '=', False)]}"/>
-                </xpath>
-                <notebook>
-                    <page string="Tarifs Fournisseurs" attrs="{'invisible': [('supplier', '=', False)]}">
-                        <field name="suppliers_ids" attrs="{'invisible': [('supplier', '=', False)]}">
-                            <tree>
-                                <field name="product_code"/>
-                                <field name="product_tmpl_id"/>
-                                <field name="min_qty"/>
-                                <field name="max_qty" string="Quantité Maximale"/>
-                                <field name="price"/>
-                                <field name="discount"/>
-                                <field name="currency_id"/>
-                                <field name="net_price"/>
-                                <field name="date_start"/>
-                                <field name="date_end"/>
-
-                            </tree>
-                        </field>
-                    </page>
-                </notebook>
-            </field>
-        </record>
-
 
         <record id="product_supplierinfo_tree_view_inherited" model="ir.ui.view">
             <field name="name">product.supplierinfo.tree.inherited</field>
