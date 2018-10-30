@@ -15,8 +15,6 @@
         </field>
     </record>
 
-
-
     <record id="view_sales_order_line_filter_pha" model="ir.ui.view">
         <field name="name">sale.order.line.select</field>
         <field name="model">sale.order.line</field>
@@ -42,7 +40,8 @@
                 <field name="qty_delivered"/>
                 <field name="qty_invoiced"/>
                 <field name="qty_to_invoice"/>
-                <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                <field name="price_unit" sum="Total" widget="monetary"/>
+                <!--<field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>-->
                 <field name="price_subtotal" sum="Total" widget="monetary"/>
             </tree>
         </field>
@@ -118,6 +117,7 @@
         <field name="res_model">sale.order.line</field>
         <field name="view_mode">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_order_line_tree_pha"/>
         <!--<field name="context">{'search_default_product_id': [active_id], 'default_product_id': active_id}</field>-->
         <!--<field name="domain">[('state', 'in', ['sale', 'done'])]</field>-->
     </record>
