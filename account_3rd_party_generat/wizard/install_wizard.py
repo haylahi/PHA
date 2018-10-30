@@ -62,7 +62,7 @@ class wizard_install_third_part_accounts(models.TransientModel):
         Set/Reset default properties
         """
         property_obj = self.env['ir.property']
-        prp = property_obj.search([('name', '=', prop_name), ('company_id', '=', company_id.id)])
+        prp = property_obj.search([('name', '=', prop_name), ('company_id', '=', company_id.id), ('res_id', '=', False)])
 
         if prp:
             out_id = prp.write({'value_reference': 'account.account,' + str(prop_account_id.id)})
