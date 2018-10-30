@@ -43,8 +43,9 @@ class AccountGeneratorType(models.Model):
     account_reference_id = fields.Many2one('account.account', 'Account reference', help='If no sequence define, this account reference is choose all the time')
     company_id = fields.Many2one('res.company', 'Company', help='Company where this configuration is apply', required=True)
     field_select = fields.Selection([('none', ''), ('name','name'), ('ref','ref')], 'Select Field', default='none', help="Select the field where the code be generate" )
-    code_pre = fields.Char('Code Prefix', size=64, )
-    code_suf = fields.Char('Code Suffix', size=64, )
+    # generate_ref_partner = fields.Boolean('Generer reference partenaire')
+    code_pre = fields.Char('Code Prefix', help="prefix pour la reference partenaire")
+    code_suf = fields.Char('Code Suffix')
     code_seq_id = fields.Many2one('ir.sequence', 'Sequence', domain=[('code', '=', 'res.partner')])
 
 

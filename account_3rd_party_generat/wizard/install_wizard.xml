@@ -51,10 +51,10 @@
         </record>
 
 
-        # This menu is to reconfigure module. It is not supposed to be used.
-        <menuitem id="menu_wizard_install_third_part_accounts"
-            action="action_third_part_account"
-            parent="account.menu_finance_configuration"/>
+        <!--# This menu is to reconfigure module. It is not supposed to be used.-->
+        <!--<menuitem id="menu_wizard_install_third_part_accounts"-->
+            <!--action="action_third_part_account"-->
+            <!--parent="account.menu_finance_configuration"/>-->
 
 
 
