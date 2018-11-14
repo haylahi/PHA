@@ -17,6 +17,7 @@
         'views/report_templates.xml',
         'views/account_invoice_view.xml',
         'views/sale_order_views.xml',
+        'views/purchase_order_views.xml',
         'views/res_company_view.xml',
         'views/product_template_view.xml',
         'views/stock_move_view.xml',
