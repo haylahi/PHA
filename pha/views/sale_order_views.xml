@@ -20,8 +20,14 @@
         <field name="model">sale.order.line</field>
         <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
         <field name="arch" type="xml">
+            <field name="salesman_id" position="before">
+                <field name="zip_partner"/>
+                <filter string="Devis" domain="[('state','in',('draft','sent'))]" />
+                <filter string="Commandes" domain="[('state','in',('sale','done'))]" />
+            </field>
             <xpath expr="//group[1]" position="inside">
                 <filter string="Client" domain="[]" context="{'group_by':'order_partner_id'}"/>
+                <filter string="Département" domain="[]" context="{'group_by':'zip_partner'}"/>
             </xpath>
         </field>
     </record>
