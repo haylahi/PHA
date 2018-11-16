@@ -10,6 +10,7 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     date_order = fields.Datetime(related='order_id.date_order', string='Date')
+    zip_partner = fields.Char(related='order_id.partner_id.zip', string='Département', store=True)
     @api.multi
     @api.onchange('product_id')
     def product_id_change(self):
