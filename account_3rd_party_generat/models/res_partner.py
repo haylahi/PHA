@@ -79,18 +79,21 @@ class Partner(models.Model):
 
     @api.onchange('customer')
     def activate_generation_customer(self):
+        self.customer_type = self._partner_default_value('customer')
         if self.customer:
-            self.customer_type = self._partner_default_value('customer')
             if self.property_account_receivable_id.id == self.customer_type.account_template_id.id:
                 self.force_create_customer_account = True
-
+        else:
+            self.force_create_customer_account = False
 
     @api.onchange('supplier')
     def activate_generation_supplier(self):
+        self.supplier_type = self._partner_default_value('supplier')
         if self.supplier:
-            self.supplier_type = self._partner_default_value('supplier')
             if self.property_account_payable_id.id == self.supplier_type.account_template_id.id:
                 self.force_create_supplier_account = True
+        else:
+            self.force_create_supplier_account = False
 
 
 
