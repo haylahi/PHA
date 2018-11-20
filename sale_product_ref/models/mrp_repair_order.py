@@ -12,11 +12,15 @@ class MRPRepairLine(models.Model):
 
     @api.onchange('sale_product_ref')
     def onchange_prd_ref(self):
-        self.price_unit = self.sale_product_ref.price
-        self.name=  "["+str(self.sale_product_ref.ref)+"] "+str(self.name).split('] ')[-1]
+        if self.sale_product_ref:
+            self.price_unit = self.sale_product_ref.price
+            self.name =  "["+str(self.sale_product_ref.ref)+"] "+str(self.name).split('] ')[-1]
+        else:
+            self.onchange_product_id()
 
     @api.onchange('product_id')
     def onchange_product_id(self):
+        super(MRPRepairLine, self).onchange_product_id()
         self.sale_product_ref = False
 
 
