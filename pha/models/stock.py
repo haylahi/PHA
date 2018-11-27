@@ -1,6 +1,16 @@
 from odoo import models, fields, api
 import logging
 
+class Picking(models.Model):
+    _inherit = "stock.picking"
+
+    picking_type_id = fields.Many2one(
+        'stock.picking.type', 'Operation Type',
+        required=True,
+        states={'done': [('readonly', True)], 'cancel': [('readonly', True)]},
+        track_visibility='onchange')
+
+
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
