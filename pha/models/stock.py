@@ -18,7 +18,7 @@ class StockMoveLine(models.Model):
     s_order_id = fields.Many2one('sale.order', compute='_get_origin', store=True)
     p_order_id = fields.Many2one('purchase.order', compute='_get_origin', store=True)
     partner_id = fields.Many2one('res.partner', string='Partenaire', compute='_get_origin', store=True)
-    picking_type_id = fields.Many2one(related='picking_id.picking_type_id', store=True)
+    picking_type_id = fields.Many2one(related='move_id.picking_type_id', store=True)
 
 
     @api.depends('state')
