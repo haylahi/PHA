@@ -14,10 +14,10 @@
                 'stock','account','purchase','ci_account_desc','stock_location',
                 'mrp_repair','website_sale'],
     'data': [
-        'wizard/supplier_update_date.xml',
         'views/report_templates.xml',
         'views/account_invoice_view.xml',
         'views/sale_order_views.xml',
+        'views/purchase_order_views.xml',
         'views/res_company_view.xml',
         'views/product_template_view.xml',
         'views/stock_move_view.xml',

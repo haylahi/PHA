@@ -216,13 +216,13 @@ msgstr "<strong>Etat</strong>"
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
 msgid "<strong>Subtotal: </strong>"
-msgstr "<strong>Sous-total : </strong>"
+msgstr "<strong>Total HT: </strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.information_footer
 #: model:ir.ui.view,arch_db:pha.total_report
 msgid "<strong>Subtotal</strong>"
-msgstr "<strong>Sous-total</strong>"
+msgstr "<strong>Total HT</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit
@@ -233,7 +233,7 @@ msgstr "<strong>Délai</strong>"
 #: model:ir.ui.view,arch_db:pha.information_footer
 #: model:ir.ui.view,arch_db:pha.total_report
 msgid "<strong>Total</strong>"
-msgstr "<strong>Total</strong>"
+msgstr "<strong>Total TTC</strong>"
 
 #. module: pha
 #: model:ir.ui.view,arch_db:pha.pha_report_saleorder_document_inherit

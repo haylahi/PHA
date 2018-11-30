@@ -43,40 +43,10 @@ class AccountGeneratorType(models.Model):
     account_reference_id = fields.Many2one('account.account', 'Account reference', help='If no sequence define, this account reference is choose all the time')
     company_id = fields.Many2one('res.company', 'Company', help='Company where this configuration is apply', required=True)
     field_select = fields.Selection([('none', ''), ('name','name'), ('ref','ref')], 'Select Field', default='none', help="Select the field where the code be generate" )
-    code_pre = fields.Char('Code Prefix', size=64, )
-    code_suf = fields.Char('Code Suffix', size=64, )
+    # generate_ref_partner = fields.Boolean('Generer reference partenaire')
+    code_pre = fields.Char('Code Prefix', help="prefix pour la reference partenaire")
+    code_suf = fields.Char('Code Suffix')
     code_seq_id = fields.Many2one('ir.sequence', 'Sequence', domain=[('code', '=', 'res.partner')])
-
-    # @api.multi
-    # @api.depends('partner_type', 'partner_type')
-    # def onchange_partner_type(self):
-    #     """
-    #     When partner type change, we must change domain for:
-    #     - account_template_id
-    #     - account_parent_id
-    #     """
-    #     if self.partner_type is None or self.partner_type == False:
-    #         domain = {
-    #             'account_template_id': [('id', '=', 0)],
-    #             'account_parent_id': [('id', '=', 0)],
-    #             'account_reference_id': [('id', '=', 0)],
-    #         }
-    #     elif self.partner_type == 'customer':
-    #         domain = {
-    #             'account_template_id': [('type', '=', 'receivable')],
-    #             'account_parent_id': [('type', 'in', ('view', 'receivable'))],
-    #             'account_reference_id': [('type', '=', 'receivable')],
-    #         }
-    #     elif self.partner_type == 'supplier':
-    #         domain = {
-    #             'account_template_id': [('type', '=', 'payable')],
-    #             'account_parent_id': [('type', 'in', ('view', 'payable'))],
-    #             'account_reference_id': [('type', '=', 'payable')],
-    #         }
-    #     else:
-    #         raise osv.except_osv(_('Error'), _('Error in process, contact your administrator!'))
-    #     return {'value': {}, 'domain': domain}
-
 
 
 class ResCompany(models.Model):

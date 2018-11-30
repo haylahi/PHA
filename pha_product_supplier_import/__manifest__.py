@@ -15,6 +15,8 @@
     'depends': ['product','product_supplierinfo_discount','purchase_discount','pha_product_best_price','base_csv_importer'],
     'data': [
         'wizard/tarif_import.xml',
+        'wizard/supplier_update_date.xml',
+        'views/partner_views.xml',
         'views/product_views.xml',
     ],
 

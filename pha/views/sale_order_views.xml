@@ -15,15 +15,19 @@
         </field>
     </record>
 
-
-
     <record id="view_sales_order_line_filter_pha" model="ir.ui.view">
         <field name="name">sale.order.line.select</field>
         <field name="model">sale.order.line</field>
         <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
         <field name="arch" type="xml">
+            <field name="salesman_id" position="before">
+                <field name="zip_partner"/>
+                <filter string="Devis" domain="[('state','in',('draft','sent'))]" />
+                <filter string="Commandes" domain="[('state','in',('sale','done'))]" />
+            </field>
             <xpath expr="//group[1]" position="inside">
                 <filter string="Client" domain="[]" context="{'group_by':'order_partner_id'}"/>
+                <filter string="Département" domain="[]" context="{'group_by':'zip_partner'}"/>
             </xpath>
         </field>
     </record>
@@ -33,16 +37,19 @@
         <field name="model">sale.order.line</field>
         <field name="arch" type="xml">
             <tree string="Sales Order Lines" create="false">
-                <field name="product_id" invisible="1"/>
+                <field name="date_order"/>
                 <field name="order_id"/>
                 <field name="order_partner_id"/>
+                <field name="sale_product_ref" string="Ref. de vente"/>
+                <field name="product_id"/>
                 <field name="name"/>
                 <field name="salesman_id"/>
                 <field name="product_uom_qty" string="Qty"/>
                 <field name="qty_delivered"/>
                 <field name="qty_invoiced"/>
                 <field name="qty_to_invoice"/>
-                <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                <field name="price_unit" sum="Total" widget="monetary"/>
+                <!--<field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>-->
                 <field name="price_subtotal" sum="Total" widget="monetary"/>
             </tree>
         </field>
@@ -118,6 +125,7 @@
         <field name="res_model">sale.order.line</field>
         <field name="view_mode">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_order_line_tree_pha"/>
         <!--<field name="context">{'search_default_product_id': [active_id], 'default_product_id': active_id}</field>-->
         <!--<field name="domain">[('state', 'in', ['sale', 'done'])]</field>-->
     </record>

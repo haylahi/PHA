@@ -28,7 +28,6 @@
 
 from . import wizard
 from . import modificators
-from . import res_company
-from . import res_partner
+from . import models
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

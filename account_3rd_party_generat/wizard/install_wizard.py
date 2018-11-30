@@ -23,6 +23,8 @@
 from odoo.osv import osv
 from odoo import models, fields, api
 
+import logging
+
 import types
 
 
@@ -33,33 +35,25 @@ class wizard_install_third_part_accounts(models.TransientModel):
 
     @api.multi
     def _default_account_id(self, account_type):
-        # if context is None:
-        #     context = {}
         account_type_id = self.env['account.account.type'].search([('type', '=', account_type)])
-        srch_args = [('user_type_id', 'in', account_type_id.type)]
+        srch_args = [('user_type_id', '=', account_type_id.id)]
         account_id = self.env['account.account'].search(srch_args)
+        logging.info('##### account : %s' %account_id)
         if account_id:
-            if type(account_id) is types.IntType:
-                return account_id
-            elif type(account_id) is types.ListType:
-                return account_id[0]
+            return account_id.ids
         return False
 
     @api.multi
     def _default_receivable_id(self):
-        # if context is None:
-        #     context = {}
-        return self._default_account_id('receivable')
+        return [('id','in',self._default_account_id('receivable'))]
 
     @api.multi
     def _default_payable_id(self):
-        # if context is None:
-        #     context = {}
-        return self._default_account_id('payable')
+        return [('id','in',self._default_account_id('payable'))]
 
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id, required=True)
-    receivable_id = fields.Many2one('account.account', 'Account receivable', default=_default_receivable_id, required=True)
-    payable_id = fields.Many2one('account.account', 'Account payable', default=_default_payable_id, required=True)
+    receivable_id = fields.Many2one('account.account', 'Account receivable', domain=lambda self: self._default_receivable_id(), required=True)
+    payable_id = fields.Many2one('account.account', 'Account payable', domain=lambda self: self._default_payable_id(), required=True)
 
 
     @api.multi
@@ -68,27 +62,19 @@ class wizard_install_third_part_accounts(models.TransientModel):
         Set/Reset default properties
         """
         property_obj = self.env['ir.property']
-        prp_ids = property_obj.search([('name', '=', prop_name), ('company_id', '=', company_id)])
-        # FIXME Add critéria to find only 1 record
-        if prp_ids:
-            if len(prp_ids) == 1:  # the property exist: modify it
-                vals = {
-                    'value': prop_account_id and 'account.account,' + str(prop_account_id) or False,
-                }
-                out_id = prp_ids[0]
-                property_obj.write([out_id], vals)
-            else:
-                #FIXME Over write the nly record that have res = NULL
-                out_id = False
-                pass    # DO NOTHING / DO NOT CHANGE EXISTING DATAS
+        prp = property_obj.search([('name', '=', prop_name), ('company_id', '=', company_id.id), ('res_id', '=', False)])
+
+        if prp:
+            out_id = prp.write({'value_reference': 'account.account,' + str(prop_account_id.id)})
+
         else:  # create the property
             fields_obj = self.env['ir.model.fields']
-            field_ids = fields_obj.search([('name', '=', prop_name), ('model', '=', 'res.partner'), ('relation', '=', 'account.account')])
+            field_id = fields_obj.search([('name', '=', prop_name), ('model', '=', 'res.partner'), ('relation', '=', 'account.account')])
             vals = {
                 'name': prop_name,
-                'company_id': company_id,
-                'fields_id': field_ids[0],
-                'value': prop_account_id and 'account.account,' + str(prop_account_id) or False,
+                'company_id': company_id.id,
+                'fields_id': field_id.id,
+                'value_reference': 'account.account,' + str(prop_account_id.id),
             }
             out_id = property_obj.create(vals)
         return out_id
@@ -98,18 +84,17 @@ class wizard_install_third_part_accounts(models.TransientModel):
         """
         Create the properties : specify default account (payable and receivable) for partners
         """
-        wiz_data = self.browse(self.ids[0])
-        self._set_property('property_account_receivable', wiz_data.receivable_id and wiz_data.receivable_id.id, wiz_data.company_id and wiz_data.company_id.id)
-        self._set_property('property_account_payable', wiz_data.payable_id and wiz_data.payable_id.id, wiz_data.company_id and wiz_data.company_id.id)
+        self._set_property('property_account_receivable_id', self.receivable_id, self.company_id)
+        self._set_property('property_account_payable_id', self.payable_id , self.company_id)
 
         next_action = {
             'type': 'ir.actions.act_window',
-            'res_model': 'ir.actions.configuration.wizard',
+            # 'res_model': 'ir.actions.configuration.wizard',
             'view_type': 'form',
             'view_mode': 'form',
             'target': 'new',
         }
-        return next_action
+        return {'type': 'ir.actions.act_window_close'}
 
     @api.multi
     def action_cancel(self):

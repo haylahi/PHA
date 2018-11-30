@@ -9,12 +9,16 @@
                 <xpath expr="//field[@name='vat']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+            </field>
+        </record>
 
-                <field name="lang" position="after">
-                    		<button string="mettre à jour les dates" type="action"
-                                    name="%(pha.supplier_update_date_action)d"
-                                    context="{'default_supplier_id': active_id}"/>
-
+        <record id="view_partner_tree_inherited" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="display_name" position="before">
+                    <field name="ref"/>
                 </field>
             </field>
         </record>
