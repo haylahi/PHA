@@ -538,8 +538,8 @@ msgstr "Avoir de fournisseur"
 #: model:ir.ui.view,arch_db:pha.pha_stockpicking
 msgid "You do not have any products reserved for this picking. Please click the 'Reserve' button\n"
 "                        to check if products are available."
-msgstr "You do not have any products reserved for this picking. Please click the 'Reserve' button\n"
-"                        to check if products are available."
+msgstr "Vous n'avez pas de produits réservés pour cette opération. Veuillez cliquer sur le bouton 'Réserver'\n"
+"pour vérifier la disponibilité des produits."
 
 #. module: pha
 #: model:ir.model,name:pha.model_res_config_settings
@@ -555,3 +555,15 @@ msgstr "<strong>Total livré</strong>"
 #: model:ir.ui.view,arch_db:pha.pha_deliveryslip
 msgid "of"
 msgstr "sur"
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.portal_order_page
+#: model:ir.ui.view,arch_db:sale.report_saleorder_document
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Total HT</strong>"
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.portal_order_page
+#: model:ir.ui.view,arch_db:sale.report_saleorder_document
+msgid "<strong>Total</strong>"
+msgstr "<strong>Total TTC</strong>"
