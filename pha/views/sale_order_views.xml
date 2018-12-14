@@ -5,12 +5,134 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale_order_dates.view_order_form_inherit_sale_stock_inherit_sale_order_dates"/>
         <field name="arch" type="xml">
-            <!--<field name="commitment_date" position="replace"/>-->
+            <field name="commitment_date" position="attributes">
+                <attribute name="attrs">{'readonly':False}</attribute>
+            </field>
             <field name="confirmation_date" position="after">
                 <!--<field name="commitment_date" widget="date" attrs="{'readonly':[('state','not in',('draft','sent'))]}"/>-->
                 <field name="delai"/>
             </field>
         </field>
     </record>
+
+    <record id="view_sales_order_line_filter_pha" model="ir.ui.view">
+        <field name="name">sale.order.line.select</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+        <field name="arch" type="xml">
+            <field name="salesman_id" position="before">
+                <field name="zip_partner"/>
+                <filter string="Devis" domain="[('state','in',('draft','sent'))]" />
+                <filter string="Commandes" domain="[('state','in',('sale','done'))]" />
+            </field>
+            <xpath expr="//group[1]" position="inside">
+                <filter string="Client" domain="[]" context="{'group_by':'order_partner_id'}"/>
+                <filter string="Département" domain="[]" context="{'group_by':'zip_partner'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_line_tree_pha" model="ir.ui.view">
+        <field name="name">sale.order.line.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Order Lines" create="false">
+                <field name="date_order"/>
+                <field name="order_id"/>
+                <field name="order_partner_id"/>
+                <field name="sale_product_ref" string="Ref. de vente"/>
+                <field name="product_id"/>
+                <field name="name"/>
+                <field name="salesman_id"/>
+                <field name="product_uom_qty" string="Qty"/>
+                <field name="qty_delivered"/>
+                <field name="qty_invoiced"/>
+                <field name="qty_to_invoice"/>
+                <field name="price_unit" sum="Total" widget="monetary"/>
+                <!--<field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>-->
+                <field name="price_subtotal" sum="Total" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_order_line_form_pha" model="ir.ui.view">
+        <field name="name">sale.order.line.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <form string="Sales Order Lines" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="product_updatable" invisible="1"/>
+                            <field name="product_id"/>
+                            <field name="layout_category_id" groups="sale.group_sale_layout"/>
+                            <field name="invoice_status" invisible="1"/>
+                            <field name="qty_to_invoice" invisible="1"/>
+                            <field name="qty_delivered_updateable" invisible="1"/>
+                            <field name="price_subtotal" invisible="1"/>
+                            <label for="product_uom_qty" string="Ordered Quantity"/>
+                            <div>
+                                <field name="product_uom_qty" class="oe_inline"/>
+                                <field name="product_uom" groups="product.group_uom"/>
+                            </div>
+                            <label for="qty_delivered" string="Delivered Quantity"/>
+                            <div>
+                                <field name="qty_delivered"
+                                       attrs="{'readonly': [('qty_delivered_updateable', '=', False)]}"/>
+                            </div>
+                            <label for="qty_invoiced" string="Invoiced Quantity"/>
+                            <div>
+                                <field name="qty_invoiced"/>
+                            </div>
+                            <field name="price_unit"/>
+                            <label for="discount" groups="sale.group_discount_per_so_line"/>
+                            <div name="discount" groups="sale.group_discount_per_so_line">
+                                <field name="discount" class="oe_inline"/>
+                                %%
+                            </div>
+                        </group>
+                        <group>
+                            <field name="tax_id" widget="many2many_tags"
+                                   attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+                            <label for="customer_lead"/>
+                            <div>
+                                <field name="customer_lead" class="oe_inline"/>
+                                days
+                            </div>
+                            <label for="analytic_tag_ids" groups="analytic.group_analytic_accounting"/>
+                            <div>
+                                <field name="analytic_tag_ids" widget="many2many_tags"
+                                       groups="analytic.group_analytic_accounting" options="{'color_field': 'color'}"/>
+                            </div>
+                        </group>
+                    </group>
+                    <label for="name"/>
+                    <field name="name"/>
+                    <div groups="base.group_no_one">
+                        <label for="invoice_lines"/>
+                        <field name="invoice_lines"/>
+                    </div>
+                    <field name="state" invisible="1"/>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_order_line_list_pha" model="ir.actions.act_window">
+        <field name="name">Détail vente</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_order_line_tree_pha"/>
+        <!--<field name="context">{'search_default_product_id': [active_id], 'default_product_id': active_id}</field>-->
+        <!--<field name="domain">[('state', 'in', ['sale', 'done'])]</field>-->
+    </record>
+
+    <menuitem id="menu_sale_details"
+        action="action_order_line_list_pha"
+        parent="sale.menu_sale_report"
+        sequence="10" groups="sales_team.group_sale_salesman"/>
 
 </odoo>

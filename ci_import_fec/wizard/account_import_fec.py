@@ -607,6 +607,8 @@ class ImportFEC(models.TransientModel):
                 move_line_vals['fec_reconcile_mapping'] = line['EcritureLet']
                 move_line_vals['is_reconcile_mapping'] = True
             if line['CompteNum']:
+                if line['CompAuxNum'] == 'FCHS':
+                    logging.info('_______________________________ %s - %s', line['CompteNum'], line['CompAuxNum'])
                 account_id = self._get_account_from_line(line['CompteNum'], line['CompAuxNum'])
                 move_line_vals['account_id'] = self._get_record_id(account_id, 'account.account')
             if line['CompAuxNum']:
@@ -670,17 +672,21 @@ class ImportFEC(models.TransientModel):
     @api.model
     def _get_account_from_line(self, code, partner=False):
         line_id = self.env['ci.account.import.fec.compte'].search([('compte_src', '=', code)])
-        if line_id:
-            if partner:
-                partner_id = self.env['ci.account.import.fec.partner'].search([('partner_src', '=', partner)])
-                if partner_id.partner_dst:
-                    if partner_id.type == 'C':
-                        return partner_id.partner_dst.property_account_receivable_id.code
-                    elif partner_id.type == 'F':
-                        return partner_id.partner_dst.property_account_payable_id.code
+        if partner == 'FCHS':
+            logging.info('_______________________________ %s - %s', line_id)
+        # if line_id:
+        if partner:
+            partner_id = self.env['ci.account.import.fec.partner'].search([('partner_src', '=', partner)])
+            if partner == 'FCHS':
+                logging.info('_______________________________ %s - %s', partner_id)
+            if partner_id.partner_dst:
+                if partner_id.type == 'C':
+                    return partner_id.partner_dst.property_account_receivable_id.code
+                elif partner_id.type == 'F':
+                    return partner_id.partner_dst.property_account_payable_id.code
 
-            if line_id.compte_dst.code:
-                return line_id.compte_dst.code
+        if line_id.compte_dst.code:
+            return line_id.compte_dst.code
         raise exceptions.Warning(_("The line %s is not mapped with an Account code!") % code)
 
     @api.model
